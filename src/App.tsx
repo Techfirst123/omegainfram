@@ -103,9 +103,7 @@ function App() {
     <div className="page-shell">
       <header className="topbar">
         <div className="brand-block">
-          <span className="brand-mark" aria-hidden="true">
-            O
-          </span>
+          <img className="brand-logo" src="/logo.png" alt="Omega Infram logo" />
           <div>
             <p className="eyebrow">Omega Infram</p>
             <p className="brand-subtitle">Global Solar Infrastructure</p>
@@ -318,6 +316,18 @@ function App() {
             <p>Omega Infram renewable delivery office, serving projects across India and international markets.</p>
           </div>
         </section>
+
+        <footer className="site-footer">
+          <div className="footer-brand">
+            <img className="footer-logo" src="/logo.png" alt="Omega Infram logo" />
+            <div>
+              <p className="eyebrow">Omega Infram</p>
+              <p className="brand-subtitle">Solar infrastructure delivery across global markets.</p>
+            </div>
+          </div>
+
+          <p className="footer-copy">Designed for multi-project execution, multi-client portfolios, and high-trust renewable delivery.</p>
+        </footer>
       </main>
     </div>
   )
