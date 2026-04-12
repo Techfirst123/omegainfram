@@ -1,332 +1,407 @@
 import heroVideo from '../asset/istockphoto-1667456740-640_adpp_is-DW5QRCR8.mp4'
 import './App.css'
 
-const metrics = [
-  { value: '4.8 GW+', label: 'Solar capacity delivered and under execution' },
-  { value: '38', label: 'Utility, C&I, and hybrid sites across continents' },
-  { value: '120+', label: 'Clients, investors, and industrial partners served' },
-  { value: '14', label: 'Parallel delivery cells active across global programs' },
+const navItems = [
+  { label: 'Home', href: '#home' },
+  {
+    label: 'About Us',
+    href: '#about',
+    children: ['Who We Are', 'Leadership Overview', 'Global Footprint', 'Execution Model'],
+  },
+  {
+    label: 'Our Businesses',
+    href: '#businesses',
+    children: [
+      'Utility Scale Solar',
+      'C&I Solar',
+      'Hybrid Energy',
+      'O&M Services',
+      'Solar Carports & Rooftops',
+      'International Project Delivery',
+    ],
+  },
+  {
+    label: 'Sustainability',
+    href: '#sustainability',
+    children: ['Sustainability Mission', 'Climate Impact', 'Responsible Delivery'],
+  },
+  {
+    label: 'CSR',
+    href: '#csr',
+    children: ['Community Programs', 'Skill Development', 'Health & Safety Outreach'],
+  },
+  {
+    label: 'Investors',
+    href: '#investors',
+    children: ['Investor Overview', 'Governance', 'Project Pipeline'],
+  },
+  {
+    label: 'News & Media',
+    href: '#news',
+    children: ['Latest Updates', 'Press Releases', 'Project Announcements'],
+  },
+  {
+    label: 'Careers',
+    href: '#careers',
+    children: ['Life at Omega', 'Open Roles', 'Graduate Opportunities'],
+  },
+  {
+    label: 'Contact Us',
+    href: '#contact',
+    children: ['Corporate Office', 'Business Enquiries', 'Investor Desk'],
+  },
 ]
 
-const services = [
+const whoWeArePanels = [
   {
-    title: 'Utility-Scale EPC',
+    title: 'Renewable EPC Focus',
+    text: 'We specialize in solar, hybrid, and asset-support programs where execution quality matters as much as engineering depth.',
+  },
+  {
+    title: 'Global Delivery Mindset',
+    text: 'Our teams are structured to coordinate multiple geographies, multiple clients, and multiple parallel work packages.',
+  },
+  {
+    title: 'Lifecycle Partnership',
+    text: 'From concept and procurement through commissioning and O&M, we stay engaged across the project life cycle.',
+  },
+]
+
+const achievements = [
+  { type: 'Milestone', value: '4.8 GW+', label: 'Solar capacity delivered and under execution across utility and C&I programs' },
+  { type: 'Current Projects', value: '38+', label: 'Active projects progressing across rooftops, ground-mount sites, and hybrid packages' },
+  { type: 'Milestone', value: '18 Countries', label: 'International delivery footprint supported through regional partnerships and global sourcing' },
+  { type: 'Current Projects', value: '14 Cells', label: 'Parallel delivery cells coordinating engineering, procurement, execution, and commissioning' },
+  { type: 'Milestone', value: '120+', label: 'Clients, partners, and institutional stakeholders served through renewable infrastructure programs' },
+  { type: 'Current Projects', value: '1.6 GW', label: 'Near-term annual execution capacity aligned to current project pipeline commitments' },
+]
+
+const businessStreams = [
+  {
+    title: 'Utility Scale Solar',
     description:
-      'Full-scope engineering, procurement, construction, and commissioning for high-output solar parks and grid-connected infrastructure.',
+      'Turnkey solar EPC for large generation parks with engineering, procurement, grid integration, commissioning, and handover under a single governance model.',
+    accent: 'sunrise',
   },
   {
-    title: 'C&I Solar Programs',
+    title: 'C&I Solar',
     description:
-      'Distributed portfolios for factories, campuses, logistics parks, and energy-intensive facilities with predictable deployment schedules.',
+      'Distributed solar portfolios for manufacturing campuses, logistics parks, institutions, and commercial real estate looking to lower energy costs and emissions.',
+    accent: 'sky',
   },
   {
-    title: 'Hybrid & Storage Integration',
+    title: 'Hybrid Energy',
     description:
-      'Solar, BESS, and grid orchestration designed to stabilize performance, unlock dispatch flexibility, and strengthen energy resilience.',
+      'Integrated solar, storage, and backup architectures engineered for high uptime, peak shaving, and more resilient energy supply in demanding environments.',
+    accent: 'leaf',
   },
   {
-    title: 'O&M Intelligence',
+    title: 'O&M Services',
     description:
-      'Performance monitoring, lifecycle maintenance, and digital reporting that keeps assets bankable and operating at peak yield.',
+      'Lifecycle asset support with preventive maintenance, performance analytics, fault response, and long-term yield optimization for operating plants.',
+    accent: 'slate',
+  },
+  {
+    title: 'Solar Carports & Rooftops',
+    description:
+      'Design-build solar systems for rooftops, mobility hubs, and parking structures where space efficiency and aesthetics matter alongside output.',
+    accent: 'sunrise',
+  },
+  {
+    title: 'International Project Delivery',
+    description:
+      'Cross-border execution support for developers and investors who need a disciplined partner capable of handling multiple stakeholders and concurrent sites.',
+    accent: 'sky',
   },
 ]
 
-const projects = [
+const highlights = [
   {
-    name: 'Sundrift Desert Array',
-    location: 'Rajasthan, India',
-    capacity: '650 MWp',
-    detail: 'Utility-scale solar field built in phased blocks with accelerated grid evacuation planning.',
+    title: 'Sustainability Mission',
+    description:
+      'We design renewable infrastructure that reduces carbon intensity, improves energy resilience, and creates durable value for clients and communities.',
+    cta: 'Know More',
   },
   {
-    name: 'Helios Logistics Roofline',
-    location: 'Dubai, UAE',
-    capacity: '92 MWp',
-    detail: 'Multi-site industrial rooftop rollout for a regional logistics network with unified monitoring.',
+    title: 'CSR Commitments',
+    description:
+      'Our community initiatives focus on energy access, skilling, workplace safety awareness, and localized support around project geographies.',
+    cta: 'View Programs',
   },
   {
-    name: 'Atacama Storage Hybrid',
-    location: 'Antofagasta, Chile',
-    capacity: '310 MWp + 180 MWh',
-    detail: 'Solar-plus-storage project engineered for mining reliability and harsh-climate performance.',
-  },
-  {
-    name: 'Blue Coast Port Microgrid',
-    location: 'Mombasa, Kenya',
-    capacity: '74 MWp',
-    detail: 'Port-side clean energy infrastructure supporting marine operations and cold-chain facilities.',
+    title: 'Investor Confidence',
+    description:
+      'We prioritize transparent reporting, controlled delivery, and portfolio-quality execution that supports long-term capital confidence.',
+    cta: 'Investor Desk',
   },
 ]
 
-const regions = [
-  'India',
-  'Middle East',
-  'Africa',
-  'Europe',
-  'Latin America',
-  'Southeast Asia',
-]
-
-const clients = [
-  'Independent Power Producers',
-  'Industrial Manufacturing Groups',
-  'Logistics & Port Operators',
-  'Data Center Developers',
-  'Public Infrastructure Agencies',
-  'Global EPC Partners',
-]
-
-const executionTracks = [
+const newsItems = [
   {
-    title: 'Central PMO',
-    text: 'A single command layer aligns engineering, procurement, site controls, and stakeholder reporting across every geography.',
+    title: 'Omega expands multi-site industrial solar rollout across western India',
+    meta: 'Project Update',
   },
   {
-    title: 'Parallel Delivery Pods',
-    text: 'Dedicated teams run multiple packages simultaneously so land readiness, module supply, civil works, and energization keep moving together.',
+    title: 'New hybrid execution framework launched for storage-linked renewable assets',
+    meta: 'Corporate Announcement',
   },
   {
-    title: 'Localized Intelligence',
-    text: 'Regional partners and on-ground specialists adapt every project to grid codes, permitting paths, climate, and workforce realities.',
+    title: 'Omega strengthens global sourcing partnerships for module and BOS supply',
+    meta: 'Media Release',
   },
 ]
 
-const milestones = [
-  'Originated as an infrastructure engineering group with a focus on complex energy assets',
-  'Expanded into cross-border solar EPC programs and multi-client renewable portfolios',
-  'Built a delivery model designed for concurrent project execution without losing governance quality',
-  'Now supporting global energy transition programs with solar, storage, and O&M capability',
+const footerColumns = [
+  {
+    title: 'Corporate Office',
+    lines: ['Omega Infram Pvt Ltd', 'Renewable Projects Division', 'Mumbai, Maharashtra, India'],
+  },
+  {
+    title: 'Registered Office',
+    lines: ['Omega Infram Pvt Ltd', 'Ahmedabad, Gujarat, India'],
+  },
+  {
+    title: 'Business Enquiries',
+    lines: ['hello@omegainfram.com', '+91 00000 00000'],
+  },
+  {
+    title: 'Investors',
+    lines: ['investors@omegainfram.com', 'Governance, disclosures, and updates'],
+  },
 ]
 
 function App() {
   return (
     <div className="page-shell">
       <header className="topbar">
-        <div className="brand-block">
-          <img className="brand-logo" src="/logo.png" alt="Omega Infram logo" />
-          <div>
-            <p className="eyebrow">Omega Infram</p>
-            <p className="brand-subtitle">Global Solar Infrastructure</p>
+        <a className="brand-block" href="#home" aria-label="Omega Infram home">
+          <div className="brand-stack">
+            <img className="brand-logo" src="/logo.png" alt="Omega Infram logo" />
+            <p className="brand-company-name">omega infram pvt ltd</p>
           </div>
-        </div>
+        </a>
 
-        <nav className="nav">
-          <a href="#about">About</a>
-          <a href="#services">Capabilities</a>
-          <a href="#projects">Projects</a>
-          <a href="#clients">Clients</a>
-          <a href="#contact">Contact</a>
+        <nav className="nav" aria-label="Primary">
+          {navItems.map((item) => (
+            <div className="nav-item" key={item.label}>
+              <a href={item.href}>{item.label}</a>
+              {item.children ? (
+                <div className="submenu" role="menu" aria-label={`${item.label} submenu`}>
+                  <div className="submenu-inner">
+                    <p className="submenu-title">{item.label}</p>
+                    <div className="submenu-links">
+                      {item.children.map((child) => (
+                        <a key={child} href={item.href} role="menuitem">
+                          {child}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          ))}
         </nav>
       </header>
 
       <main>
-        <section className="hero-section">
-          <video
-            className="hero-video"
-            autoPlay
-            muted
-            loop
-            playsInline
-            aria-hidden="true"
-          >
+        <section className="hero-section" id="home">
+          <video className="hero-video" autoPlay muted loop playsInline aria-hidden="true">
             <source src={heroVideo} type="video/mp4" />
           </video>
-
           <div className="hero-overlay" />
 
           <div className="hero-content">
-            <div className="hero-copy">
-              <p className="section-kicker hero-kicker">Solar energy company</p>
-              <h1>Building high-performance solar programs across continents, clients, and parallel delivery tracks.</h1>
-              <p className="hero-text">
-                We deliver utility-scale, commercial, and hybrid solar infrastructure with the governance depth of a
-                global EPC partner and the speed of regionally embedded teams.
-              </p>
+            <div className="hero-card">
+              <div className="hero-card-rings" aria-hidden="true" />
+              <div className="hero-card-inner">
+                <div className="hero-copy">
+                  <p className="section-kicker hero-kicker">Who We Are</p>
+                  <h1>Omega Infram Pvt Ltd</h1>
+                  <p className="hero-text hero-text-dark">
+                    Omega Infram Pvt Ltd is a renewable infrastructure company focused on solar energy, hybrid systems, and
+                    long-term asset delivery. We execute projects across utility-scale, commercial, and industrial segments
+                    with disciplined engineering, procurement, commissioning, and operations support.
+                  </p>
+                </div>
 
-              <div className="hero-actions">
-                <a className="primary-link" href="#projects">
-                  Explore projects
-                </a>
-                <a className="secondary-link" href="#contact">
-                  Talk to our team
-                </a>
-              </div>
+                <div className="hero-stat-panel">
+                  <p>Global Footprints</p>
+                  <strong>18+</strong>
+                </div>
 
-              <div className="hero-badges" aria-label="Key operating themes">
-                <span>Global project footprint</span>
-                <span>Multi-client execution</span>
-                <span>Concurrent delivery model</span>
-              </div>
-            </div>
-
-            <div className="hero-visual" aria-hidden="true">
-              <div className="orbital orbital-one" />
-              <div className="orbital orbital-two" />
-              <div className="visual-panel panel-core">
-                <p>Live portfolio</p>
-                <strong>14 Active parallel workstreams</strong>
-              </div>
-              <div className="visual-panel panel-floating">
-                <span>Regions connected</span>
-                <strong>6 global clusters</strong>
-              </div>
-              <div className="sun-grid">
-                <div />
-                <div />
-                <div />
-                <div />
-                <div />
-                <div />
+                <div className="hero-dot-rail" aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                  <span className="is-active" />
+                  <span />
+                  <span />
+                  <span />
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="metrics-grid" aria-label="Company metrics">
-          {metrics.map((metric) => (
-            <article className="metric-card" key={metric.label}>
-              <strong>{metric.value}</strong>
-              <p>{metric.label}</p>
-            </article>
-          ))}
-        </section>
-
-        <section className="story-section" id="about">
-          <div className="story-copy">
-            <p className="section-kicker">About Omega Infram</p>
-            <h2>Engineering excellence with a global footprint and local execution intelligence.</h2>
-            <p>
-              Inspired by the earlier Omega mock site, this new experience keeps the same global mindset but sharpens the
-              message around renewable infrastructure delivery. Our teams coordinate design, procurement, construction,
-              and performance optimization across multiple countries at once.
-            </p>
-            <p>
-              That means we can support investors, developers, utilities, and industrial clients who need one partner
-              capable of managing multiple projects and multiple stakeholders without losing schedule discipline.
-            </p>
+        <section className="about-section section-shell" id="about">
+          <div className="section-head about-head">
+            <p className="section-kicker">Who We Are</p>
+            <h2>Built to deliver renewable infrastructure with scale, speed, and disciplined governance.</h2>
           </div>
 
-          <div className="timeline-card">
-            <p className="timeline-title">Growth trajectory</p>
-            <ul className="timeline-list">
-              {milestones.map((milestone) => (
-                <li key={milestone}>{milestone}</li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <section className="services-section" id="services">
-          <div className="section-heading">
-            <p className="section-kicker">Capabilities</p>
-            <h2>Services designed for complex solar portfolios and overlapping execution schedules.</h2>
-          </div>
-
-          <div className="service-grid">
-            {services.map((service) => (
-              <article className="service-card" key={service.title}>
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
+          <div className="who-panel-grid">
+            {whoWeArePanels.map((panel) => (
+              <article className="who-panel-card" key={panel.title}>
+                <p className="section-kicker">Who We Are</p>
+                <h3>{panel.title}</h3>
+                <p>{panel.text}</p>
               </article>
             ))}
           </div>
-        </section>
 
-        <section className="projects-section" id="projects">
-          <div className="section-heading split-heading">
-            <div>
-              <p className="section-kicker">Featured projects</p>
-              <h2>Selected programs from a globally distributed solar pipeline.</h2>
-            </div>
-            <p className="section-caption">
-              Our portfolio spans desert utility parks, rooftop rollouts, industrial hybrids, and resilient microgrids.
-            </p>
-          </div>
-
-          <div className="project-grid">
-            {projects.map((project) => (
-              <article className="project-card" key={project.name}>
-                <p className="project-location">{project.location}</p>
-                <h3>{project.name}</h3>
-                <strong>{project.capacity}</strong>
-                <p>{project.detail}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="globe-section">
-          <div className="map-card">
-            <p className="section-kicker">Global footprint</p>
-            <h2>Regional presence that keeps decision-making close to the ground.</h2>
-            <div className="region-pills">
-              {regions.map((region) => (
-                <span key={region}>{region}</span>
-              ))}
-            </div>
-          </div>
-
-          <div className="execution-card">
-            <p className="section-kicker">Execution model</p>
-            <div className="execution-list">
-              {executionTracks.map((track) => (
-                <article key={track.title}>
-                  <h3>{track.title}</h3>
-                  <p>{track.text}</p>
+          <div className="achievements-strip">
+            <div className="achievements-track">
+              {[...achievements, ...achievements].map((item, index) => (
+                <article className="achievement-card" key={`${item.label}-${index}`}>
+                  <span>{item.type}</span>
+                  <strong>{item.value}</strong>
+                  <p>{item.label}</p>
                 </article>
               ))}
             </div>
           </div>
-        </section>
 
-        <section className="clients-section" id="clients">
-          <div className="section-heading split-heading">
-            <div>
-              <p className="section-kicker">Clients and partners</p>
-              <h2>Built to serve multiple stakeholder groups with one integrated delivery language.</h2>
-            </div>
-            <p className="section-caption">
-              We collaborate with asset owners, developers, institutional investors, and industrial operators who need
-              confidence at both portfolio and site level.
-            </p>
-          </div>
-
-          <div className="client-grid">
-            {clients.map((client) => (
-              <article className="client-card" key={client}>
-                <span>{client}</span>
+          <div className="achievement-summary">
+            {achievements.slice(0, 2).map((item) => (
+              <article className="summary-card" key={item.label}>
+                <p>{item.type}</p>
+                <strong>{item.value}</strong>
+                <span>{item.label}</span>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="contact-section" id="contact">
-          <div className="contact-copy">
-            <p className="section-kicker">Start a conversation</p>
-            <h2>Need a solar partner for multiple sites, multiple clients, or parallel packages?</h2>
-              <p>
-                Let's shape a delivery strategy that matches your capacity targets, procurement realities, and geographic
-                expansion plan.
-              </p>
+        <section className="business-section section-shell" id="businesses">
+          <div className="section-head">
+            <p className="section-kicker">Business</p>
+            <h2>Our Business Streams</h2>
           </div>
 
-          <div className="contact-card">
-            <a href="mailto:hello@omegainfram.com">hello@omegainfram.com</a>
-            <a href="tel:+910000000000">+91 00000 00000</a>
-            <p>Omega Infram renewable delivery office, serving projects across India and international markets.</p>
+          <div className="business-tabs" aria-label="Business categories">
+            {businessStreams.map((stream) => (
+              <span key={stream.title}>{stream.title}</span>
+            ))}
+          </div>
+
+          <div className="business-grid">
+            {businessStreams.map((stream) => (
+              <article className={`business-card business-card--${stream.accent}`} key={stream.title}>
+                <div className="business-card-media" />
+                <div className="business-card-body">
+                  <h3>{stream.title}</h3>
+                  <p>{stream.description}</p>
+                  <a href="#contact">Know More</a>
+                </div>
+              </article>
+            ))}
           </div>
         </section>
 
-        <footer className="site-footer">
-          <div className="footer-brand">
-            <img className="footer-logo" src="/logo.png" alt="Omega Infram logo" />
-            <div>
-              <p className="eyebrow">Omega Infram</p>
-              <p className="brand-subtitle">Solar infrastructure delivery across global markets.</p>
+        <section className="focus-section section-shell" id="sustainability">
+          <div className="feature-block">
+            <div className="feature-copy">
+              <p className="section-kicker">Sustainability</p>
+              <h2>Sustainability Mission</h2>
+              <p>
+                We continuously work to make our services more sustainable by enabling clean power generation, better asset
+                efficiency, safer project execution, and more responsible long-term infrastructure outcomes.
+              </p>
+              <a href="#contact">Know More</a>
             </div>
           </div>
 
-          <p className="footer-copy">Designed for multi-project execution, multi-client portfolios, and high-trust renewable delivery.</p>
+          <div className="highlight-grid">
+            {highlights.map((item) => (
+              <article className="highlight-card" key={item.title} id={item.title === 'CSR Commitments' ? 'csr' : item.title === 'Investor Confidence' ? 'investors' : undefined}>
+                <p className="section-kicker">{item.title}</p>
+                <p>{item.description}</p>
+                <a href="#contact">{item.cta}</a>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="news-section section-shell" id="news">
+          <div className="section-head">
+            <p className="section-kicker">News &amp; Media</p>
+            <h2>Recent updates from Omega Infram</h2>
+          </div>
+
+          <div className="news-grid">
+            {newsItems.map((item) => (
+              <article className="news-card" key={item.title}>
+                <span>{item.meta}</span>
+                <h3>{item.title}</h3>
+                <a href="#contact">Read More</a>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="careers-section section-shell" id="careers">
+          <div className="careers-panel">
+            <div>
+              <p className="section-kicker">Careers</p>
+              <h2>Build a better future with us</h2>
+              <p>
+                Join teams shaping solar and renewable infrastructure programs across engineering, project controls,
+                procurement, commissioning, and operations.
+              </p>
+            </div>
+            <a className="primary-link" href="#contact">
+              Explore Careers
+            </a>
+          </div>
+        </section>
+
+        <footer className="site-footer section-shell" id="contact">
+          <div className="footer-top">
+            <div className="footer-brand">
+              <img className="footer-logo" src="/logo.png" alt="Omega Infram logo" />
+              <div>
+                <p className="section-kicker">Omega Infram Pvt Ltd</p>
+                <h2>Renewable infrastructure with global delivery intent.</h2>
+              </div>
+            </div>
+
+            <a className="secondary-link" href="mailto:hello@omegainfram.com">
+              Contact Us
+            </a>
+          </div>
+
+          <div className="footer-columns">
+            {footerColumns.map((column) => (
+              <article className="footer-column" key={column.title}>
+                <h3>{column.title}</h3>
+                {column.lines.map((line) => (
+                  <p key={line}>{line}</p>
+                ))}
+              </article>
+            ))}
+          </div>
+
+          <div className="footer-bottom">
+            <div className="footer-socials">
+              <a href="#home">LinkedIn</a>
+              <a href="#home">YouTube</a>
+              <a href="#home">Instagram</a>
+              <a href="#home">Facebook</a>
+            </div>
+            <p>Copyright © 2026 Omega Infram Pvt Ltd</p>
+          </div>
         </footer>
       </main>
     </div>
