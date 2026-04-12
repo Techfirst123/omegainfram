@@ -1,3 +1,4 @@
+import React from 'react'
 import heroVideo from '../asset/istockphoto-1667456740-640_adpp_is-DW5QRCR8.mp4'
 import './App.css'
 
@@ -52,28 +53,39 @@ const navItems = [
   },
 ]
 
-const whoWeArePanels = [
+const featureCards = [
   {
-    title: 'Renewable EPC Focus',
-    text: 'We specialize in solar, hybrid, and asset-support programs where execution quality matters as much as engineering depth.',
+    kicker: 'Who We Are',
+    title: 'Omega Infram Pvt Ltd',
+    description:
+      'Omega Infram Pvt Ltd is a premier renewable infrastructure company focused on solar energy, hybrid power systems, and long-term asset delivery. We execute high-stakes projects across utility-scale, commercial, and industrial segments with disciplined engineering, procurement, commissioning, and operations support.',
+    statValue: '75 +',
+    statLabel: 'Global Footprints',
   },
   {
+    kicker: 'Our Focus',
+    title: 'Renewable EPC Excellence',
+    description:
+      'We specialized in solar, hybrid, and asset-support programs where execution quality matters as much as engineering depth. Our turnkey models ensure cost efficiency, speed of delivery, and technical resilience for every mega-watt installed.',
+    statValue: '4.8 GW+',
+    statLabel: 'Solar capacity delivered',
+  },
+  {
+    kicker: 'Global Presence',
     title: 'Global Delivery Mindset',
-    text: 'Our teams are structured to coordinate multiple geographies, multiple clients, and multiple parallel work packages.',
+    description:
+      'Our teams are structured to coordinate multiple geographies, multiple clients, and multiple parallel work packages. We bring localized expertise to global sourcing and international project delivery standards.',
+    statValue: '18 +',
+    statLabel: 'Countries served',
   },
   {
-    title: 'Lifecycle Partnership',
-    text: 'From concept and procurement through commissioning and O&M, we stay engaged across the project life cycle.',
+    kicker: 'Future Forward',
+    title: 'Sustainability Mission',
+    description:
+      'We design renewable infrastructure that reduces carbon intensity, improves energy resilience, and creates durable value for clients and communities. Our mission is to accelerate the transition to a net-zero future.',
+    statValue: '1.6 GW',
+    statLabel: 'Annual execution capacity',
   },
-]
-
-const achievements = [
-  { type: 'Milestone', value: '4.8 GW+', label: 'Solar capacity delivered and under execution across utility and C&I programs' },
-  { type: 'Current Projects', value: '38+', label: 'Active projects progressing across rooftops, ground-mount sites, and hybrid packages' },
-  { type: 'Milestone', value: '18 Countries', label: 'International delivery footprint supported through regional partnerships and global sourcing' },
-  { type: 'Current Projects', value: '14 Cells', label: 'Parallel delivery cells coordinating engineering, procurement, execution, and commissioning' },
-  { type: 'Milestone', value: '120+', label: 'Clients, partners, and institutional stakeholders served through renewable infrastructure programs' },
-  { type: 'Current Projects', value: '1.6 GW', label: 'Near-term annual execution capacity aligned to current project pipeline commitments' },
 ]
 
 const businessStreams = [
@@ -115,27 +127,6 @@ const businessStreams = [
   },
 ]
 
-const highlights = [
-  {
-    title: 'Sustainability Mission',
-    description:
-      'We design renewable infrastructure that reduces carbon intensity, improves energy resilience, and creates durable value for clients and communities.',
-    cta: 'Know More',
-  },
-  {
-    title: 'CSR Commitments',
-    description:
-      'Our community initiatives focus on energy access, skilling, workplace safety awareness, and localized support around project geographies.',
-    cta: 'View Programs',
-  },
-  {
-    title: 'Investor Confidence',
-    description:
-      'We prioritize transparent reporting, controlled delivery, and portfolio-quality execution that supports long-term capital confidence.',
-    cta: 'Investor Desk',
-  },
-]
-
 const newsItems = [
   {
     title: 'Omega expands multi-site industrial solar rollout across western India',
@@ -170,7 +161,72 @@ const footerColumns = [
   },
 ]
 
+function FeatureCard({ slides, id }: { slides: any[]; id?: string }) {
+  const [activeIdx, setActiveIdx] = React.useState(0)
+
+  return (
+    <section className="info-section" id={id}>
+      <div className="info-card">
+        <div className="info-card-rings" aria-hidden="true" />
+        <div className="info-card-inner">
+          <div className="info-copy-container">
+            <div 
+              className="info-copy-track" 
+              style={{ transform: `translateY(-${activeIdx * 100}%)` }}
+            >
+              {slides.map((slide, idx) => (
+                <div className="info-slide" key={idx}>
+                  <p className="hero-kicker">{slide.kicker}</p>
+                  <h1>{slide.title}</h1>
+                  <p className="hero-text hero-text-dark">{slide.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="info-stat-container">
+             <div 
+              className="info-stat-track" 
+              style={{ transform: `translateY(-${activeIdx * 100}%)` }}
+            >
+              {slides.map((slide, idx) => (
+                <div className="info-stat-panel" key={idx}>
+                  <p>{slide.statLabel}</p>
+                  <strong>{slide.statValue}</strong>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="hero-dot-rail" aria-hidden="true">
+            {slides.map((_, idx) => (
+              <span 
+                key={idx} 
+                className={activeIdx === idx ? 'is-active' : ''} 
+                onMouseEnter={() => setActiveIdx(idx)}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function App() {
+  const [showScroll, setShowScroll] = React.useState(false)
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setShowScroll(window.scrollY > 400)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
   return (
     <div className="page-shell">
       <header className="topbar">
@@ -212,77 +268,18 @@ function App() {
           <div className="hero-overlay" />
 
           <div className="hero-content">
-            <div className="hero-card">
-              <div className="hero-card-rings" aria-hidden="true" />
-              <div className="hero-card-inner">
-                <div className="hero-copy">
-                  <p className="section-kicker hero-kicker">Who We Are</p>
-                  <h1>Omega Infram Pvt Ltd</h1>
-                  <p className="hero-text hero-text-dark">
-                    Omega Infram Pvt Ltd is a renewable infrastructure company focused on solar energy, hybrid systems, and
-                    long-term asset delivery. We execute projects across utility-scale, commercial, and industrial segments
-                    with disciplined engineering, procurement, commissioning, and operations support.
-                  </p>
-                </div>
-
-                <div className="hero-stat-panel">
-                  <p>Global Footprints</p>
-                  <strong>18+</strong>
-                </div>
-
-                <div className="hero-dot-rail" aria-hidden="true">
-                  <span />
-                  <span />
-                  <span />
-                  <span />
-                  <span className="is-active" />
-                  <span />
-                  <span />
-                  <span />
-                </div>
-              </div>
+            <div className="hero-intro-text">
+              <p className="section-kicker" style={{color: '#fff', opacity: 0.8}}>Welcome to Omega Infram</p>
+              <h1 style={{color: '#fff'}}>Pioneering Renewable Energy Solutions</h1>
+              <p style={{color: '#fff', opacity: 0.9, maxWidth: '600px', fontSize: '1.2rem'}}>Leading the global transition to sustainable infrastructure through innovation and engineering excellence.</p>
             </div>
           </div>
         </section>
 
-        <section className="about-section section-shell" id="about">
-          <div className="section-head about-head">
-            <p className="section-kicker">Who We Are</p>
-            <h2>Built to deliver renewable infrastructure with scale, speed, and disciplined governance.</h2>
-          </div>
+        <div className="card-stack">
+          <FeatureCard slides={featureCards} id="about" />
+        </div>
 
-          <div className="who-panel-grid">
-            {whoWeArePanels.map((panel) => (
-              <article className="who-panel-card" key={panel.title}>
-                <p className="section-kicker">Who We Are</p>
-                <h3>{panel.title}</h3>
-                <p>{panel.text}</p>
-              </article>
-            ))}
-          </div>
-
-          <div className="achievements-strip">
-            <div className="achievements-track">
-              {[...achievements, ...achievements].map((item, index) => (
-                <article className="achievement-card" key={`${item.label}-${index}`}>
-                  <span>{item.type}</span>
-                  <strong>{item.value}</strong>
-                  <p>{item.label}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-
-          <div className="achievement-summary">
-            {achievements.slice(0, 2).map((item) => (
-              <article className="summary-card" key={item.label}>
-                <p>{item.type}</p>
-                <strong>{item.value}</strong>
-                <span>{item.label}</span>
-              </article>
-            ))}
-          </div>
-        </section>
 
         <section className="business-section section-shell" id="businesses">
           <div className="section-head">
@@ -310,29 +307,6 @@ function App() {
           </div>
         </section>
 
-        <section className="focus-section section-shell" id="sustainability">
-          <div className="feature-block">
-            <div className="feature-copy">
-              <p className="section-kicker">Sustainability</p>
-              <h2>Sustainability Mission</h2>
-              <p>
-                We continuously work to make our services more sustainable by enabling clean power generation, better asset
-                efficiency, safer project execution, and more responsible long-term infrastructure outcomes.
-              </p>
-              <a href="#contact">Know More</a>
-            </div>
-          </div>
-
-          <div className="highlight-grid">
-            {highlights.map((item) => (
-              <article className="highlight-card" key={item.title} id={item.title === 'CSR Commitments' ? 'csr' : item.title === 'Investor Confidence' ? 'investors' : undefined}>
-                <p className="section-kicker">{item.title}</p>
-                <p>{item.description}</p>
-                <a href="#contact">{item.cta}</a>
-              </article>
-            ))}
-          </div>
-        </section>
 
         <section className="news-section section-shell" id="news">
           <div className="section-head">
@@ -404,6 +378,14 @@ function App() {
           </div>
         </footer>
       </main>
+
+      {showScroll && (
+        <button className="scroll-top-btn" onClick={scrollToTop} aria-label="Scroll to top">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m5 12 7-7 7 7M12 19V5" />
+          </svg>
+        </button>
+      )}
     </div>
   )
 }
