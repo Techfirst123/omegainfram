@@ -7,51 +7,102 @@ const navItems = [
   {
     label: 'About Us',
     href: '#about',
-    children: ['Who We Are', 'Leadership Overview', 'Global Footprint', 'Execution Model'],
+    description: 'A premier renewable infrastructure company focused on global delivery and engineering excellence.',
+    statValue: '18+',
+    statLabel: 'Countries',
+    children: ['Who We Are', 'Leadership', 'Global Footprint', 'Execution Model'],
   },
   {
     label: 'Our Businesses',
     href: '#businesses',
+    description: 'Turnkey solar EPC, C&I solutions, and hybrid energy architectures for a net-zero future.',
+    statValue: '4.8 GW+',
+    statLabel: 'Capacity',
     children: [
       'Utility Scale Solar',
       'C&I Solar',
       'Hybrid Energy',
       'O&M Services',
-      'Solar Carports & Rooftops',
-      'International Project Delivery',
+      'International Delivery',
     ],
   },
   {
     label: 'Sustainability',
     href: '#sustainability',
-    children: ['Sustainability Mission', 'Climate Impact', 'Responsible Delivery'],
+    description: 'Designing infrastructure that reduces carbon intensity and improves energy resilience.',
+    statValue: 'Net Zero',
+    statLabel: 'Vision',
+    children: ['Mission', 'Climate Impact', 'Responsible Delivery'],
   },
   {
     label: 'CSR',
     href: '#csr',
-    children: ['Community Programs', 'Skill Development', 'Health & Safety Outreach'],
+    description: 'Empowering communities through energy access, skilling, and health initiatives.',
+    statValue: '120+',
+    statLabel: 'Partners',
+    children: ['Community Programs', 'Skill Development', 'Outreach'],
   },
   {
     label: 'Investors',
     href: '#investors',
-    children: ['Investor Overview', 'Governance', 'Project Pipeline'],
+    description: 'Transparent reporting and disciplined governance for long-term capital confidence.',
+    statValue: 'Trusted',
+    statLabel: 'Governance',
+    children: ['Overview', 'Governance', 'Project Pipeline'],
   },
   {
     label: 'News & Media',
     href: '#news',
-    children: ['Latest Updates', 'Press Releases', 'Project Announcements'],
+    description: 'Latest updates from Omega Infram on multi-site rollouts and sourcing partnerships.',
+    statValue: 'Latest',
+    statLabel: 'Updates',
+    children: ['Updates', 'Press Releases', 'Announcements'],
   },
   {
     label: 'Careers',
     href: '#careers',
-    children: ['Life at Omega', 'Open Roles', 'Graduate Opportunities'],
+    description: 'Join teams shaping the future of solar and renewable infrastructure programs.',
+    statValue: 'Join Us',
+    statLabel: 'Growth',
+    children: ['Life at Omega', 'Open Roles', 'Opportunities'],
   },
   {
     label: 'Contact Us',
     href: '#contact',
-    children: ['Corporate Office', 'Business Enquiries', 'Investor Desk'],
+    description: 'Connect with our corporate office or investor desk for business enquiries.',
+    statValue: '24/7',
+    statLabel: 'Support',
+    children: ['Corporate Office', 'Enquiries', 'Investor Desk'],
   },
 ]
+
+function MegaMenuCard({ item }: { item: any }) {
+  return (
+    <div className="mega-menu" role="menu" aria-label={`${item.label} mega menu`}>
+      <div className="mega-menu-inner">
+        <div className="mega-menu-rings" aria-hidden="true" />
+        <div className="mega-menu-grid">
+          <div className="mega-menu-content">
+            <p className="mega-menu-kicker">{item.label}</p>
+            <h3>{item.label}</h3>
+            <p className="mega-menu-description">{item.description}</p>
+            <div className="mega-menu-links">
+              {item.children.map((child: string) => (
+                <a key={child} href={item.href} role="menuitem">
+                  {child}
+                </a>
+              ))}
+            </div>
+          </div>
+          <div className="mega-menu-stat">
+            <p>{item.statLabel}</p>
+            <strong>{item.statValue}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 const featureCards = [
   {
@@ -241,20 +292,7 @@ function App() {
           {navItems.map((item) => (
             <div className="nav-item" key={item.label}>
               <a href={item.href}>{item.label}</a>
-              {item.children ? (
-                <div className="submenu" role="menu" aria-label={`${item.label} submenu`}>
-                  <div className="submenu-inner">
-                    <p className="submenu-title">{item.label}</p>
-                    <div className="submenu-links">
-                      {item.children.map((child) => (
-                        <a key={child} href={item.href} role="menuitem">
-                          {child}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ) : null}
+              {item.children ? <MegaMenuCard item={item} /> : null}
             </div>
           ))}
         </nav>
