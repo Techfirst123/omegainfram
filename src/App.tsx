@@ -145,15 +145,15 @@ const newsItems = [
 const footerColumns = [
   {
     title: 'Corporate Office',
-    lines: ['Omega Infram Pvt Ltd', 'Renewable Projects Division', 'Mumbai, Maharashtra, India'],
+    lines: ['348,DLF Prime Towers,Okhla Phase-1,New Delhi -110020', 'ph-011-41630318'],
   },
   {
     title: 'Registered Office',
-    lines: ['Omega Infram Pvt Ltd', 'Ahmedabad, Gujarat, India'],
+    lines: ['348,DLF Prime Towers,Okhla Phase-1,New Delhi -110020', 'ph-011-41630318'],
   },
   {
     title: 'Business Enquiries',
-    lines: ['hello@omegainfram.com', '+91 00000 00000'],
+    lines: ['info@omegainfram.com', 'ph-011-41630318'],
   },
   {
     title: 'Investors',

@@ -727,8 +727,8 @@ main {
 }
 
 .site-footer {
-  margin-top: 72px;
-  padding-bottom: 32px;
+  margin-top: 48px;
+  padding-bottom: 24px;
 }
 
 .footer-top {
@@ -756,11 +756,11 @@ main {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
-  margin-top: 28px;
+  margin-top: 20px;
 }
 
 .footer-column {
-  padding: 22px;
+  padding: 16px;
 }
 
 .footer-column h3 {
