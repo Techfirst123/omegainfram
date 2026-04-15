@@ -33,6 +33,7 @@
   width: 68px;
   height: 68px;
   object-fit: contain;
+  mix-blend-mode: multiply; /* Removes white background from non-transparent PNG */
 }
 
 .brand-company-name {
@@ -810,6 +811,7 @@ main {
   width: 84px;
   height: 84px;
   object-fit: contain;
+  mix-blend-mode: multiply; /* Removes white background from non-transparent PNG */
 }
 
 .footer-columns {
