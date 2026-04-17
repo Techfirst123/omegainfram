@@ -1,5 +1,5 @@
 import React from 'react'
-import heroVideo from '../asset/istockphoto-1667456740-640_adpp_is-DW5QRCR8.mp4'
+import heroVideo from '../asset/hero-section-new.mp4'
 import './App.css'
 
 const navItems = [
@@ -126,7 +126,7 @@ const featureCards = [
     title: 'Global Delivery Mindset',
     description:
       'Our teams are structured to coordinate multiple geographies, multiple clients, and multiple parallel work packages. We bring localized expertise to global sourcing and international project delivery standards.',
-    statValue: '18 +',
+    statValue: '6+',
     statLabel: 'Countries served',
   },
   {
@@ -139,43 +139,50 @@ const featureCards = [
   },
 ]
 
-const businessStreams = [
+interface BusinessStream {
+  title: string;
+  description: string;
+  accent: string;
+  images: string[];
+}
+
+const businessStreams: BusinessStream[] = [
   {
-    title: 'Utility Scale Solar',
-    description:
-      'Turnkey solar EPC for large generation parks with engineering, procurement, grid integration, commissioning, and handover under a single governance model.',
+    title: 'Solar Energy',
+    description: 'One of the most trusted solar energy players in both domestic and international markets, with in-house capabilities for design, engineering, manufacturing, testing, installation, and commissioning to execute large-size turnkey projects.',
     accent: 'sunrise',
+    images: ['/utility-scale-solar.jpg', '/ci-solar.png', '/hybrid-energy.png'],
   },
   {
-    title: 'C&I Solar',
-    description:
-      'Distributed solar portfolios for manufacturing campuses, logistics parks, institutions, and commercial real estate looking to lower energy costs and emissions.',
+    title: 'Infrastructure',
+    description: 'Designing and building the core assets that drive economic growth, from highways to smart city architectures with focus on efficiency and sustainability.',
+    accent: 'sunrise',
+    images: ['/international-delivery.png', '/solar-carports.jpg'],
+  },
+  {
+    title: 'Oil & Gas',
+    description: 'Specialized engineering and project management for upstream and downstream operations in the energy sector.',
     accent: 'sky',
+    images: ['/ci-solar.png', '/utility-scale-solar.jpg'],
   },
   {
-    title: 'Hybrid Energy',
-    description:
-      'Integrated solar, storage, and backup architectures engineered for high uptime, peak shaving, and more resilient energy supply in demanding environments.',
+    title: 'Manufacturing Plants',
+    description: 'Optimized industrial facility design and construction for high-performance manufacturing environments.',
     accent: 'leaf',
+    images: ['/om-services.jpg', '/solar-carports.jpg'],
   },
   {
-    title: 'O&M Services',
-    description:
-      'Lifecycle asset support with preventive maintenance, performance analytics, fault response, and long-term yield optimization for operating plants.',
+    title: 'Biomass Plants',
+    description: 'Renewable energy solutions through advanced biomass conversion technologies and sustainable plant engineering.',
     accent: 'slate',
+    images: ['/hybrid-energy.png', '/utility-scale-solar.jpg'],
   },
   {
-    title: 'Solar Carports & Rooftops',
-    description:
-      'Design-build solar systems for rooftops, mobility hubs, and parking structures where space efficiency and aesthetics matter alongside output.',
-    accent: 'sunrise',
-  },
-  {
-    title: 'International Project Delivery',
-    description:
-      'Cross-border execution support for developers and investors who need a disciplined partner capable of handling multiple stakeholders and concurrent sites.',
+    title: 'E-Commerce',
+    description: 'Specialized logistics and technology infrastructure for rapid delivery and automated retail operations.',
     accent: 'sky',
-  },
+    images: ['/international-delivery.png', '/ci-solar.png'],
+  }
 ]
 
 const newsItems = [
@@ -221,8 +228,8 @@ function FeatureCard({ slides, id }: { slides: any[]; id?: string }) {
         <div className="info-card-rings" aria-hidden="true" />
         <div className="info-card-inner">
           <div className="info-copy-container">
-            <div 
-              className="info-copy-track" 
+            <div
+              className="info-copy-track"
               style={{ transform: `translateY(-${activeIdx * 100}%)` }}
             >
               {slides.map((slide, idx) => (
@@ -236,8 +243,8 @@ function FeatureCard({ slides, id }: { slides: any[]; id?: string }) {
           </div>
 
           <div className="info-stat-container">
-             <div 
-              className="info-stat-track" 
+            <div
+              className="info-stat-track"
               style={{ transform: `translateY(-${activeIdx * 100}%)` }}
             >
               {slides.map((slide, idx) => (
@@ -251,9 +258,9 @@ function FeatureCard({ slides, id }: { slides: any[]; id?: string }) {
 
           <div className="hero-dot-rail" aria-hidden="true">
             {slides.map((_, idx) => (
-              <span 
-                key={idx} 
-                className={activeIdx === idx ? 'is-active' : ''} 
+              <span
+                key={idx}
+                className={activeIdx === idx ? 'is-active' : ''}
                 onMouseEnter={() => setActiveIdx(idx)}
               />
             ))}
@@ -266,6 +273,15 @@ function FeatureCard({ slides, id }: { slides: any[]; id?: string }) {
 
 function App() {
   const [showScroll, setShowScroll] = React.useState(false)
+  const [activeStreamIdx, setActiveStreamIdx] = React.useState(0)
+  const [activeImageIdx, setActiveImageIdx] = React.useState(0)
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveImageIdx((prev) => (prev + 1) % businessStreams[activeStreamIdx].images.length)
+    }, 4000)
+    return () => clearInterval(timer)
+  }, [activeStreamIdx])
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -307,9 +323,19 @@ function App() {
 
           <div className="hero-content">
             <div className="hero-intro-text">
-              <p className="section-kicker" style={{color: '#fff', opacity: 0.8}}>Welcome to Omega Infram</p>
-              <h1 style={{color: '#fff'}}>Pioneering Renewable Energy Solutions</h1>
-              <p style={{color: '#fff', opacity: 0.9, maxWidth: '600px', fontSize: '1.2rem'}}>Leading the global transition to sustainable infrastructure through innovation and engineering excellence.</p>
+              <p className="section-kicker">Welcome to Omega Infram</p>
+              <h1>Pioneering Renewable Energy Solutions</h1>
+              <p>Leading the global transition to sustainable infrastructure through innovation and engineering excellence.</p>
+
+              <div className="hero-cta">
+                <a href="#contact" className="hero-primary-btn">
+                  Get Consultation
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+                <a href="#about" className="hero-secondary-btn">Our Approach</a>
+              </div>
             </div>
           </div>
         </section>
@@ -321,27 +347,51 @@ function App() {
 
         <section className="business-section section-shell" id="businesses">
           <div className="section-head">
-            <p className="section-kicker">Business</p>
+            <p className="section-kicker">BUSINESS</p>
             <h2>Our Business Streams</h2>
           </div>
 
           <div className="business-tabs" aria-label="Business categories">
-            {businessStreams.map((stream) => (
-              <span key={stream.title}>{stream.title}</span>
+            {businessStreams.map((stream, idx) => (
+              <span
+                key={stream.title}
+                className={activeStreamIdx === idx ? 'is-active' : ''}
+                onClick={() => {
+                  setActiveStreamIdx(idx)
+                  setActiveImageIdx(0)
+                }}
+              >
+                {stream.title}
+              </span>
             ))}
           </div>
 
-          <div className="business-grid">
-            {businessStreams.map((stream) => (
-              <article className={`business-card business-card--${stream.accent}`} key={stream.title}>
-                <div className="business-card-media" />
-                <div className="business-card-body">
-                  <h3>{stream.title}</h3>
-                  <p>{stream.description}</p>
-                  <a href="#contact">Know More</a>
-                </div>
-              </article>
-            ))}
+          <div className="business-feature">
+            <div className="business-feature-content">
+              <h3>{businessStreams[activeStreamIdx].title}</h3>
+              <p>{businessStreams[activeStreamIdx].description}</p>
+              <a href="#contact" className="know-more-outline">
+                KNOW MORE
+              </a>
+            </div>
+            <div className="business-feature-media">
+              {businessStreams[activeStreamIdx].images.map((img, idx) => (
+                <div
+                  key={img + idx}
+                  className={`business-feature-slide ${activeImageIdx === idx ? 'is-active' : ''}`}
+                  style={{ backgroundImage: `url(${img})` }}
+                />
+              ))}
+              <div className="business-feature-dots">
+                {businessStreams[activeStreamIdx].images.map((_, idx) => (
+                  <span
+                    key={idx}
+                    className={activeImageIdx === idx ? 'is-active' : ''}
+                    onClick={() => setActiveImageIdx(idx)}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
