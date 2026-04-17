@@ -1,5 +1,4 @@
 import React from 'react'
-import heroVideo from '../asset/hero-section-new.mp4'
 import './App.css'
 
 const navItems = [
@@ -317,7 +316,7 @@ function App() {
       <main>
         <section className="hero-section" id="home">
           <video className="hero-video" autoPlay muted loop playsInline aria-hidden="true">
-            <source src={heroVideo} type="video/mp4" />
+            <source src="/hero-section-new.mp4" type="video/mp4" />
           </video>
           <div className="hero-overlay" />
 
