@@ -83,31 +83,6 @@ const navItems = [
   },
 ]
 
-export const omegaCompanies = [
-  {
-    name: 'Omega Infrastructure',
-    description: 'Core infrastructure development, civil engineering, and urban development projects.',
-    url: '/company/infrastructure',
-  },
-  {
-    name: 'Omega Renewables',
-    description: 'Turnkey solar EPC, hybrid energy solutions, and sustainable power grids.',
-    url: '/company/renewables',
-  },
-  {
-    name: 'Omega Oil & Gas',
-    description: 'Specialized EPC and operations for upstream, midstream, and downstream sectors.',
-    url: '/company/oil-and-gas',
-  },
-  {
-    name: 'Omega Manufacturing',
-    description: 'Industrial facility engineering, plant setup, and high-performance manufacturing environments.',
-    url: '/company/manufacturing',
-  },
-];
-
-
-
 function MegaMenuCard({ item }: { item: any }) {
   return (
     <div className="mega-menu" role="menu" aria-label={`${item.label} mega menu`}>
@@ -336,7 +311,7 @@ function App() {
           {navItems.map((item) => (
             <div className="nav-item" key={item.label}>
               <a href={item.href}>{item.label}</a>
-              {item.children && item.children.length > 0 ? <MegaMenuCard item={item} /> : null}
+              {item.children ? <MegaMenuCard item={item} /> : null}
             </div>
           ))}
         </nav>
@@ -420,23 +395,6 @@ function App() {
                 ))}
               </div>
             </div>
-          </div>
-        </section>
-
-        <section className="companies-section section-shell" id="companies">
-          <div className="section-head" style={{ marginBottom: '48px' }}>
-            <p className="section-kicker">Omega Group</p>
-            <h2>Our Companies</h2>
-            <p className="section-intro">Explore the specialized entities driving innovation and execution across our core sectors.</p>
-          </div>
-          <div className="companies-grid">
-            {omegaCompanies.map((company) => (
-              <a key={company.name} href={company.url} target="_blank" rel="noopener noreferrer" className="company-portal-card">
-                <h3>{company.name}</h3>
-                <p>{company.description}</p>
-                <span className="visit-link">View Details &rarr;</span>
-              </a>
-            ))}
           </div>
         </section>
 
