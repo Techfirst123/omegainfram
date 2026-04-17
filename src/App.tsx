@@ -14,7 +14,7 @@ const navItems = [
   {
     label: 'Our Businesses',
     href: '#businesses',
-    description: 'Turnkey solar EPC, C&I solutions, and hybrid energy architectures for a net-zero future.',
+    description: 'Development and Turnkey solar EPC, C&I solutions, and hybrid energy architectures for a net-zero future.',
     statValue: '4.8 GW+',
     statLabel: 'Capacity',
     children: [
@@ -105,16 +105,14 @@ function MegaMenuCard({ item }: { item: any }) {
 
 const featureCards = [
   {
-    kicker: 'Who We Are',
-    title: 'Omega Infram Pvt Ltd',
+    kicker: 'Who We Are?',
     description:
-      'Omega Infram Pvt Ltd is a premier renewable infrastructure company focused on solar energy, hybrid power systems, and long-term asset delivery. We execute high-stakes projects across utility-scale, commercial, and industrial segments with disciplined engineering, procurement, commissioning, and operations support.',
+      'Omega Group is an established holding company that has its roots since 2003,having various industries linked by the years.The Company has been ascertained by (Sadab Ansari),The Founder Chairman who is from Bihar.For the last 23 years,We have been managing a decent reputation in the markets globally by providing best quality work in a range of fields of infrastructure considering all the environmental and social factors.Effectively,we have been proficient to give the best results in terms of EPC services',
     statValue: '75 +',
     statLabel: 'Global Footprints',
   },
   {
     kicker: 'Our Focus',
-    title: 'Renewable EPC Excellence',
     description:
       'We specialized in solar, hybrid, and asset-support programs where execution quality matters as much as engineering depth. Our turnkey models ensure cost efficiency, speed of delivery, and technical resilience for every mega-watt installed.',
     statValue: '4.8 GW+',
@@ -122,7 +120,6 @@ const featureCards = [
   },
   {
     kicker: 'Global Presence',
-    title: 'Global Delivery Mindset',
     description:
       'Our teams are structured to coordinate multiple geographies, multiple clients, and multiple parallel work packages. We bring localized expertise to global sourcing and international project delivery standards.',
     statValue: '6+',
@@ -130,7 +127,6 @@ const featureCards = [
   },
   {
     kicker: 'Future Forward',
-    title: 'Sustainability Mission',
     description:
       'We design renewable infrastructure that reduces carbon intensity, improves energy resilience, and creates durable value for clients and communities. Our mission is to accelerate the transition to a net-zero future.',
     statValue: '1.6 GW',
@@ -148,27 +144,27 @@ interface BusinessStream {
 const businessStreams: BusinessStream[] = [
   {
     title: 'Solar Energy',
-    description: 'One of the most trusted solar energy players in both domestic and international markets, with in-house capabilities for design, engineering, manufacturing, testing, installation, and commissioning to execute large-size turnkey projects.',
+    description: 'Development and Turnkey solar EPC, C&I solutions, and hybrid energy architectures for a net-zero future.',
     accent: 'sunrise',
-    images: ['/utility-scale-solar.jpg', '/ci-solar.png', '/hybrid-energy.png'],
+    images: ['/utility-scale-solar.jpg', '/ci-solar.png', '/hybrid-energy.png', '/international-delivery.png'],
   },
   {
     title: 'Infrastructure',
     description: 'Designing and building the core assets that drive economic growth, from highways to smart city architectures with focus on efficiency and sustainability.',
     accent: 'sunrise',
-    images: ['/international-delivery.png', '/solar-carports.jpg'],
+    images: ['/infra-viaduct.jpg', '/infra-construction.jpg', '/infra-machinery.jpg', '/infra-highway.jpg'],
   },
   {
     title: 'Oil & Gas',
     description: 'Specialized engineering and project management for upstream and downstream operations in the energy sector.',
     accent: 'sky',
-    images: ['/ci-solar.png', '/utility-scale-solar.jpg'],
+    images: ['/oilgas-rig.jpg', '/oilgas-pipeline.jpg', '/oilgas-refinery.jpg', '/oilgas-drilling.png'],
   },
   {
     title: 'Manufacturing Plants',
     description: 'Optimized industrial facility design and construction for high-performance manufacturing environments.',
     accent: 'leaf',
-    images: ['/om-services.jpg', '/solar-carports.jpg'],
+    images: ['/mfg-inspector.jpg', '/mfg-welding.png', '/mfg-factory.jpg'],
   },
   {
     title: 'Biomass Plants',
