@@ -316,7 +316,7 @@ function App() {
       <main>
         <section className="hero-section" id="home">
           <video className="hero-video" autoPlay muted loop playsInline aria-hidden="true">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-solar-power-station-in-a-field-27848-large.mp4" type="video/mp4" />
+            <source src="/hero-section-new.mp4" type="video/mp4" />
           </video>
           <div className="hero-overlay" />
 
