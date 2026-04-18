@@ -209,7 +209,24 @@ const newsItems = [
   },
 ]
 
-
+const footerColumns = [
+  {
+    title: 'Corporate Office',
+    lines: ['348,DLF Prime Towers,Okhla Phase-1,New Delhi -110020', 'ph-011-41630318'],
+  },
+  {
+    title: 'Registered Office',
+    lines: ['348,DLF Prime Towers,Okhla Phase-1,New Delhi -110020', 'ph-011-41630318'],
+  },
+  {
+    title: 'Business Enquiries',
+    lines: ['info@omegainfram.com', 'ph-011-41630318'],
+  },
+  {
+    title: 'Investors',
+    lines: ['investors@omegainfram.com', 'Governance, disclosures, and updates'],
+  },
+]
 
 function FeatureCard({ slides, id }: { slides: any[]; id?: string }) {
   const [activeIdx, setActiveIdx] = React.useState(0)
@@ -485,61 +502,37 @@ function App() {
         </section>
 
         <footer className="site-footer" id="contact">
-          <div className="section-shell" style={{ padding: '0 0 10px 0' }}>
+          <div className="footer-container">
             <div className="footer-columns">
-              <div className="footer-column">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
-                  <img src="/logo.png" alt="Omega Infram logo" style={{ width: '48px', height: '48px', mixBlendMode: 'multiply' }} />
-                  <h2 style={{ fontSize: '1.2rem', color: '#fff', fontWeight: 'bold' }}>Omega Infram</h2>
-                </div>
-                <p className="footer-company-desc">
-                  A premier renewable infrastructure company focused on global delivery and engineering excellence.
-                </p>
-                <div style={{ marginTop: '24px' }}>
-                  <p><strong>Corporate Office:</strong></p>
-                  <p>348, DLF Prime Towers, Okhla Phase-1,<br/>New Delhi - 110020</p>
-                </div>
+              <div className="footer-col-brand">
+                <img className="footer-logo" src="/logo.png" alt="Omega Group" />
+                <p className="footer-slogan">Renewable infrastructure with global delivery intent.</p>
               </div>
-
-              <div className="footer-column">
-                <h3>Quick Links</h3>
-                <div className="footer-links">
-                  <a href="#home">Home</a>
-                  <a href="#about">About Us</a>
-                  <a href="#businesses">Services</a>
-                  <a href="#projects">Projects</a>
-                  <a href="#contact">Contact</a>
-                </div>
+              <div className="footer-col-contact">
+                <h4>Contact Details</h4>
+                <ul>
+                  <li><strong>Phone:</strong> 011-41630318</li>
+                  <li><strong>Business Enquiry:</strong> info@omegainfram.com</li>
+                  <li><strong>Location:</strong> 348, DLF Prime Towers, Okhla Phase-1, New Delhi -110020</li>
+                </ul>
               </div>
-
-              <div className="footer-column">
-                <h3>Our Companies</h3>
-                <div className="footer-links">
-                  <a href="#companies">Omega Infrastructure</a>
-                  <a href="#companies">Omega Renewables</a>
-                  <a href="#companies">Omega Oil & Gas</a>
-                  <a href="#companies">Omega Manufacturing</a>
-                  <a href="#companies">DS Buildwelll</a>
-                  <a href="#companies">Progressive Pharma</a>
-                </div>
-              </div>
-
-              <div className="footer-column">
-                <h3>Contact Details</h3>
-                <div className="footer-links">
-                  <span style={{ color: '#94a3b8', display: 'flex', gap: '8px' }}>📞 +91 011-41630318</span>
-                  <span style={{ color: '#94a3b8', display: 'flex', gap: '8px' }}>✉️ info@omegainfram.com</span>
-                  <span style={{ color: '#94a3b8', display: 'flex', gap: '8px', marginTop: '12px' }}>📍 New Delhi, India</span>
-                </div>
+              <div className="footer-col-links">
+                <h4>Quick Links</h4>
+                <ul>
+                  <li><a href="#about">About Us</a></li>
+                  <li><a href="#businesses">Our Businesses</a></li>
+                  <li><a href="#companies">Our Companies</a></li>
+                  <li><a href="#news">News &amp; Media</a></li>
+                </ul>
               </div>
             </div>
 
             <div className="footer-bottom">
-              <p>Copyright © {new Date().getFullYear()} Omega Group. All rights reserved.</p>
+              <p>Copyright © 2026 Omega Infram Pvt Ltd. All rights reserved.</p>
               <div className="footer-socials">
-                <a href="#linkedin" aria-label="LinkedIn">in</a>
-                <a href="#facebook" aria-label="Facebook">f</a>
-                <a href="#instagram" aria-label="Instagram">ig</a>
+                <a href="#home">LinkedIn</a>
+                <a href="#home">Facebook</a>
+                <a href="#home">Instagram</a>
               </div>
             </div>
           </div>
