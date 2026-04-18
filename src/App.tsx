@@ -506,7 +506,7 @@ function App() {
             <div className="footer-columns">
               <div className="footer-col-brand">
                 <img className="footer-logo" src="/logo.png" alt="Omega Group" />
-                <p className="footer-slogan">Renewable infrastructure with global delivery intent.</p>
+                <p className="footer-slogan">Omega Group Corporation - A Consortium Of Visionaries Delivering Excellence</p>
               </div>
               <div className="footer-col-contact">
                 <h4>Contact Details</h4>
