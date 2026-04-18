@@ -354,7 +354,7 @@ function App() {
         </div>
 
 
-        <section className="business-section section-shell" id="businesses">
+        <section className="business-section" id="businesses">
           <div className="section-head">
             <p className="section-kicker">BUSINESS</p>
             <h2>Our Business Streams</h2>

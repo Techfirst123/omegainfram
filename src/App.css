@@ -722,6 +722,8 @@ main {
   background: linear-gradient(180deg, #fafbfd, #f3f6fb);
   margin-top: 72px;
   padding-bottom: 72px;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .section-kicker {
