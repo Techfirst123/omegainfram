@@ -432,7 +432,7 @@ function App() {
           </div>
         </section>
 
-        <section className="sustainability-section section-shell" id="sustainability" style={{ marginTop: '72px' }}>
+        <section className="sustainability-section section-shell" id="sustainability" style={{ marginTop: '24px' }}>
           <div className="section-head">
             <p className="section-kicker">Sustainability</p>
             <h2>Driving a Net-Zero Future</h2>
@@ -441,7 +441,7 @@ function App() {
             </p>
           </div>
           
-          <div className="focus-section" style={{ marginTop: '48px' }}>
+          <div className="focus-section" style={{ marginTop: '20px' }}>
             <div className="feature-block" style={{ 
               background: `linear-gradient(180deg, rgba(6, 14, 25, 0.4), rgba(6, 14, 25, 0.8)), url('/utility-scale-solar.jpg') center/cover no-repeat` 
             }}>
