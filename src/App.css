@@ -1156,66 +1156,111 @@ main {
   }
 }
 
-/* --- Companies Section --- */
+/* --- Companies Logo Grid --- */
 .companies-section {
-  position: relative;
-  z-index: 4;
+  background: var(--page); 
+  /* or #f8fafc to stand out from others if you prefer */
 }
 
-.companies-grid {
+/* Added specific spacing for the companies head */
+.companies-head {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.company-logo-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(6, 1fr);
   gap: 24px;
+  margin-top: 56px;
 }
 
-.company-portal-card {
-  display: flex;
-  flex-direction: column;
-  background: #f8fafc;
-  border: 1px solid var(--line);
-  padding: 32px;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+@media (max-width: 1200px) {
+  .company-logo-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
-.company-portal-card:hover {
+@media (max-width: 900px) {
+  .company-logo-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.company-logo-card {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.05);
+  border-radius: 8px;
+  padding: 32px 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+}
+
+.company-logo-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
-  border-color: #37a8e3;
+  box-shadow: 0 16px 32px rgba(31, 79, 149, 0.1);
+  border-color: rgba(31, 79, 149, 0.2);
 }
 
-.company-portal-card h3 {
-  color: #0f172a;
-  font-size: 1.3rem;
-  margin-bottom: 12px;
+.company-logo-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-.company-portal-card p {
-  color: #4a5568;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin-bottom: 24px;
-  flex-grow: 1;
-}
-
-.visit-link {
-  color: #37a8e3;
-  font-weight: 600;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.company-logo-placeholder {
+  width: 72px;
+  height: 72px;
+  background: #f1f5f9;
+  color: #64748b;
+  border-radius: 50%;
   display: flex;
   align-items: center;
-  gap: 8px;
-  transition: color 0.2s ease;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  filter: grayscale(100%);
 }
 
-.company-portal-card:hover .visit-link {
-  color: #1f4f95;
+.company-logo-card:hover .company-logo-placeholder {
+  filter: grayscale(0%);
+  background: #1f4f95; /* Royal blue */
+  color: #ffffff;
+}
+
+.company-logo-card h4 {
+  color: #0f172a;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin-bottom: 12px;
+  font-weight: 600;
+  min-height: 40px;
+}
+
+.company-desc {
+  color: #64748b;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.company-logo-card:hover .company-desc {
+  opacity: 1;
+  max-height: 100px;
+  margin-top: 12px;
 }
 
 @media (max-width: 700px) {
+  .company-logo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .topbar {
     padding-left: 18px;
     padding-right: 18px;

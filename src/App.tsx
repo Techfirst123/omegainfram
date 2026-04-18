@@ -181,68 +181,18 @@ const businessStreams: BusinessStream[] = [
   }
 ]
 
-const companyStreams: BusinessStream[] = [
-  {
-    title: 'Path Found Biogas pvt ltd',
-    description: 'Specialists in advanced biogas and renewable fuel technologies driving waste-to-energy ecosystems.',
-    accent: 'leaf',
-    images: ['/hybrid-energy.png', '/om-services.jpg']
-  },
-  {
-    title: 'Helios Solar Tech Power solution pvt ltd',
-    description: 'Delivering cutting-edge solar tech power solutions and innovations across high-efficiency energy markets.',
-    accent: 'sunrise',
-    images: ['/utility-scale-solar.jpg', '/solar-carports.jpg']
-  },
-  {
-    title: 'DS Buildwelll',
-    description: 'Premier construction and structural development firm specializing in reliable and aesthetic build solutions.',
-    accent: 'sky',
-    images: ['/infra-construction.jpg', '/infra-viaduct.jpg']
-  },
-  {
-    title: 'Omega Infra Mining Co.LLP',
-    description: 'Focused on sustainable mining, aggregate processing, and heavy earthworks for major infrastructure demands.',
-    accent: 'slate',
-    images: ['/infra-machinery.jpg', '/oilgas-drilling.png']
-  },
-  {
-    title: 'SB Enterprises',
-    description: 'A dedicated commercial entity supporting widespread industrial procurement and generalized contract works.',
-    accent: 'sunrise',
-    images: ['/mfg-factory.jpg', '/international-delivery.png']
-  },
-  {
-    title: 'Progressive Pharma Corporation',
-    description: 'Dedicated pharmaceutical manufacturing and distribution entity, ensuring world-class health facility provisioning.',
-    accent: 'sky',
-    images: ['/mfg-inspector.jpg', '/om-services.jpg']
-  },
-  {
-    title: 'White Paper law Consultancy',
-    description: 'Strategic legal, compliance, and corporate advisory wing supporting the group’s worldwide commercial operations.',
-    accent: 'leaf',
-    images: ['/ci-solar.png', '/international-delivery.png'] // Placeholders
-  },
-  {
-    title: 'Banna Infratech LLP',
-    description: 'Focused infrastructure arm specializing in highly sophisticated public and private sector projects.',
-    accent: 'sunrise',
-    images: ['/infra-highway.jpg', '/infra-construction.jpg']
-  },
-  {
-    title: 'Path Found Infrastructure',
-    description: 'End-to-end infrastructural design and execution organization managing large-scale national corridors.',
-    accent: 'slate',
-    images: ['/oilgas-pipeline.jpg', '/infra-viaduct.jpg']
-  },
-  {
-    title: 'Samaira Shadab Infrastructure LLP',
-    description: 'Bespoke infrastructure development focusing on sustainable and integrated civic amenities.',
-    accent: 'sky',
-    images: ['/mfg-factory.jpg', '/infra-highway.jpg']
-  }
-]
+const companiesList = [
+  { name: 'Path Found Biogas pvt ltd', desc: 'Waste-to-energy ecosystems and bio-renewable fuels.' },
+  { name: 'Helios Solar Tech Power solution pvt ltd', desc: 'High-efficiency solar solutions and smart grids.' },
+  { name: 'DS Buildwelll', desc: 'Structural and civil infrastructure works.' },
+  { name: 'Omega Infra Mining Co.LLP', desc: 'Sustainable mining and aggregate operations.' },
+  { name: 'SB Enterprises', desc: 'Industrial procurement and commercial contracting.' },
+  { name: 'Progressive Pharma Corporation', desc: 'Healthcare and pharmaceutical manufacturing.' },
+  { name: 'White Paper law Consultancy', desc: 'Corporate legal compliance and strategic advisory.' },
+  { name: 'Banna Infratech LLP', desc: 'Public infrastructure and specialized civil projects.' },
+  { name: 'Path Found Infrastructure', desc: 'Large-scale national corridors and highway systems.' },
+  { name: 'Samaira Shadab Infrastructure LLP', desc: 'Bespoke integrated civic amenities and urban development.' },
+];
 
 const newsItems = [
   {
@@ -335,22 +285,12 @@ function App() {
   const [activeStreamIdx, setActiveStreamIdx] = React.useState(0)
   const [activeImageIdx, setActiveImageIdx] = React.useState(0)
 
-  const [activeCompanyIdx, setActiveCompanyIdx] = React.useState(0)
-  const [activeCompanyImgIdx, setActiveCompanyImgIdx] = React.useState(0)
-
   React.useEffect(() => {
     const timer = setInterval(() => {
       setActiveImageIdx((prev) => (prev + 1) % businessStreams[activeStreamIdx].images.length)
     }, 4000)
     return () => clearInterval(timer)
   }, [activeStreamIdx])
-
-  React.useEffect(() => {
-    const companyTimer = setInterval(() => {
-      setActiveCompanyImgIdx((prev) => (prev + 1) % companyStreams[activeCompanyIdx].images.length)
-    }, 4000)
-    return () => clearInterval(companyTimer)
-  }, [activeCompanyIdx])
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -464,56 +404,29 @@ function App() {
           </div>
         </section>
 
-        <section className="business-section section-shell" id="companies">
-          <div className="section-head">
+        <section className="companies-section section-shell" id="companies">
+          <div className="section-head companies-head">
             <p className="section-kicker">Omega Group</p>
             <h2>Our Companies</h2>
+            <p className="section-intro">
+              The diverse subsidiaries and specialized entities driving our global operations and engineering excellence.
+            </p>
           </div>
 
-          <div className="business-tabs" aria-label="Our Companies categories">
-            {companyStreams.map((stream, idx) => (
-              <span
-                key={stream.title}
-                className={activeCompanyIdx === idx ? 'is-active' : ''}
-                onClick={() => {
-                  setActiveCompanyIdx(idx)
-                  setActiveCompanyImgIdx(0)
-                }}
-              >
-                {stream.title}
-              </span>
+          <div className="company-logo-grid">
+            {companiesList.map((company) => (
+              <div className="company-logo-card" key={company.name}>
+                <div className="company-logo-wrapper">
+                  <div className="company-logo-placeholder">
+                    {company.name.charAt(0)}
+                  </div>
+                </div>
+                <h4>{company.name}</h4>
+                <p className="company-desc">{company.desc}</p>
+              </div>
             ))}
           </div>
-
-          <div className="business-feature">
-            <div className="business-feature-content">
-              <h3>{companyStreams[activeCompanyIdx].title}</h3>
-              <p>{companyStreams[activeCompanyIdx].description}</p>
-              <a href="#contact" className="know-more-outline">
-                VISIT SITE
-              </a>
-            </div>
-            <div className="business-feature-media">
-              {companyStreams[activeCompanyIdx].images.map((img, idx) => (
-                <div
-                  key={img + idx}
-                  className={`business-feature-slide ${activeCompanyImgIdx === idx ? 'is-active' : ''}`}
-                  style={{ backgroundImage: `url(${img})` }}
-                />
-              ))}
-              <div className="business-feature-dots">
-                {companyStreams[activeCompanyIdx].images.map((_, idx) => (
-                  <span
-                    key={idx}
-                    className={activeCompanyImgIdx === idx ? 'is-active' : ''}
-                    onClick={() => setActiveCompanyImgIdx(idx)}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
         </section>
-
 
         <section className="news-section section-shell" id="news">
           <div className="section-head">
