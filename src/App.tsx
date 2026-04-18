@@ -413,18 +413,22 @@ function App() {
             </p>
           </div>
 
-          <div className="company-logo-grid">
-            {companiesList.map((company) => (
-              <div className="company-logo-card" key={company.name}>
-                <div className="company-logo-wrapper">
-                  <div className="company-logo-placeholder">
-                    {company.name.charAt(0)}
+          <div className="companies-scrolling-wrapper">
+            <div className="companies-marquee">
+              {[...companiesList, ...companiesList].map((company, idx) => (
+                <div className="company-logo-card" key={company.name + idx}>
+                  <div className="company-logo-wrapper">
+                    <img 
+                      className="company-logo-image" 
+                      src={`https://api.dicebear.com/7.x/shapes/svg?seed=${company.name}&backgroundColor=ffffff`} 
+                      alt={company.name} 
+                    />
                   </div>
+                  <h4>{company.name}</h4>
+                  <p className="company-desc">{company.desc}</p>
                 </div>
-                <h4>{company.name}</h4>
-                <p className="company-desc">{company.desc}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
 
