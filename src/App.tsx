@@ -432,27 +432,39 @@ function App() {
           </div>
         </section>
 
-        <section className="sustainability-section section-shell" id="sustainability">
-          <div className="sustainability-card">
-            <div className="sustainability-content">
-              <p className="hero-kicker">Sustainability</p>
-              <h2>Driving a Net-Zero Future</h2>
-              <p>
-                At Omega Group, we integrate environmental, social, and governance (ESG) frameworks directly into our core project delivery matrix. 
-                Our intent is to deploy infrastructure that radically reduces carbon intensity while elevating the surrounding community.
-              </p>
-              <div className="sustainability-stats">
-                <div>
-                  <strong>Net Zero</strong>
-                  <span>2035 Vision</span>
-                </div>
-                <div>
-                  <strong>120+</strong>
-                  <span>CSR Partners</span>
-                </div>
+        <section className="sustainability-section section-shell" id="sustainability" style={{ marginTop: '72px' }}>
+          <div className="section-head">
+            <p className="section-kicker">Sustainability</p>
+            <h2>Driving a Net-Zero Future</h2>
+            <p className="section-intro">
+              We believe that true engineering excellence is measured by its impact on the planet. Omega Group integrates sustainable practices across all verticals to reduce carbon intensity and improve energy resilience globally.
+            </p>
+          </div>
+          
+          <div className="focus-section" style={{ marginTop: '48px' }}>
+            <div className="feature-block" style={{ 
+              background: `linear-gradient(180deg, rgba(6, 14, 25, 0.4), rgba(6, 14, 25, 0.8)), url('/utility-scale-solar.jpg') center/cover no-repeat` 
+            }}>
+              <div className="feature-copy">
+                <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Environmental Stewardship</h2>
+                <p style={{ fontSize: '1.05rem', lineHeight: '1.6', opacity: 0.9 }}>
+                  From deploying multi-gigawatt solar pipelines to engineering highly efficient biomass facilities, our mandate is to carefully preserve ecosystems while aggressively expanding the world's renewable energy capacity.
+                </p>
+                <a href="#contact" style={{ display: 'inline-block', marginTop: '24px', color: '#86efac', textDecoration: 'none', fontWeight: 600 }}>
+                  Read our 2026 ESG Report &rarr;
+                </a>
               </div>
             </div>
-            <div className="sustainability-image" style={{ backgroundImage: `url('/hybrid-energy.png')` }}></div>
+            <div className="highlight-grid">
+              <div className="highlight-card summary-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <h3 style={{ fontSize: '2.5rem', color: '#22c55e', margin: '0 0 12px 0' }}>4.8 GW+</h3>
+                <p style={{ fontSize: '1rem', color: '#4a5568', margin: 0 }}>Active renewable energy capacity offsetting millions of tons of CO2 annually.</p>
+              </div>
+              <div className="highlight-card summary-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <h3 style={{ fontSize: '2.5rem', color: '#0a84ff', margin: '0 0 12px 0' }}>Net-Zero 2040</h3>
+                <p style={{ fontSize: '1rem', color: '#4a5568', margin: 0 }}>Aggressively committed to achieving zero emissions across our entire supply chain.</p>
+              </div>
+            </div>
           </div>
         </section>
 
