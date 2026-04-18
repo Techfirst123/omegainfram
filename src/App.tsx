@@ -432,6 +432,30 @@ function App() {
           </div>
         </section>
 
+        <section className="sustainability-section section-shell" id="sustainability">
+          <div className="sustainability-card">
+            <div className="sustainability-content">
+              <p className="hero-kicker">Sustainability</p>
+              <h2>Driving a Net-Zero Future</h2>
+              <p>
+                At Omega Group, we integrate environmental, social, and governance (ESG) frameworks directly into our core project delivery matrix. 
+                Our intent is to deploy infrastructure that radically reduces carbon intensity while elevating the surrounding community.
+              </p>
+              <div className="sustainability-stats">
+                <div>
+                  <strong>Net Zero</strong>
+                  <span>2035 Vision</span>
+                </div>
+                <div>
+                  <strong>120+</strong>
+                  <span>CSR Partners</span>
+                </div>
+              </div>
+            </div>
+            <div className="sustainability-image" style={{ backgroundImage: `url('/hybrid-energy.png')` }}></div>
+          </div>
+        </section>
+
         <section className="news-section section-shell" id="news">
           <div className="section-head">
             <p className="section-kicker">News &amp; Media</p>

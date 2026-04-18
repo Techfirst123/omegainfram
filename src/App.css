@@ -1263,6 +1263,84 @@ main {
   margin-top: 12px;
 }
 
+/* --- Sustainability Section --- */
+.sustainability-section {
+  margin-top: 56px;
+}
+
+.sustainability-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(15, 23, 42, 0.05);
+  min-height: 480px;
+}
+
+.sustainability-content {
+  padding: 64px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sustainability-content h2 {
+  color: #0f172a;
+  font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+  font-weight: 700;
+  margin-bottom: 24px;
+  line-height: 1.15;
+}
+
+.sustainability-content p {
+  color: #4a5568;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 48px;
+}
+
+.sustainability-stats {
+  display: flex;
+  gap: 48px;
+}
+
+.sustainability-stats strong {
+  display: block;
+  font-size: 2.8rem;
+  color: #1f4f95;
+  line-height: 1.1;
+  font-weight: 300;
+  margin-bottom: 8px;
+}
+
+.sustainability-stats span {
+  color: #64748b;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.sustainability-image {
+  background-size: cover;
+  background-position: center;
+  min-height: 100%;
+}
+
+@media (max-width: 1000px) {
+  .sustainability-card {
+    grid-template-columns: 1fr;
+  }
+  .sustainability-image {
+    min-height: 350px;
+  }
+  .sustainability-content {
+    padding: 48px 32px;
+  }
+}
+
 @media (max-width: 700px) {
   .topbar {
     padding-left: 18px;
