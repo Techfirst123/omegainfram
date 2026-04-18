@@ -15,7 +15,7 @@ const navItems = [
     label: 'Our Businesses',
     href: '#businesses',
     description: 'Development and Turnkey solar EPC, C&I solutions, and hybrid energy architectures for a net-zero future.',
-    statValue: '4.8 GW+',
+    statValue: '10+',
     statLabel: 'Capacity',
     children: [
       'Utility Scale Solar',
@@ -209,24 +209,7 @@ const newsItems = [
   },
 ]
 
-const footerColumns = [
-  {
-    title: 'Corporate Office',
-    lines: ['348,DLF Prime Towers,Okhla Phase-1,New Delhi -110020', 'ph-011-41630318'],
-  },
-  {
-    title: 'Registered Office',
-    lines: ['348,DLF Prime Towers,Okhla Phase-1,New Delhi -110020', 'ph-011-41630318'],
-  },
-  {
-    title: 'Business Enquiries',
-    lines: ['info@omegainfram.com', 'ph-011-41630318'],
-  },
-  {
-    title: 'Investors',
-    lines: ['investors@omegainfram.com', 'Governance, disclosures, and updates'],
-  },
-]
+
 
 function FeatureCard({ slides, id }: { slides: any[]; id?: string }) {
   const [activeIdx, setActiveIdx] = React.useState(0)
@@ -418,10 +401,10 @@ function App() {
               {[...companiesList, ...companiesList].map((company, idx) => (
                 <div className="company-logo-card" key={company.name + idx}>
                   <div className="company-logo-wrapper">
-                    <img 
-                      className="company-logo-image" 
-                      src={`https://api.dicebear.com/7.x/shapes/svg?seed=${company.name}&backgroundColor=ffffff`} 
-                      alt={company.name} 
+                    <img
+                      className="company-logo-image"
+                      src={`https://api.dicebear.com/7.x/shapes/svg?seed=${company.name}&backgroundColor=ffffff`}
+                      alt={company.name}
                     />
                   </div>
                   <h4>{company.name}</h4>
@@ -440,10 +423,10 @@ function App() {
               We believe that true engineering excellence is measured by its impact on the planet. Omega Group integrates sustainable practices across all verticals to reduce carbon intensity and improve energy resilience globally.
             </p>
           </div>
-          
+
           <div className="focus-section" style={{ marginTop: '20px' }}>
-            <div className="feature-block" style={{ 
-              background: `linear-gradient(180deg, rgba(6, 14, 25, 0.4), rgba(6, 14, 25, 0.8)), url('/utility-scale-solar.jpg') center/cover no-repeat` 
+            <div className="feature-block" style={{
+              background: `linear-gradient(180deg, rgba(6, 14, 25, 0.4), rgba(6, 14, 25, 0.8)), url('/utility-scale-solar.jpg') center/cover no-repeat`
             }}>
               <div className="feature-copy">
                 <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Environmental Stewardship</h2>
@@ -501,40 +484,64 @@ function App() {
           </div>
         </section>
 
-        <footer className="site-footer section-shell" id="contact">
-          <div className="footer-top">
-            <div className="footer-brand">
-              <img className="footer-logo" src="/logo.png" alt="Omega Infram logo" />
-              <div>
-                <p className="section-kicker">Omega Infram Pvt Ltd</p>
-                <h2>Renewable infrastructure with global delivery intent.</h2>
+        <footer className="site-footer" id="contact">
+          <div className="section-shell" style={{ padding: '0 0 10px 0' }}>
+            <div className="footer-columns">
+              <div className="footer-column">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
+                  <img src="/logo.png" alt="Omega Infram logo" style={{ width: '48px', height: '48px', mixBlendMode: 'multiply' }} />
+                  <h2 style={{ fontSize: '1.2rem', color: '#fff', fontWeight: 'bold' }}>Omega Infram</h2>
+                </div>
+                <p className="footer-company-desc">
+                  A premier renewable infrastructure company focused on global delivery and engineering excellence.
+                </p>
+                <div style={{ marginTop: '24px' }}>
+                  <p><strong>Corporate Office:</strong></p>
+                  <p>348, DLF Prime Towers, Okhla Phase-1,<br/>New Delhi - 110020</p>
+                </div>
+              </div>
+
+              <div className="footer-column">
+                <h3>Quick Links</h3>
+                <div className="footer-links">
+                  <a href="#home">Home</a>
+                  <a href="#about">About Us</a>
+                  <a href="#businesses">Services</a>
+                  <a href="#projects">Projects</a>
+                  <a href="#contact">Contact</a>
+                </div>
+              </div>
+
+              <div className="footer-column">
+                <h3>Our Companies</h3>
+                <div className="footer-links">
+                  <a href="#companies">Omega Infrastructure</a>
+                  <a href="#companies">Omega Renewables</a>
+                  <a href="#companies">Omega Oil & Gas</a>
+                  <a href="#companies">Omega Manufacturing</a>
+                  <a href="#companies">DS Buildwelll</a>
+                  <a href="#companies">Progressive Pharma</a>
+                </div>
+              </div>
+
+              <div className="footer-column">
+                <h3>Contact Details</h3>
+                <div className="footer-links">
+                  <span style={{ color: '#94a3b8', display: 'flex', gap: '8px' }}>📞 +91 011-41630318</span>
+                  <span style={{ color: '#94a3b8', display: 'flex', gap: '8px' }}>✉️ info@omegainfram.com</span>
+                  <span style={{ color: '#94a3b8', display: 'flex', gap: '8px', marginTop: '12px' }}>📍 New Delhi, India</span>
+                </div>
               </div>
             </div>
 
-            <a className="secondary-link" href="mailto:hello@omegainfram.com">
-              Contact Us
-            </a>
-          </div>
-
-          <div className="footer-columns">
-            {footerColumns.map((column) => (
-              <article className="footer-column" key={column.title}>
-                <h3>{column.title}</h3>
-                {column.lines.map((line) => (
-                  <p key={line}>{line}</p>
-                ))}
-              </article>
-            ))}
-          </div>
-
-          <div className="footer-bottom">
-            <div className="footer-socials">
-              <a href="#home">LinkedIn</a>
-              <a href="#home">YouTube</a>
-              <a href="#home">Instagram</a>
-              <a href="#home">Facebook</a>
+            <div className="footer-bottom">
+              <p>Copyright © {new Date().getFullYear()} Omega Group. All rights reserved.</p>
+              <div className="footer-socials">
+                <a href="#linkedin" aria-label="LinkedIn">in</a>
+                <a href="#facebook" aria-label="Facebook">f</a>
+                <a href="#instagram" aria-label="Instagram">ig</a>
+              </div>
             </div>
-            <p>Copyright © 2026 Omega Infram Pvt Ltd</p>
           </div>
         </footer>
       </main>
