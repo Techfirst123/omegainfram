@@ -209,24 +209,6 @@ const newsItems = [
   },
 ]
 
-const footerColumns = [
-  {
-    title: 'Corporate Office',
-    lines: ['348,DLF Prime Towers,Okhla Phase-1,New Delhi -110020', 'ph-011-41630318'],
-  },
-  {
-    title: 'Registered Office',
-    lines: ['348,DLF Prime Towers,Okhla Phase-1,New Delhi -110020', 'ph-011-41630318'],
-  },
-  {
-    title: 'Business Enquiries',
-    lines: ['info@omegainfram.com', 'ph-011-41630318'],
-  },
-  {
-    title: 'Investors',
-    lines: ['investors@omegainfram.com', 'Governance, disclosures, and updates'],
-  },
-]
 
 function FeatureCard({ slides, id }: { slides: any[]; id?: string }) {
   const [activeIdx, setActiveIdx] = React.useState(0)
