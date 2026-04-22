@@ -504,25 +504,21 @@ function App() {
         <footer className="site-footer" id="contact">
           <div className="footer-container">
             <div className="footer-columns">
-              <div className="footer-col-brand">
-                <img className="footer-logo" src="/logo.png" alt="Omega Group" />
-                <p className="footer-slogan">Omega Group Corporation - A Consortium Of Visionaries Delivering Excellence</p>
-              </div>
-              <div className="footer-col-contact">
+              <div className="footer-contact-card">
                 <h4>Contact Details</h4>
                 <ul>
-                  <li><strong>Phone:</strong> 011-41630318</li>
-                  <li><strong>Business Enquiry:</strong> info@omegainfram.com</li>
-                  <li><strong>Location:</strong> 348, DLF Prime Towers, Okhla Phase-1, New Delhi -110020</li>
-                </ul>
-              </div>
-              <div className="footer-col-links">
-                <h4>Quick Links</h4>
-                <ul>
-                  <li><a href="#about">About Us</a></li>
-                  <li><a href="#businesses">Our Businesses</a></li>
-                  <li><a href="#companies">Our Companies</a></li>
-                  <li><a href="#news">News &amp; Media</a></li>
+                  <li>
+                    <strong>Phone</strong>
+                    011-41630318
+                  </li>
+                  <li>
+                    <strong>Business Enquiry</strong>
+                    info@omegainfram.com
+                  </li>
+                  <li>
+                    <strong>Location</strong>
+                    348, DLF Prime Towers, Okhla Phase-1, New Delhi -110020
+                  </li>
                 </ul>
               </div>
             </div>
