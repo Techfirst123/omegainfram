@@ -293,7 +293,7 @@ function CompanyDetailView({ companyName, onBack }: { companyName: string, onBac
   const projects: Record<string, any[]> = {
     'Path Found Biogas pvt ltd': [
       {
-        image: '/utility-scale-solar.jpg', // Replace with the actual image when added to the public folder
+        image: '/project-sangli.png',
         badge: 'Running Project',
         title: 'SPL Installation - Rajasthan, Sangli',
         stats: [
