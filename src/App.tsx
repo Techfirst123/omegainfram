@@ -281,36 +281,61 @@ function CompanyDetailView({ companyName, onBack }: { companyName: string, onBac
     'Helios Solar Tech Power solution pvt ltd': 'Helios Solar Tech specializes in cutting-edge solar technologies and power solutions, driving the global transition to clean energy with innovative photovoltaic systems and smart grid integration.',
   };
 
+  const companyLogos: Record<string, string> = {
+    'Path Found Biogas pvt ltd': '/pathfound-logo.png',
+  };
+
   const defaultDesc = `At ${companyName}, we envision a future where innovation and engineering excellence lead to self-reliance in the ever-evolving industry. Our commitment to excellence bridges the gap between current challenges and sustainable future requirements, fostering growth and development.`;
 
   const desc = descriptions[companyName] || defaultDesc;
+  const logo = companyLogos[companyName];
 
-  const projects: Record<string, any> = {
-    'Path Found Biogas pvt ltd': {
-      image: '/utility-scale-solar.jpg', // Replace with the actual image when added to the public folder
-      badge: 'Running Project',
-      title: 'SPL Installation - Rajasthan, Sangli',
-      stats: [
-        { label: 'Capacity', value: '180MW Solar System' },
-        { label: 'Scope', value: 'Design, Supply, Installation & Commissioning' },
-        { label: 'Approximate Cost', value: '630 Cr' }
-      ]
-    }
+  const projects: Record<string, any[]> = {
+    'Path Found Biogas pvt ltd': [
+      {
+        image: '/utility-scale-solar.jpg', // Replace with the actual image when added to the public folder
+        badge: 'Running Project',
+        title: 'SPL Installation - Rajasthan, Sangli',
+        stats: [
+          { label: 'Capacity', value: '180MW Solar System' },
+          { label: 'Scope', value: 'Design, Supply, Installation & Commissioning' },
+          { label: 'Approximate Cost', value: '630 Cr' }
+        ]
+      },
+      {
+        image: '/kusum-project.jpg', // Placeholder for the second project image
+        badge: 'Running Project',
+        title: 'KUSUM A & C - Rajasthan',
+        stats: [
+          { label: 'Capacity', value: '15 MW Solar System' },
+          { label: 'Scope', value: 'Design, Supply, Installation & Commissioning' },
+          { label: 'Approximate Cost', value: '65 Cr' }
+        ]
+      }
+    ]
   };
-  const project = projects[companyName];
+  const companyProjects = projects[companyName];
 
   return (
     <div className="company-detail-page">
       <div className="company-header-banner">
         <div className="company-header-inner">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px', opacity: 0.9 }}>
-            <path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4" />
-          </svg>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
-             <span className="banner-line"></span>
-             <h2>{companyName}</h2>
-             <span className="banner-line"></span>
-          </div>
+          {logo ? (
+            <div className="company-logo-container">
+              <img src={logo} alt={companyName} className="company-specific-logo" />
+            </div>
+          ) : (
+            <>
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px', opacity: 0.9 }}>
+                <path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4" />
+              </svg>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
+                 <span className="banner-line"></span>
+                 <h2>{companyName}</h2>
+                 <span className="banner-line"></span>
+              </div>
+            </>
+          )}
         </div>
       </div>
       <div className="company-content-wrapper">
@@ -322,23 +347,27 @@ function CompanyDetailView({ companyName, onBack }: { companyName: string, onBac
           ))}
         </div>
         
-        {project && (
-          <div className="project-highlight-card">
-            <div className="project-image-side">
-              <img src={project.image} alt={project.title} />
-            </div>
-            <div className="project-info-side">
-              <div className="project-badge">{project.badge || 'Featured Project'}</div>
-              <h3>{project.title}</h3>
-              <div className="project-stats-grid">
-                {project.stats.map((stat: any, idx: number) => (
-                  <div key={idx} className="project-stat-box">
-                    <span className="stat-label">{stat.label}</span>
-                    <strong className="stat-value">{stat.value}</strong>
+        {companyProjects && (
+          <div className="project-list">
+            {companyProjects.map((project, index) => (
+              <div key={index} className={`project-highlight-card ${index % 2 !== 0 ? 'project-reverse' : ''}`}>
+                <div className="project-image-side">
+                  <img src={project.image} alt={project.title} />
+                </div>
+                <div className="project-info-side">
+                  <div className="project-badge">{project.badge || 'Featured Project'}</div>
+                  <h3>{project.title}</h3>
+                  <div className="project-stats-grid">
+                    {project.stats.map((stat: any, idx: number) => (
+                      <div key={idx} className="project-stat-box">
+                        <span className="stat-label">{stat.label}</span>
+                        <strong className="stat-value">{stat.value}</strong>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         )}
       </div>
