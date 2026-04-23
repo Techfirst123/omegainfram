@@ -21,7 +21,7 @@ const navItems = [
   { label: 'Home', href: '/' },
   {
     label: 'About Us',
-    href: '/about',
+    href: '#about',
     description: 'A premier renewable infrastructure company focused on global delivery and engineering excellence.',
     statValue: '18+',
     statLabel: 'Countries',
@@ -29,7 +29,7 @@ const navItems = [
   },
   {
     label: 'Our Businesses',
-    href: '/businesses',
+    href: '#businesses',
     description: 'Development and Turnkey solar EPC, C&I solutions, and hybrid energy architectures for a net-zero future.',
     statValue: '10+',
     statLabel: 'Capacity',
@@ -43,7 +43,7 @@ const navItems = [
   },
   {
     label: 'Our Companies',
-    href: '/companies',
+    href: '#companies',
     description: 'Explore the specialized divisions and companies within the Omega Group.',
     statValue: '10+',
     statLabel: 'Divisions',
@@ -51,7 +51,7 @@ const navItems = [
   },
   {
     label: 'Sustainability',
-    href: '/sustainability',
+    href: '#sustainability',
     description: 'Designing infrastructure that reduces carbon intensity and improves energy resilience.',
     statValue: 'Net Zero',
     statLabel: 'Vision',
@@ -59,7 +59,7 @@ const navItems = [
   },
   {
     label: 'CSR',
-    href: '/csr',
+    href: '#news',
     description: 'Empowering communities through energy access, skilling, and health initiatives.',
     statValue: '120+',
     statLabel: 'Partners',
@@ -67,7 +67,7 @@ const navItems = [
   },
   {
     label: 'Investors',
-    href: '/investors',
+    href: '#investors',
     description: 'Transparent reporting and disciplined governance for long-term capital confidence.',
     statValue: 'Trusted',
     statLabel: 'Governance',
@@ -84,7 +84,7 @@ const navItems = [
   },
   {
     label: 'Contact Us',
-    href: '/contact',
+    href: '#contact',
     description: 'Connect with our corporate office or investor desk for business enquiries.',
     statValue: '24/7',
     statLabel: 'Support',
@@ -105,19 +105,22 @@ function MegaMenuCard({ item, onSelectCompany }: { item: any; onSelectCompany?: 
             <p className="mega-menu-description">{item.description}</p>
             <div className="mega-menu-links">
               {item.children.map((child: string) => (
-                <Link 
+                <a 
                   key={child} 
-                  to={isCompanyCategory ? '#' : item.href} 
+                  href={isCompanyCategory ? '#' : (item.href.startsWith('#') ? `/${item.href}` : item.href)} 
                   role="menuitem"
                   onClick={(e) => {
                     if (isCompanyCategory && onSelectCompany) {
                       e.preventDefault()
                       onSelectCompany(child, true)
+                    } else if (onSelectCompany) {
+                      e.preventDefault()
+                      onSelectCompany(child, false)
                     }
                   }}
                 >
                   {child}
-                </Link>
+                </a>
               ))}
             </div>
           </div>
@@ -436,7 +439,7 @@ function App() {
         <nav className="nav" aria-label="Primary">
           {navItems.map((item) => (
             <div className="nav-item" key={item.label}>
-              <Link to={item.href}>{item.label}</Link>
+              <a href={item.href.startsWith('#') ? `/${item.href}` : item.href}>{item.label}</a>
               {item.children ? <MegaMenuCard item={item} onSelectCompany={(name, isCompany) => {
                 if (isCompany) {
                   const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -444,6 +447,10 @@ function App() {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
                   navigate('/');
+                  setTimeout(() => {
+                    const el = document.getElementById(item.href.replace('#', ''));
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
                 }
               }} /> : null}
             </div>
@@ -472,13 +479,13 @@ function App() {
                   <h1>Pioneering Renewable Energy Solutions</h1>
                   <p>Leading the global transition to sustainable infrastructure through innovation and engineering excellence.</p>
                   <div className="hero-cta">
-                    <Link to="/contact" className="hero-primary-btn">
+                    <a href="/#contact" className="hero-primary-btn">
                       Get Consultation
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M5 12h14M12 5l7 7-7 7" />
                       </svg>
-                    </Link>
-                    <Link to="/about" className="hero-secondary-btn">Our Approach</Link>
+                    </a>
+                    <a href="/#about" className="hero-secondary-btn">Our Approach</a>
                   </div>
                 </div>
               </div>
@@ -799,9 +806,9 @@ function App() {
                     procurement, commissioning, and operations.
                   </p>
                 </div>
-                <Link className="primary-link" to="/contact">
+                <a className="primary-link" href="/#contact">
                   Explore Careers
-                </Link>
+                </a>
               </div>
             </section>
           </main>
