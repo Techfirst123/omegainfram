@@ -1,5 +1,21 @@
 import React from 'react'
+import { Routes, Route, useNavigate, useParams, Link, useLocation } from 'react-router-dom'
 import './App.css'
+
+const companyNameMap: Record<string, string> = {
+  'path-found-biogas-pvt-ltd': 'Path Found Biogas pvt ltd',
+  'helios-solar-tech-power-solution-pvt-ltd': 'Helios Solar Tech Power solution pvt ltd'
+};
+
+function CompanyRouteWrapper() {
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const companyName = slug ? companyNameMap[slug] : null;
+
+  if (!companyName) return <div style={{ padding: '100px', textAlign: 'center' }}>Company not found</div>;
+
+  return <CompanyDetailView companyName={companyName} onBack={() => navigate('/')} />;
+}
 
 const navItems = [
   { label: 'Home', href: '#home' },
@@ -386,7 +402,7 @@ function CompanyDetailView({ companyName, onBack }: { companyName: string, onBac
 }
 
 function App() {
-  const [selectedCompany, setSelectedCompany] = React.useState<string | null>(null)
+  const navigate = useNavigate();
   const [showScroll, setShowScroll] = React.useState(false)
   const [activeStreamIdx, setActiveStreamIdx] = React.useState(0)
   const [activeImageIdx, setActiveImageIdx] = React.useState(0)
@@ -412,27 +428,24 @@ function App() {
   return (
     <div className="page-shell">
       <header className="topbar">
-        <a className="brand-block" href="#home" aria-label="Omega Infram home" onClick={() => setSelectedCompany(null)}>
+        <Link className="brand-block" to="/" aria-label="Omega Infram home">
           <div className="brand-stack">
             <img className="brand-logo" src="/logo.png" alt="Omega Infram logo" />
             <p className="brand-company-name">omega infram pvt ltd</p>
           </div>
-        </a>
+        </Link>
 
         <nav className="nav" aria-label="Primary">
           {navItems.map((item) => (
             <div className="nav-item" key={item.label}>
-              <a href={item.label === 'Our Companies' && selectedCompany ? '#' : item.href} onClick={() => {
-                if (item.label !== 'Our Companies') {
-                  setSelectedCompany(null);
-                }
-              }}>{item.label}</a>
+              <a href={item.href.startsWith('#') ? `/${item.href}` : item.href}>{item.label}</a>
               {item.children ? <MegaMenuCard item={item} onSelectCompany={(name, isCompany) => {
                 if (isCompany) {
-                  setSelectedCompany(name);
+                  const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                  navigate(`/companies/${slug}`);
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
-                  setSelectedCompany(null);
+                  navigate('/');
                 }
               }} /> : null}
             </div>
@@ -440,12 +453,14 @@ function App() {
         </nav>
       </header>
 
-      {selectedCompany ? (
-        <main style={{ marginTop: '72px', minHeight: '80vh' }}>
-          <CompanyDetailView companyName={selectedCompany} onBack={() => setSelectedCompany(null)} />
-        </main>
-      ) : (
-        <main>
+      <Routes>
+        <Route path="/companies/:slug" element={
+          <main style={{ marginTop: '72px', minHeight: '80vh' }}>
+            <CompanyRouteWrapper />
+          </main>
+        } />
+        <Route path="/" element={
+          <main>
         <section className="hero-section" id="home">
           <video className="hero-video" autoPlay muted loop playsInline aria-hidden="true">
             <source src="/hero-section-new.mp4" type="video/mp4" />
@@ -656,7 +671,8 @@ function App() {
           </div>
         </footer>
       </main>
-      )}
+        } />
+      </Routes>
 
       {showScroll && (
         <button className="scroll-top-btn" onClick={scrollToTop} aria-label="Scroll to top">
