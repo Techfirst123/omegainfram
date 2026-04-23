@@ -76,7 +76,8 @@ const navItems = [
   },
 ]
 
-function MegaMenuCard({ item }: { item: any }) {
+function MegaMenuCard({ item, onSelectCompany }: { item: any; onSelectCompany?: (name: string, isCompany: boolean) => void }) {
+  const isCompanyCategory = item.label === 'Our Companies'
   return (
     <div className="mega-menu" role="menu" aria-label={`${item.label} mega menu`}>
       <div className="mega-menu-inner">
@@ -88,7 +89,19 @@ function MegaMenuCard({ item }: { item: any }) {
             <p className="mega-menu-description">{item.description}</p>
             <div className="mega-menu-links">
               {item.children.map((child: string) => (
-                <a key={child} href={item.href} role="menuitem">
+                <a 
+                  key={child} 
+                  href={isCompanyCategory ? '#' : item.href} 
+                  role="menuitem"
+                  onClick={(e) => {
+                    if (isCompanyCategory && onSelectCompany) {
+                      e.preventDefault()
+                      onSelectCompany(child, true)
+                    } else if (onSelectCompany) {
+                      onSelectCompany(child, false)
+                    }
+                  }}
+                >
                   {child}
                 </a>
               ))}
@@ -262,7 +275,79 @@ function FeatureCard({ slides, id }: { slides: any[]; id?: string }) {
   )
 }
 
+function CompanyDetailView({ companyName, onBack }: { companyName: string, onBack: () => void }) {
+  const descriptions: Record<string, string> = {
+    'Path Found Biogas pvt ltd': 'PathFound Bigoass Pvt. Ltd. is a forward-thinking solar energy company operating under the umbrella of Omega Group, committed to delivering sustainable and innovative energy solutions. The company focuses on harnessing solar power to provide efficient, reliable, and eco-friendly energy systems for residential, commercial, and industrial applications.\n\nWith a strong emphasis on quality, technology, and long-term performance, PathFound Bigoass Pvt. Ltd. specializes in end-to-end solar solutions — from design and engineering to installation and maintenance. The company aims to contribute to a greener future by reducing carbon footprints and promoting clean energy adoption across India.',
+    'Helios Solar Tech Power solution pvt ltd': 'Helios Solar Tech specializes in cutting-edge solar technologies and power solutions, driving the global transition to clean energy with innovative photovoltaic systems and smart grid integration.',
+  };
+
+  const defaultDesc = `At ${companyName}, we envision a future where innovation and engineering excellence lead to self-reliance in the ever-evolving industry. Our commitment to excellence bridges the gap between current challenges and sustainable future requirements, fostering growth and development.`;
+
+  const desc = descriptions[companyName] || defaultDesc;
+
+  const projects: Record<string, any> = {
+    'Path Found Biogas pvt ltd': {
+      image: '/utility-scale-solar.jpg', // Replace with the actual image when added to the public folder
+      badge: 'Running Project',
+      title: 'SPL Installation - Rajasthan, Sangli',
+      stats: [
+        { label: 'Capacity', value: '180MW Solar System' },
+        { label: 'Scope', value: 'Design, Supply, Installation & Commissioning' },
+        { label: 'Approximate Cost', value: '630 Cr' }
+      ]
+    }
+  };
+  const project = projects[companyName];
+
+  return (
+    <div className="company-detail-page">
+      <div className="company-header-banner">
+        <div className="company-header-inner">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '16px', opacity: 0.9 }}>
+            <path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4" />
+          </svg>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
+             <span className="banner-line"></span>
+             <h2>{companyName}</h2>
+             <span className="banner-line"></span>
+          </div>
+        </div>
+      </div>
+      <div className="company-content-wrapper">
+        <button onClick={onBack} className="back-btn">&larr; Back to Home</button>
+        <div className="company-content">
+          <h1 className="company-heading"><span>Empowering</span> Future, Building Excellence</h1>
+          {desc.split('\n\n').map((paragraph, index) => (
+            <p key={index} className="company-paragraph" style={{ marginBottom: '16px' }}>{paragraph}</p>
+          ))}
+        </div>
+        
+        {project && (
+          <div className="project-highlight-card">
+            <div className="project-image-side">
+              <img src={project.image} alt={project.title} />
+            </div>
+            <div className="project-info-side">
+              <div className="project-badge">{project.badge || 'Featured Project'}</div>
+              <h3>{project.title}</h3>
+              <div className="project-stats-grid">
+                {project.stats.map((stat: any, idx: number) => (
+                  <div key={idx} className="project-stat-box">
+                    <span className="stat-label">{stat.label}</span>
+                    <strong className="stat-value">{stat.value}</strong>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function App() {
+  const [selectedCompany, setSelectedCompany] = React.useState<string | null>(null)
   const [showScroll, setShowScroll] = React.useState(false)
   const [activeStreamIdx, setActiveStreamIdx] = React.useState(0)
   const [activeImageIdx, setActiveImageIdx] = React.useState(0)
@@ -288,7 +373,7 @@ function App() {
   return (
     <div className="page-shell">
       <header className="topbar">
-        <a className="brand-block" href="#home" aria-label="Omega Infram home">
+        <a className="brand-block" href="#home" aria-label="Omega Infram home" onClick={() => setSelectedCompany(null)}>
           <div className="brand-stack">
             <img className="brand-logo" src="/logo.png" alt="Omega Infram logo" />
             <p className="brand-company-name">omega infram pvt ltd</p>
@@ -298,14 +383,30 @@ function App() {
         <nav className="nav" aria-label="Primary">
           {navItems.map((item) => (
             <div className="nav-item" key={item.label}>
-              <a href={item.href}>{item.label}</a>
-              {item.children ? <MegaMenuCard item={item} /> : null}
+              <a href={item.label === 'Our Companies' && selectedCompany ? '#' : item.href} onClick={() => {
+                if (item.label !== 'Our Companies') {
+                  setSelectedCompany(null);
+                }
+              }}>{item.label}</a>
+              {item.children ? <MegaMenuCard item={item} onSelectCompany={(name, isCompany) => {
+                if (isCompany) {
+                  setSelectedCompany(name);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                  setSelectedCompany(null);
+                }
+              }} /> : null}
             </div>
           ))}
         </nav>
       </header>
 
-      <main>
+      {selectedCompany ? (
+        <main style={{ marginTop: '72px', minHeight: '80vh' }}>
+          <CompanyDetailView companyName={selectedCompany} onBack={() => setSelectedCompany(null)} />
+        </main>
+      ) : (
+        <main>
         <section className="hero-section" id="home">
           <video className="hero-video" autoPlay muted loop playsInline aria-hidden="true">
             <source src="/hero-section-new.mp4" type="video/mp4" />
@@ -516,6 +617,7 @@ function App() {
           </div>
         </footer>
       </main>
+      )}
 
       {showScroll && (
         <button className="scroll-top-btn" onClick={scrollToTop} aria-label="Scroll to top">
