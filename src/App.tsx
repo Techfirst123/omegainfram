@@ -303,7 +303,17 @@ function CompanyDetailView({ companyName, onBack }: { companyName: string, onBac
         ]
       },
       {
-        image: '/kusum-project.jpg', // Placeholder for the second project image
+        image: '/solar-carports.jpg', // Replace with the actual image
+        badge: 'Running Project',
+        title: 'KUSUM A & C - Rajasthan',
+        stats: [
+          { label: 'Capacity', value: '200MW Solar System' },
+          { label: 'Scope', value: 'Design, Supply, Installation & Commissioning' },
+          { label: 'Approximate Cost', value: '770 Cr' }
+        ]
+      },
+      {
+        image: '/kusum-project.jpg', // Placeholder for the third project image
         badge: 'Running Project',
         title: 'KUSUM A & C - Rajasthan',
         stats: [
