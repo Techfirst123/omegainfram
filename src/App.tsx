@@ -451,12 +451,14 @@ function App() {
         </nav>
       </header>
 
+      {/* JSX Variables for Reusable Sections */}
       <Routes>
         <Route path="/companies/:slug" element={
           <main style={{ marginTop: '72px', minHeight: '80vh' }}>
             <CompanyRouteWrapper />
           </main>
         } />
+
         <Route path="/" element={
           <main>
             <section className="hero-section" id="home">
@@ -464,13 +466,11 @@ function App() {
                 <source src="/hero-section-new.mp4" type="video/mp4" />
               </video>
               <div className="hero-overlay" />
-
               <div className="hero-content">
                 <div className="hero-intro-text">
                   <p className="section-kicker">Welcome to Omega Infram</p>
                   <h1>Pioneering Renewable Energy Solutions</h1>
                   <p>Leading the global transition to sustainable infrastructure through innovation and engineering excellence.</p>
-
                   <div className="hero-cta">
                     <Link to="/contact" className="hero-primary-btn">
                       Get Consultation
@@ -481,6 +481,152 @@ function App() {
                     <Link to="/about" className="hero-secondary-btn">Our Approach</Link>
                   </div>
                 </div>
+              </div>
+            </section>
+
+            <div className="card-stack" id="about">
+              <FeatureCard slides={featureCards} />
+            </div>
+
+            <section className="business-section" id="businesses">
+              <div className="section-head">
+                <p className="section-kicker">BUSINESS</p>
+                <h2>Our Business Streams</h2>
+              </div>
+              <div className="business-tabs" aria-label="Business categories">
+                {businessStreams.map((stream, idx) => (
+                  <span
+                    key={stream.title}
+                    className={activeStreamIdx === idx ? 'is-active' : ''}
+                    onClick={() => {
+                      setActiveStreamIdx(idx)
+                      setActiveImageIdx(0)
+                    }}
+                  >
+                    {stream.title}
+                  </span>
+                ))}
+              </div>
+              <div className="business-feature">
+                <div className="business-feature-content">
+                  <h3>{businessStreams[activeStreamIdx].title}</h3>
+                  <p>{businessStreams[activeStreamIdx].description}</p>
+                  <Link to="/contact" className="know-more-outline">
+                    KNOW MORE
+                  </Link>
+                </div>
+                <div className="business-feature-media">
+                  {businessStreams[activeStreamIdx].images.map((img, idx) => (
+                    <div
+                      key={img + idx}
+                      className={`business-feature-slide ${activeImageIdx === idx ? 'is-active' : ''}`}
+                      style={{ backgroundImage: `url(${img})` }}
+                    />
+                  ))}
+                  <div className="business-feature-dots">
+                    {businessStreams[activeStreamIdx].images.map((_, idx) => (
+                      <span
+                        key={idx}
+                        className={activeImageIdx === idx ? 'is-active' : ''}
+                        onClick={() => setActiveImageIdx(idx)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section className="companies-section section-shell" id="companies">
+              <div className="section-head companies-head">
+                <p className="section-kicker">Omega Group</p>
+                <h2>Our Companies</h2>
+                <p className="section-intro">
+                  The diverse subsidiaries and specialized entities driving our global operations and engineering excellence.
+                </p>
+              </div>
+              <div className="companies-scrolling-wrapper">
+                <div className="companies-marquee">
+                  {[...companiesList, ...companiesList].map((company, idx) => (
+                    <div className="company-logo-card" key={company.name + idx}>
+                      <div className="company-logo-wrapper">
+                        <img
+                          className="company-logo-image"
+                          src={`https://api.dicebear.com/7.x/shapes/svg?seed=${company.name}&backgroundColor=ffffff`}
+                          alt={company.name}
+                        />
+                      </div>
+                      <h4>{company.name}</h4>
+                      <p className="company-desc">{company.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <section className="sustainability-section section-shell" id="sustainability" style={{ marginTop: '24px' }}>
+              <div className="section-head">
+                <p className="section-kicker">Sustainability</p>
+                <h2>Driving a Net-Zero Future</h2>
+                <p className="section-intro">
+                  We believe that true engineering excellence is measured by its impact on the planet. Omega Group integrates sustainable practices across all verticals to reduce carbon intensity and improve energy resilience globally.
+                </p>
+              </div>
+              <div className="focus-section" style={{ marginTop: '20px' }}>
+                <div className="feature-block" style={{
+                  background: `linear-gradient(180deg, rgba(6, 14, 25, 0.4), rgba(6, 14, 25, 0.8)), url('/utility-scale-solar.jpg') center/cover no-repeat`
+                }}>
+                  <div className="feature-copy">
+                    <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Environmental Stewardship</h2>
+                    <p style={{ fontSize: '1.05rem', lineHeight: '1.6', opacity: 0.9 }}>
+                      From deploying multi-gigawatt solar pipelines to engineering highly efficient biomass facilities, our mandate is to carefully preserve ecosystems while aggressively expanding the world's renewable energy capacity.
+                    </p>
+                    <Link to="/contact" style={{ display: 'inline-block', marginTop: '24px', color: '#86efac', textDecoration: 'none', fontWeight: 600 }}>
+                      Read our 2026 ESG Report &rarr;
+                    </Link>
+                  </div>
+                </div>
+                <div className="highlight-grid">
+                  <div className="highlight-card summary-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <h3 style={{ fontSize: '2.5rem', color: '#22c55e', margin: '0 0 12px 0' }}>4.8 GW+</h3>
+                    <p style={{ fontSize: '1rem', color: '#4a5568', margin: 0 }}>Active renewable energy capacity offsetting millions of tons of CO2 annually.</p>
+                  </div>
+                  <div className="highlight-card summary-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <h3 style={{ fontSize: '2.5rem', color: '#0a84ff', margin: '0 0 12px 0' }}>Net-Zero 2040</h3>
+                    <p style={{ fontSize: '1rem', color: '#4a5568', margin: 0 }}>Aggressively committed to achieving zero emissions across our entire supply chain.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section className="news-section section-shell" id="news">
+              <div className="section-head">
+                <p className="section-kicker">News &amp; Media</p>
+                <h2>Recent updates from Omega Infram</h2>
+              </div>
+              <div className="news-grid">
+                {newsItems.map((item) => (
+                  <article className="news-card" key={item.title}>
+                    <span>{item.meta}</span>
+                    <h3>{item.title}</h3>
+                    <Link to="/contact">Read More</Link>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section className="careers-section section-shell" id="careers">
+              <div className="careers-panel">
+                <div>
+                  <p className="section-kicker">Careers</p>
+                  <h2>Build a better future with us</h2>
+                  <p>
+                    Join teams shaping solar and renewable infrastructure programs across engineering, project controls,
+                    procurement, commissioning, and operations.
+                  </p>
+                </div>
+                <Link className="primary-link" to="/contact">
+                  Explore Careers
+                </Link>
               </div>
             </section>
           </main>
