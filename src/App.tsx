@@ -18,10 +18,10 @@ function CompanyRouteWrapper() {
 }
 
 const navItems = [
-  { label: 'Home', href: '#home' },
+  { label: 'Home', href: '/' },
   {
     label: 'About Us',
-    href: '#about',
+    href: '/about',
     description: 'A premier renewable infrastructure company focused on global delivery and engineering excellence.',
     statValue: '18+',
     statLabel: 'Countries',
@@ -29,7 +29,7 @@ const navItems = [
   },
   {
     label: 'Our Businesses',
-    href: '#businesses',
+    href: '/businesses',
     description: 'Development and Turnkey solar EPC, C&I solutions, and hybrid energy architectures for a net-zero future.',
     statValue: '10+',
     statLabel: 'Capacity',
@@ -43,7 +43,7 @@ const navItems = [
   },
   {
     label: 'Our Companies',
-    href: '#companies',
+    href: '/companies',
     description: 'Explore the specialized divisions and companies within the Omega Group.',
     statValue: '10+',
     statLabel: 'Divisions',
@@ -51,7 +51,7 @@ const navItems = [
   },
   {
     label: 'Sustainability',
-    href: '#sustainability',
+    href: '/sustainability',
     description: 'Designing infrastructure that reduces carbon intensity and improves energy resilience.',
     statValue: 'Net Zero',
     statLabel: 'Vision',
@@ -59,7 +59,7 @@ const navItems = [
   },
   {
     label: 'CSR',
-    href: '#csr',
+    href: '/csr',
     description: 'Empowering communities through energy access, skilling, and health initiatives.',
     statValue: '120+',
     statLabel: 'Partners',
@@ -67,7 +67,7 @@ const navItems = [
   },
   {
     label: 'Investors',
-    href: '#investors',
+    href: '/investors',
     description: 'Transparent reporting and disciplined governance for long-term capital confidence.',
     statValue: 'Trusted',
     statLabel: 'Governance',
@@ -84,7 +84,7 @@ const navItems = [
   },
   {
     label: 'Contact Us',
-    href: '#contact',
+    href: '/contact',
     description: 'Connect with our corporate office or investor desk for business enquiries.',
     statValue: '24/7',
     statLabel: 'Support',
@@ -113,8 +113,6 @@ function MegaMenuCard({ item, onSelectCompany }: { item: any; onSelectCompany?: 
                     if (isCompanyCategory && onSelectCompany) {
                       e.preventDefault()
                       onSelectCompany(child, true)
-                    } else if (onSelectCompany) {
-                      onSelectCompany(child, false)
                     }
                   }}
                 >
@@ -461,219 +459,241 @@ function App() {
         } />
         <Route path="/" element={
           <main>
-        <section className="hero-section" id="home">
-          <video className="hero-video" autoPlay muted loop playsInline aria-hidden="true">
-            <source src="/hero-section-new.mp4" type="video/mp4" />
-          </video>
-          <div className="hero-overlay" />
+            <section className="hero-section" id="home">
+              <video className="hero-video" autoPlay muted loop playsInline aria-hidden="true">
+                <source src="/hero-section-new.mp4" type="video/mp4" />
+              </video>
+              <div className="hero-overlay" />
 
-          <div className="hero-content">
-            <div className="hero-intro-text">
-              <p className="section-kicker">Welcome to Omega Infram</p>
-              <h1>Pioneering Renewable Energy Solutions</h1>
-              <p>Leading the global transition to sustainable infrastructure through innovation and engineering excellence.</p>
+              <div className="hero-content">
+                <div className="hero-intro-text">
+                  <p className="section-kicker">Welcome to Omega Infram</p>
+                  <h1>Pioneering Renewable Energy Solutions</h1>
+                  <p>Leading the global transition to sustainable infrastructure through innovation and engineering excellence.</p>
 
-              <div className="hero-cta">
-                <a href="#contact" className="hero-primary-btn">
-                  Get Consultation
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </a>
-                <a href="#about" className="hero-secondary-btn">Our Approach</a>
+                  <div className="hero-cta">
+                    <Link to="/contact" className="hero-primary-btn">
+                      Get Consultation
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                    <Link to="/about" className="hero-secondary-btn">Our Approach</Link>
+                  </div>
+                </div>
               </div>
+            </section>
+          </main>
+        } />
+
+        <Route path="/about" element={
+          <main style={{ marginTop: '72px', minHeight: '80vh' }}>
+            <div className="card-stack">
+              <FeatureCard slides={featureCards} />
             </div>
-          </div>
-        </section>
+          </main>
+        } />
 
-        <div className="card-stack">
-          <FeatureCard slides={featureCards} id="about" />
-        </div>
+        <Route path="/businesses" element={
+          <main style={{ marginTop: '72px', minHeight: '80vh' }}>
+            <section className="business-section" id="businesses">
+              <div className="section-head">
+                <p className="section-kicker">BUSINESS</p>
+                <h2>Our Business Streams</h2>
+              </div>
 
-
-        <section className="business-section" id="businesses">
-          <div className="section-head">
-            <p className="section-kicker">BUSINESS</p>
-            <h2>Our Business Streams</h2>
-          </div>
-
-          <div className="business-tabs" aria-label="Business categories">
-            {businessStreams.map((stream, idx) => (
-              <span
-                key={stream.title}
-                className={activeStreamIdx === idx ? 'is-active' : ''}
-                onClick={() => {
-                  setActiveStreamIdx(idx)
-                  setActiveImageIdx(0)
-                }}
-              >
-                {stream.title}
-              </span>
-            ))}
-          </div>
-
-          <div className="business-feature">
-            <div className="business-feature-content">
-              <h3>{businessStreams[activeStreamIdx].title}</h3>
-              <p>{businessStreams[activeStreamIdx].description}</p>
-              <a href="#contact" className="know-more-outline">
-                KNOW MORE
-              </a>
-            </div>
-            <div className="business-feature-media">
-              {businessStreams[activeStreamIdx].images.map((img, idx) => (
-                <div
-                  key={img + idx}
-                  className={`business-feature-slide ${activeImageIdx === idx ? 'is-active' : ''}`}
-                  style={{ backgroundImage: `url(${img})` }}
-                />
-              ))}
-              <div className="business-feature-dots">
-                {businessStreams[activeStreamIdx].images.map((_, idx) => (
+              <div className="business-tabs" aria-label="Business categories">
+                {businessStreams.map((stream, idx) => (
                   <span
-                    key={idx}
-                    className={activeImageIdx === idx ? 'is-active' : ''}
-                    onClick={() => setActiveImageIdx(idx)}
-                  />
+                    key={stream.title}
+                    className={activeStreamIdx === idx ? 'is-active' : ''}
+                    onClick={() => {
+                      setActiveStreamIdx(idx)
+                      setActiveImageIdx(0)
+                    }}
+                  >
+                    {stream.title}
+                  </span>
                 ))}
               </div>
-            </div>
-          </div>
-        </section>
 
-        <section className="companies-section section-shell" id="companies">
-          <div className="section-head companies-head">
-            <p className="section-kicker">Omega Group</p>
-            <h2>Our Companies</h2>
-            <p className="section-intro">
-              The diverse subsidiaries and specialized entities driving our global operations and engineering excellence.
-            </p>
-          </div>
-
-          <div className="companies-scrolling-wrapper">
-            <div className="companies-marquee">
-              {[...companiesList, ...companiesList].map((company, idx) => (
-                <div className="company-logo-card" key={company.name + idx}>
-                  <div className="company-logo-wrapper">
-                    <img
-                      className="company-logo-image"
-                      src={`https://api.dicebear.com/7.x/shapes/svg?seed=${company.name}&backgroundColor=ffffff`}
-                      alt={company.name}
-                    />
-                  </div>
-                  <h4>{company.name}</h4>
-                  <p className="company-desc">{company.desc}</p>
+              <div className="business-feature">
+                <div className="business-feature-content">
+                  <h3>{businessStreams[activeStreamIdx].title}</h3>
+                  <p>{businessStreams[activeStreamIdx].description}</p>
+                  <Link to="/contact" className="know-more-outline">
+                    KNOW MORE
+                  </Link>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
+                <div className="business-feature-media">
+                  {businessStreams[activeStreamIdx].images.map((img, idx) => (
+                    <div
+                      key={img + idx}
+                      className={`business-feature-slide ${activeImageIdx === idx ? 'is-active' : ''}`}
+                      style={{ backgroundImage: `url(${img})` }}
+                    />
+                  ))}
+                  <div className="business-feature-dots">
+                    {businessStreams[activeStreamIdx].images.map((_, idx) => (
+                      <span
+                        key={idx}
+                        className={activeImageIdx === idx ? 'is-active' : ''}
+                        onClick={() => setActiveImageIdx(idx)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+          </main>
+        } />
 
-        <section className="sustainability-section section-shell" id="sustainability" style={{ marginTop: '24px' }}>
-          <div className="section-head">
-            <p className="section-kicker">Sustainability</p>
-            <h2>Driving a Net-Zero Future</h2>
-            <p className="section-intro">
-              We believe that true engineering excellence is measured by its impact on the planet. Omega Group integrates sustainable practices across all verticals to reduce carbon intensity and improve energy resilience globally.
-            </p>
-          </div>
-
-          <div className="focus-section" style={{ marginTop: '20px' }}>
-            <div className="feature-block" style={{
-              background: `linear-gradient(180deg, rgba(6, 14, 25, 0.4), rgba(6, 14, 25, 0.8)), url('/utility-scale-solar.jpg') center/cover no-repeat`
-            }}>
-              <div className="feature-copy">
-                <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Environmental Stewardship</h2>
-                <p style={{ fontSize: '1.05rem', lineHeight: '1.6', opacity: 0.9 }}>
-                  From deploying multi-gigawatt solar pipelines to engineering highly efficient biomass facilities, our mandate is to carefully preserve ecosystems while aggressively expanding the world's renewable energy capacity.
+        <Route path="/companies" element={
+          <main style={{ marginTop: '72px', minHeight: '80vh' }}>
+            <section className="companies-section section-shell" id="companies">
+              <div className="section-head companies-head">
+                <p className="section-kicker">Omega Group</p>
+                <h2>Our Companies</h2>
+                <p className="section-intro">
+                  The diverse subsidiaries and specialized entities driving our global operations and engineering excellence.
                 </p>
-                <a href="#contact" style={{ display: 'inline-block', marginTop: '24px', color: '#86efac', textDecoration: 'none', fontWeight: 600 }}>
-                  Read our 2026 ESG Report &rarr;
-                </a>
               </div>
-            </div>
-            <div className="highlight-grid">
-              <div className="highlight-card summary-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <h3 style={{ fontSize: '2.5rem', color: '#22c55e', margin: '0 0 12px 0' }}>4.8 GW+</h3>
-                <p style={{ fontSize: '1rem', color: '#4a5568', margin: 0 }}>Active renewable energy capacity offsetting millions of tons of CO2 annually.</p>
+
+              <div className="companies-scrolling-wrapper">
+                <div className="companies-marquee">
+                  {[...companiesList, ...companiesList].map((company, idx) => (
+                    <div className="company-logo-card" key={company.name + idx}>
+                      <div className="company-logo-wrapper">
+                        <img
+                          className="company-logo-image"
+                          src={`https://api.dicebear.com/7.x/shapes/svg?seed=${company.name}&backgroundColor=ffffff`}
+                          alt={company.name}
+                        />
+                      </div>
+                      <h4>{company.name}</h4>
+                      <p className="company-desc">{company.desc}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="highlight-card summary-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <h3 style={{ fontSize: '2.5rem', color: '#0a84ff', margin: '0 0 12px 0' }}>Net-Zero 2040</h3>
-                <p style={{ fontSize: '1rem', color: '#4a5568', margin: 0 }}>Aggressively committed to achieving zero emissions across our entire supply chain.</p>
+            </section>
+          </main>
+        } />
+
+        <Route path="/sustainability" element={
+          <main style={{ marginTop: '72px', minHeight: '80vh' }}>
+            <section className="sustainability-section section-shell" id="sustainability" style={{ marginTop: '24px' }}>
+              <div className="section-head">
+                <p className="section-kicker">Sustainability</p>
+                <h2>Driving a Net-Zero Future</h2>
+                <p className="section-intro">
+                  We believe that true engineering excellence is measured by its impact on the planet. Omega Group integrates sustainable practices across all verticals to reduce carbon intensity and improve energy resilience globally.
+                </p>
               </div>
-            </div>
-          </div>
-        </section>
 
-        <section className="news-section section-shell" id="news">
-          <div className="section-head">
-            <p className="section-kicker">News &amp; Media</p>
-            <h2>Recent updates from Omega Infram</h2>
-          </div>
-
-          <div className="news-grid">
-            {newsItems.map((item) => (
-              <article className="news-card" key={item.title}>
-                <span>{item.meta}</span>
-                <h3>{item.title}</h3>
-                <a href="#contact">Read More</a>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="careers-section section-shell" id="careers">
-          <div className="careers-panel">
-            <div>
-              <p className="section-kicker">Careers</p>
-              <h2>Build a better future with us</h2>
-              <p>
-                Join teams shaping solar and renewable infrastructure programs across engineering, project controls,
-                procurement, commissioning, and operations.
-              </p>
-            </div>
-            <a className="primary-link" href="#contact">
-              Explore Careers
-            </a>
-          </div>
-        </section>
-
-        <footer className="site-footer" id="contact">
-          <div className="footer-container">
-            <div className="footer-columns">
-              <div className="footer-contact-card">
-                <h4>Contact Details</h4>
-                <ul>
-                  <li>
-                    <strong>Phone</strong>
-                    011-41630318
-                  </li>
-                  <li>
-                    <strong>Business Enquiry</strong>
-                    info@omegainfram.com
-                  </li>
-                  <li>
-                    <strong>Location</strong>
-                    348, DLF Prime Towers, Okhla Phase-1, New Delhi -110020
-                  </li>
-                </ul>
+              <div className="focus-section" style={{ marginTop: '20px' }}>
+                <div className="feature-block" style={{
+                  background: `linear-gradient(180deg, rgba(6, 14, 25, 0.4), rgba(6, 14, 25, 0.8)), url('/utility-scale-solar.jpg') center/cover no-repeat`
+                }}>
+                  <div className="feature-copy">
+                    <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Environmental Stewardship</h2>
+                    <p style={{ fontSize: '1.05rem', lineHeight: '1.6', opacity: 0.9 }}>
+                      From deploying multi-gigawatt solar pipelines to engineering highly efficient biomass facilities, our mandate is to carefully preserve ecosystems while aggressively expanding the world's renewable energy capacity.
+                    </p>
+                    <Link to="/contact" style={{ display: 'inline-block', marginTop: '24px', color: '#86efac', textDecoration: 'none', fontWeight: 600 }}>
+                      Read our 2026 ESG Report &rarr;
+                    </Link>
+                  </div>
+                </div>
+                <div className="highlight-grid">
+                  <div className="highlight-card summary-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <h3 style={{ fontSize: '2.5rem', color: '#22c55e', margin: '0 0 12px 0' }}>4.8 GW+</h3>
+                    <p style={{ fontSize: '1rem', color: '#4a5568', margin: 0 }}>Active renewable energy capacity offsetting millions of tons of CO2 annually.</p>
+                  </div>
+                  <div className="highlight-card summary-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <h3 style={{ fontSize: '2.5rem', color: '#0a84ff', margin: '0 0 12px 0' }}>Net-Zero 2040</h3>
+                    <p style={{ fontSize: '1rem', color: '#4a5568', margin: 0 }}>Aggressively committed to achieving zero emissions across our entire supply chain.</p>
+                  </div>
+                </div>
               </div>
-            </div>
+            </section>
+          </main>
+        } />
 
-            <div className="footer-bottom">
-              <p>Copyright © 2026 Omega Infram Pvt Ltd. All rights reserved.</p>
-              <div className="footer-socials">
-                <a href="#home">LinkedIn</a>
-                <a href="#home">Facebook</a>
-                <a href="#home">Instagram</a>
+        <Route path="/csr" element={
+          <main style={{ marginTop: '72px', minHeight: '80vh' }}>
+            <section className="news-section section-shell" id="news">
+              <div className="section-head">
+                <p className="section-kicker">News &amp; Media</p>
+                <h2>Recent updates from Omega Infram</h2>
               </div>
-            </div>
-          </div>
-        </footer>
-      </main>
+
+              <div className="news-grid">
+                {newsItems.map((item) => (
+                  <article className="news-card" key={item.title}>
+                    <span>{item.meta}</span>
+                    <h3>{item.title}</h3>
+                    <Link to="/contact">Read More</Link>
+                  </article>
+                ))}
+              </div>
+            </section>
+          </main>
+        } />
+
+        <Route path="/contact" element={
+          <main style={{ marginTop: '72px', minHeight: '80vh' }}>
+            <section className="careers-section section-shell" id="careers">
+              <div className="careers-panel">
+                <div>
+                  <p className="section-kicker">Careers</p>
+                  <h2>Build a better future with us</h2>
+                  <p>
+                    Join teams shaping solar and renewable infrastructure programs across engineering, project controls,
+                    procurement, commissioning, and operations.
+                  </p>
+                </div>
+                <Link className="primary-link" to="/contact">
+                  Explore Careers
+                </Link>
+              </div>
+            </section>
+          </main>
         } />
       </Routes>
 
+      <footer className="site-footer" id="contact">
+        <div className="footer-container">
+          <div className="footer-columns">
+            <div className="footer-contact-card">
+              <h4>Contact Details</h4>
+              <ul>
+                <li>
+                  <strong>Phone</strong>
+                  011-41630318
+                </li>
+                <li>
+                  <strong>Business Enquiry</strong>
+                  info@omegainfram.com
+                </li>
+                <li>
+                  <strong>Location</strong>
+                  348, DLF Prime Towers, Okhla Phase-1, New Delhi -110020
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="footer-bottom">
+            <p>Copyright © 2026 Omega Infram Pvt Ltd. All rights reserved.</p>
+            <div className="footer-socials">
+              <Link to="/">LinkedIn</Link>
+              <Link to="/">Facebook</Link>
+              <Link to="/">Instagram</Link>
+            </div>
+          </div>
+        </div>
+      </footer>
       {showScroll && (
         <button className="scroll-top-btn" onClick={scrollToTop} aria-label="Scroll to top">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
