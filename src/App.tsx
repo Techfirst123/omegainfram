@@ -105,9 +105,9 @@ function MegaMenuCard({ item, onSelectCompany }: { item: any; onSelectCompany?: 
             <p className="mega-menu-description">{item.description}</p>
             <div className="mega-menu-links">
               {item.children.map((child: string) => (
-                <a 
+                <Link 
                   key={child} 
-                  href={isCompanyCategory ? '#' : item.href} 
+                  to={isCompanyCategory ? '#' : item.href} 
                   role="menuitem"
                   onClick={(e) => {
                     if (isCompanyCategory && onSelectCompany) {
@@ -117,7 +117,7 @@ function MegaMenuCard({ item, onSelectCompany }: { item: any; onSelectCompany?: 
                   }}
                 >
                   {child}
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -436,7 +436,7 @@ function App() {
         <nav className="nav" aria-label="Primary">
           {navItems.map((item) => (
             <div className="nav-item" key={item.label}>
-              <a href={item.href.startsWith('#') ? `/${item.href}` : item.href}>{item.label}</a>
+              <Link to={item.href}>{item.label}</Link>
               {item.children ? <MegaMenuCard item={item} onSelectCompany={(name, isCompany) => {
                 if (isCompany) {
                   const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
