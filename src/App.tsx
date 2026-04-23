@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes, Route, useNavigate, useParams, Link, useLocation } from 'react-router-dom'
+import { Routes, Route, useNavigate, useParams, Link } from 'react-router-dom'
 import './App.css'
 
 const companyNameMap: Record<string, string> = {
