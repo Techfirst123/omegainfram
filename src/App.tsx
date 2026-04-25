@@ -66,15 +66,6 @@ const navItems = [
     children: ['Community Programs', 'Skill Development', 'Outreach'],
   },
   {
-    label: 'Investors',
-    href: '#investors',
-    description: 'Transparent reporting and disciplined governance for long-term capital confidence.',
-    statValue: 'Trusted',
-    statLabel: 'Governance',
-    children: ['Overview', 'Governance', 'Project Pipeline'],
-  },
-
-  {
     label: 'Careers',
     href: '#careers',
     description: 'Join teams shaping the future of solar and renewable infrastructure programs.',
@@ -105,9 +96,9 @@ function MegaMenuCard({ item, onSelectCompany }: { item: any; onSelectCompany?: 
             <p className="mega-menu-description">{item.description}</p>
             <div className="mega-menu-links">
               {item.children.map((child: string) => (
-                <a 
-                  key={child} 
-                  href={isCompanyCategory ? '#' : (item.href.startsWith('#') ? `/${item.href}` : item.href)} 
+                <a
+                  key={child}
+                  href={isCompanyCategory ? '#' : (item.href.startsWith('#') ? `/${item.href}` : item.href)}
                   role="menuitem"
                   onClick={(e) => {
                     if (isCompanyCategory && onSelectCompany) {
@@ -138,7 +129,7 @@ const featureCards = [
   {
     kicker: 'Who We Are?',
     description:
-      'Omega Group is an established holding company that has its roots since 2003,having various industries linked by the years.The Company has been ascertained by (Sadab Ansari),The Founder Chairman who is from Bihar.For the last 23 years,We have been managing a decent reputation in the markets globally by providing best quality work in a range of fields of infrastructure considering all the environmental and social factors.Effectively,we have been proficient to give the best results in terms of EPC services',
+      'Omega Group is an established holding company that has its roots since 2003, having various industries linked by the years.The Company has been ascertained by (Sadab Ansari), The Founder Chairman who is from Bihar. For the last 23 years, We have been managing a decent reputation in the markets globally by providing best quality work in a range of fields of infrastructure considering all the environmental and social factors. Effectively,we have been proficient to give the best results in terms of EPC services',
     statValue: '75 +',
     statLabel: 'Global Footprints',
   },
@@ -294,7 +285,7 @@ function FeatureCard({ slides, id }: { slides: any[]; id?: string }) {
 
 function CompanyDetailView({ companyName, onBack }: { companyName: string, onBack: () => void }) {
   const descriptions: Record<string, string> = {
-    'Path Found Biogas pvt ltd': 'PathFound Bigoass Pvt. Ltd. is a forward-thinking solar energy company operating under the umbrella of Omega Group, committed to delivering sustainable and innovative energy solutions. The company focuses on harnessing solar power to provide efficient, reliable, and eco-friendly energy systems for residential, commercial, and industrial applications.\n\nWith a strong emphasis on quality, technology, and long-term performance, PathFound Bigoass Pvt. Ltd. specializes in end-to-end solar solutions — from design and engineering to installation and maintenance. The company aims to contribute to a greener future by reducing carbon footprints and promoting clean energy adoption across India.',
+    'Path Found Biogas pvt ltd': 'PathFound Biogas Pvt. Ltd. is a forward-thinking solar energy company operating under the umbrella of Omega Group, committed to delivering sustainable and innovative energy solutions & Compressed Biogas Energy. The company focuses on harnessing solar power to provide efficient, reliable, and eco-friendly energy systems for residential, commercial, and industrial applications.\n\nWith a strong emphasis on quality, technology, and long-term performance, PathFound Bigoass Pvt. Ltd. specializes in end-to-end solar solutions — from design and engineering to installation and maintenance. The company aims to contribute to a greener future by reducing carbon footprints and promoting clean energy adoption across India.',
     'Helios Solar Tech Power solution pvt ltd': 'Helios Solar Tech specializes in cutting-edge solar technologies and power solutions, driving the global transition to clean energy with innovative photovoltaic systems and smart grid integration.',
   };
 
@@ -312,7 +303,7 @@ function CompanyDetailView({ companyName, onBack }: { companyName: string, onBac
       {
         image: '/project-sangli.png',
         badge: 'Running Project',
-        title: 'SPL Installation - Rajasthan, Sangli',
+        title: 'SP Installation - Sangli, Maharashtra',
         stats: [
           { label: 'Capacity', value: '180MW Solar System' },
           { label: 'Scope', value: 'Design, Supply, Installation & Commissioning' },
@@ -325,20 +316,11 @@ function CompanyDetailView({ companyName, onBack }: { companyName: string, onBac
         title: 'KUSUM A & C - Rajasthan',
         stats: [
           { label: 'Capacity', value: '200MW Solar System' },
-          { label: 'Scope', value: 'Design, Supply, Installation & Commissioning' },
+          { label: 'Scope', value: 'Development,Design, Supply, Installation & Commissioning' },
           { label: 'Approximate Cost', value: '770 Cr' }
         ]
       },
-      {
-        image: '/kusum-project.jpg', // Placeholder for the third project image
-        badge: 'Running Project',
-        title: 'KUSUM A & C - Rajasthan',
-        stats: [
-          { label: 'Capacity', value: '15 MW Solar System' },
-          { label: 'Scope', value: 'Design, Supply, Installation & Commissioning' },
-          { label: 'Approximate Cost', value: '65 Cr' }
-        ]
-      }
+
     ]
   };
   const companyProjects = projects[companyName];
@@ -357,9 +339,9 @@ function CompanyDetailView({ companyName, onBack }: { companyName: string, onBac
                 <path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4" />
               </svg>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
-                 <span className="banner-line"></span>
-                 <h2>{companyName}</h2>
-                 <span className="banner-line"></span>
+                <span className="banner-line"></span>
+                <h2>{companyName}</h2>
+                <span className="banner-line"></span>
               </div>
             </>
           )}
@@ -373,7 +355,7 @@ function CompanyDetailView({ companyName, onBack }: { companyName: string, onBac
             <p key={index} className="company-paragraph" style={{ marginBottom: '16px' }}>{paragraph}</p>
           ))}
         </div>
-        
+
         {companyProjects && (
           <div className="project-list">
             {companyProjects.map((project, index) => (
@@ -826,7 +808,7 @@ function App() {
                   011-41630318
                 </li>
                 <li>
-                  <strong>Business Enquiry</strong>
+                  <strong>Get me</strong>
                   info@omegainfram.com
                 </li>
                 <li>
