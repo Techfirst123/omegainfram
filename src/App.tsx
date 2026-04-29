@@ -320,6 +320,26 @@ function CompanyDetailView({ companyName, onBack }: { companyName: string, onBac
           { label: 'Approximate Cost', value: '770 Cr' }
         ]
       },
+      {
+        image: '/BESS Image.png', // Replace with the actual image
+        badge: 'Running Project',
+        title: 'EPC Sindhudurg Maharashtra',
+        stats: [
+          { label: 'Capacity', value: '15MW Solar System' },
+          { label: 'Scope', value: 'Development,Design, Supply, Installation & Commissioning with Battery Energy Storage system (BESS)' },
+          { label: 'Approximate Cost', value: '60 Cr' }
+        ]
+      },
+      {
+        image: '/utility-scale-solar.jpg', // Replace with the actual image
+        badge: 'upcoming Project',
+        title: 'Battery Energy Storage System (BESS), Jodhpur, Rajasthan ',
+        stats: [
+          { label: 'Capacity', value: '50 MW/100 MW' },
+          { label: 'Scope', value: 'Battery installation with Solar System' },
+          { label: 'Approximate Cost', value: '60 Cr' }
+        ]
+      }
 
     ]
   };
