@@ -296,7 +296,7 @@ const businessStreams: BusinessStream[] = [
     title: 'E-Commerce',
     description: 'Specialized logistics and technology infrastructure for rapid delivery and automated retail operations.',
     accent: 'sky',
-    images: ['/international-delivery.png', '/ci-solar.png'],
+    images: ['/zumbii-platform.png', '/international-delivery.png', '/ci-solar.png'],
     slug: 'e-commerce',
   }
 ]

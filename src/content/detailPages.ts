@@ -141,28 +141,28 @@ export const businessDetails: DetailPageContent[] = [
   },
   {
     slug: 'e-commerce',
-    title: 'E-Commerce Infrastructure',
+    title: 'Zumbii E-Commerce and Retail Mart Platform',
     eyebrow: 'Business Stream',
     summary:
-      'Omega Group supports e-commerce logistics, commercial infrastructure, supply coordination, and technology-enabled delivery ecosystems for modern business operations.',
-    image: '/international-delivery.png',
-    imageAlt: 'E-commerce logistics and delivery infrastructure',
-    highlights: ['Logistics infrastructure', 'Commercial supply coordination', 'Technology-enabled operations', 'Delivery ecosystem support'],
+      'Zumbii.com is a B2B and B2C platform that also supports retail small marts in Tier 2 cities, helping customers shop essential items online as well as offline.',
+    image: '/zumbii-platform.png',
+    imageAlt: 'Zumbii B2B and B2C mini supermarket platform for essential items',
+    highlights: ['B2B and B2C platform', 'Retail small mart model', 'Tier 2 city focus', 'Online and offline essential shopping'],
     sections: [
       {
-        heading: 'Modern Logistics Support',
-        body: 'E-commerce growth depends on storage, movement, tracking, and delivery reliability. Omega Group supports infrastructure and coordination needs for these business systems.',
+        heading: 'B2B and B2C Retail Model',
+        body: 'Zumbii.com is designed as a commerce platform where businesses and consumers can access essential products through a connected online and offline retail ecosystem.',
       },
       {
-        heading: 'Vendor and Supply Network',
-        body: 'We help organize vendor work, material movement, and commercial coordination for companies building scalable service operations.',
+        heading: 'Small Mart Network',
+        body: 'The platform supports retail small marts in Tier 2 cities with a practical neighborhood store model for groceries, daily-use items, clothing, pharmaceuticals, beverages, and other essentials.',
       },
       {
-        heading: 'Operational Readiness',
-        body: 'The focus is on dependable infrastructure that supports faster delivery, better visibility, and repeatable commercial workflows.',
+        heading: 'Online and Offline Convenience',
+        body: 'Zumbii helps customers shop essential items online while also maintaining offline retail access, creating a flexible buying experience for everyday community needs.',
       },
     ],
-    ctaLabel: 'Discuss E-Commerce Infrastructure',
+    ctaLabel: 'Discuss Zumbii Partnership',
   },
 ]
 
