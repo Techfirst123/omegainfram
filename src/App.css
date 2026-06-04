@@ -1247,7 +1247,9 @@ main {
 .company-logo-wrapper {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
+  min-height: 88px;
 }
 
 .company-logo-image {
@@ -1258,9 +1260,37 @@ main {
   filter: grayscale(100%) opacity(0.8);
 }
 
+.company-logo-image-real {
+  width: 150px;
+  max-height: 86px;
+  filter: none;
+}
+
+.company-initial-logo {
+  width: 84px;
+  height: 84px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    linear-gradient(135deg, rgba(31, 79, 149, 0.95), rgba(55, 168, 227, 0.9));
+  color: #ffffff;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25), 0 14px 30px rgba(31, 79, 149, 0.16);
+  transition: all 0.3s ease;
+}
+
 .company-logo-card:hover .company-logo-image {
   filter: grayscale(0%) opacity(1);
   transform: scale(1.1);
+}
+
+.company-logo-card:hover .company-initial-logo {
+  transform: scale(1.08);
+  background:
+    linear-gradient(135deg, rgba(34, 197, 94, 0.96), rgba(31, 79, 149, 0.94));
 }
 
 .company-logo-card h4 {

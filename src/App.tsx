@@ -287,7 +287,7 @@ const businessStreams: BusinessStream[] = [
 ]
 
 const companiesList = [
-  { name: 'Path Found Biogas pvt ltd', desc: 'Waste-to-energy ecosystems and bio-renewable fuels.' },
+  { name: 'Path Found Biogas pvt ltd', desc: 'Waste-to-energy ecosystems and bio-renewable fuels.', logo: '/pathfound-logo.png' },
   { name: 'Helios Solar Tech Power solution pvt ltd', desc: 'High-efficiency solar solutions and smart grids.' },
   { name: 'DS Buildwelll', desc: 'Structural and civil infrastructure works.' },
   { name: 'Omega Infra Mining Co.LLP', desc: 'Sustainable mining and aggregate operations.' },
@@ -298,6 +298,38 @@ const companiesList = [
   { name: 'Path Found Infrastructure', desc: 'Large-scale national corridors and highway systems.' },
   { name: 'Samaira Shadab Infrastructure LLP', desc: 'Bespoke integrated civic amenities and urban development.' },
 ];
+
+function getCompanyInitials(name: string) {
+  const ignoredWords = new Set(['pvt', 'ltd', 'llp', 'co', 'corporation'])
+  return name
+    .replace(/\./g, ' ')
+    .split(/\s+/)
+    .filter((word) => word && !ignoredWords.has(word.toLowerCase()))
+    .map((word) => word[0])
+    .join('')
+    .slice(0, 4)
+    .toUpperCase()
+}
+
+function CompanyLogo({ company }: { company: { name: string; logo?: string } }) {
+  if (company.logo) {
+    return (
+      <img
+        className="company-logo-image company-logo-image-real"
+        src={company.logo}
+        alt={`${company.name} official logo`}
+        loading="lazy"
+        decoding="async"
+      />
+    )
+  }
+
+  return (
+    <div className="company-initial-logo" aria-label={`${company.name} logo placeholder`}>
+      {getCompanyInitials(company.name)}
+    </div>
+  )
+}
 
 const newsItems = [
   {
@@ -650,13 +682,7 @@ function App() {
                   {[...companiesList, ...companiesList].map((company, idx) => (
                     <div className="company-logo-card" key={company.name + idx}>
                       <div className="company-logo-wrapper">
-                        <img
-                          className="company-logo-image"
-                          src="/logo.png"
-                          alt={`${company.name} Omega Group renewable infrastructure division`}
-                          loading="lazy"
-                          decoding="async"
-                        />
+                        <CompanyLogo company={company} />
                       </div>
                       <h4>{company.name}</h4>
                       <p className="company-desc">{company.desc}</p>
@@ -831,13 +857,7 @@ function App() {
                   {[...companiesList, ...companiesList].map((company, idx) => (
                     <div className="company-logo-card" key={company.name + idx}>
                       <div className="company-logo-wrapper">
-                        <img
-                          className="company-logo-image"
-                          src="/logo.png"
-                          alt={`${company.name} Omega Group renewable infrastructure division`}
-                          loading="lazy"
-                          decoding="async"
-                        />
+                        <CompanyLogo company={company} />
                       </div>
                       <h4>{company.name}</h4>
                       <p className="company-desc">{company.desc}</p>
