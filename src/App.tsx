@@ -292,6 +292,12 @@ const businessStreams: BusinessStream[] = [
   }
 ]
 
+const runningProjectLocations = [
+  { state: 'Maharashtra', project: '225 MW solar procurement', x: 61, y: 53 },
+  { state: 'Rajasthan', project: 'KUSUM solar project', x: 52, y: 37 },
+  { state: 'Goa', project: 'Renewable infrastructure support', x: 57, y: 67 },
+]
+
 const companiesList = [
   { name: 'Path Found Biogas pvt ltd', desc: 'Waste-to-energy ecosystems and bio-renewable fuels.', logo: '/pathfound-logo.png' },
   { name: 'Helios Solar Tech Power solution pvt ltd', desc: 'High-efficiency solar solutions and smart grids.' },
@@ -632,6 +638,31 @@ function App() {
                       </svg>
                     </a>
                     <Link to="/contact" className="hero-secondary-btn">Contact Omega Group</Link>
+                  </div>
+                </div>
+                <div className="hero-project-map" aria-label="Running project locations in India">
+                  <div className="hero-project-map-header">
+                    <span>Running Projects</span>
+                    <strong>India</strong>
+                  </div>
+                  <div className="hero-project-map-panel">
+                    {runningProjectLocations.map((location, index) => (
+                      <div
+                        key={location.state}
+                        className="hero-map-pin"
+                        style={{
+                          left: `${location.x}%`,
+                          top: `${location.y}%`,
+                          animationDelay: `${index * 220}ms`,
+                        }}
+                      >
+                        <span className="pin-dot" aria-hidden="true" />
+                        <span className="pin-label">
+                          <strong>{location.state}</strong>
+                          <small>{location.project}</small>
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
