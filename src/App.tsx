@@ -333,6 +333,10 @@ function CompanyLogo({ company }: { company: { name: string; logo?: string } }) 
 
 const newsItems = [
   {
+    title: 'Path Found Biogas secures procurement update for 225 MW solar power in Maharashtra',
+    meta: 'New Project Procurement',
+  },
+  {
     title: 'Omega expands multi-site industrial solar rollout across western India',
     meta: 'Project Update',
   },
@@ -416,6 +420,16 @@ function CompanyDetailView({ companyName, onBack }: { companyName: string, onBac
 
   const projects: Record<string, Project[]> = {
     'Path Found Biogas pvt ltd': [
+      {
+        image: '/utility-scale-solar.jpg',
+        badge: 'Current Project',
+        title: '225MW Solar project,maharashtra',
+        stats: [
+          { label: 'Capacity', value: '225 MW (AC) Solar Power' },
+          { label: 'Location', value: 'Maharashtra' },
+          { label: 'Scope', value: 'Procurement under MSEDC power purchase agreement' }
+        ]
+      },
       {
         image: '/project-sangli.png',
         badge: 'Running Project',
