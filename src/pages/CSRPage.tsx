@@ -49,6 +49,7 @@ const impactStats = [
 ]
 
 const initiatives = [
+  'Nasha Mukti Abhiyan Youth Cricket Tournament',
   'Free Health Camps',
   'Scholarship Programs',
   'Solar Energy Awareness',
@@ -68,6 +69,21 @@ const commitments: Array<{ title: string; text: string; icon: IconType }> = [
 ]
 
 const galleryImages = [
+  {
+    src: '/csr/hazaribag-nasha-mukti-trophy-display.jpeg',
+    alt: 'Omega Group Nasha Mukti Abhiyan youth cricket tournament trophies in Hazaribag Jharkhand',
+    title: 'Hazaribag Youth Cricket Tournament',
+  },
+  {
+    src: '/csr/hazaribag-press-meet-nasha-mukti.jpeg',
+    alt: 'Press interaction for Omega Group Nasha Mukti Abhiyan drug free society campaign in Hazaribag',
+    title: 'Nasha Mukti Abhiyan Press Meet',
+  },
+  {
+    src: '/csr/hazaribag-cricket-tournament-planning.jpeg',
+    alt: 'Community leaders planning the 10 day youth cricket tournament for drug free society campaign in Hazaribag',
+    title: '10-Day Cricket Campaign Planning',
+  },
   {
     src: 'https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=1100&q=78',
     alt: 'Community volunteers supporting welfare distribution',
@@ -118,7 +134,14 @@ const stories = [
   },
 ]
 
-const partnerships = ['NGOs', 'Educational Institutions', 'Healthcare Organizations', 'Government Bodies', 'Community Groups']
+const partnerships = [
+  { name: 'HCPL', logo: '/csr/hcpl-logo.jpeg', description: 'Youth sports and community campaign partner' },
+  { name: 'NGOs', description: 'Grassroots program coordination' },
+  { name: 'Educational Institutions', description: 'Learning and skill development partnerships' },
+  { name: 'Healthcare Organizations', description: 'Medical outreach and preventive care' },
+  { name: 'Government Bodies', description: 'Public welfare and development alignment' },
+  { name: 'Community Groups', description: 'Local participation and program stewardship' },
+]
 
 const reports = [
   { title: 'CSR Policy PDF', text: 'Governance framework and responsible social investment principles.' },
@@ -415,11 +438,16 @@ export default function CSRPage() {
         />
         <div className="mx-auto mt-12 grid max-w-6xl gap-5 sm:grid-cols-2 lg:grid-cols-5">
           {partnerships.map((partner) => (
-            <div key={partner} className="rounded-lg border border-slate-200 bg-white p-5 text-center shadow-sm">
-              <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-[#0a84ff]/10 text-[#0a84ff]">
-                <BriefcaseBusiness size={24} aria-hidden="true" />
+            <div key={partner.name} className="rounded-lg border border-slate-200 bg-white p-5 text-center shadow-sm">
+              <div className="mx-auto grid h-16 w-16 place-items-center overflow-hidden rounded-full bg-[#0a84ff]/10 text-[#0a84ff]">
+                {partner.logo ? (
+                  <img src={partner.logo} alt={`${partner.name} CSR partner logo`} className="h-full w-full object-cover" loading="lazy" decoding="async" />
+                ) : (
+                  <BriefcaseBusiness size={24} aria-hidden="true" />
+                )}
               </div>
-              <h3 className="mt-4 text-base font-bold tracking-normal text-slate-950">{partner}</h3>
+              <h3 className="mt-4 text-base font-bold tracking-normal text-slate-950">{partner.name}</h3>
+              <p className="mt-2 text-xs leading-5 text-slate-500">{partner.description}</p>
             </div>
           ))}
         </div>
