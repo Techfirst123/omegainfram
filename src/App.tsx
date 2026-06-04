@@ -6,6 +6,7 @@ import { SeoManager } from './seo'
 const ServicePage = React.lazy(() => import('./pages/ServicePages').then((module) => ({ default: module.ServicePage })))
 const AboutOmegaGroupPage = React.lazy(() => import('./pages/ServicePages').then((module) => ({ default: module.AboutOmegaGroupPage })))
 const ContactPage = React.lazy(() => import('./pages/ServicePages').then((module) => ({ default: module.ContactPage })))
+const CSRPage = React.lazy(() => import('./pages/CSRPage'))
 
 const companyNameMap: Record<string, string> = {
   'path-found-biogas-pvt-ltd': 'Path Found Biogas pvt ltd',
@@ -95,11 +96,15 @@ const navItems: NavItem[] = [
   },
   {
     label: 'CSR',
-    href: '#news',
+    href: '/csr',
     description: 'Empowering communities through energy access, skilling, and health initiatives.',
     statValue: '120+',
     statLabel: 'Partners',
-    children: ['Community Programs', 'Skill Development', 'Outreach'],
+    children: [
+      { label: 'CSR Vision', href: '/csr#focus-areas' },
+      { label: 'Key Initiatives', href: '/csr#initiatives' },
+      { label: 'Partner With Us', href: '/csr#partner' },
+    ],
   },
   {
     label: 'Careers',
@@ -923,26 +928,7 @@ function App() {
           </main>
         } />
 
-        <Route path="/csr" element={
-          <main style={{ marginTop: '72px', minHeight: '80vh' }}>
-            <section className="news-section section-shell" id="news">
-              <div className="section-head">
-                <p className="section-kicker">News &amp; Media</p>
-                <h1>Recent updates from Omega Infram</h1>
-              </div>
-
-              <div className="news-grid">
-                {newsItems.map((item) => (
-                  <article className="news-card" key={item.title}>
-                    <span>{item.meta}</span>
-                    <h3>{item.title}</h3>
-                    <Link to="/contact">Read More</Link>
-                  </article>
-                ))}
-              </div>
-            </section>
-          </main>
-        } />
+        <Route path="/csr" element={<CSRPage />} />
 
         <Route path="/contact" element={<ContactPage />} />
       </Routes>

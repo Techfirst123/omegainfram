@@ -79,10 +79,10 @@ export const seoPages: Record<string, PageSeo> = {
       'Omega Group green energy, sustainability, net-zero projects, renewable energy projects India, solar plant installation',
   },
   '/csr': {
-    title: 'CSR & Updates | Omega Infram Renewable Infrastructure',
+    title: 'Omega Group CSR | Sustainable Community Impact & Social Development',
     description:
-      'Read Omega Infram updates on renewable infrastructure, solar rollout, hybrid energy execution, sourcing partnerships, and community programs.',
+      'Explore Omega Group CSR initiatives across education, healthcare, environmental sustainability, rural development, renewable energy awareness, women empowerment, and community welfare.',
     keywords:
-      'Omega Infram CSR, renewable infrastructure updates, solar rollout India, green energy company',
+      'Omega Group CSR, corporate social responsibility India, sustainable community development, CSR education healthcare environment, renewable energy CSR initiatives',
   },
 }
