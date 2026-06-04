@@ -85,4 +85,11 @@ export const seoPages: Record<string, PageSeo> = {
     keywords:
       'Omega Group CSR, corporate social responsibility India, sustainable community development, CSR education healthcare environment, renewable energy CSR initiatives',
   },
+  '/admin/whatsapp': {
+    title: 'Omega Group WhatsApp Admin | Business Activity Messaging',
+    description:
+      'Secure Omega Group admin dashboard for WhatsApp Business activity updates to vendors, investors, clients, staff, partners, and business contacts.',
+    keywords:
+      'Omega Group WhatsApp admin, WhatsApp Business Cloud API, vendor messaging, investor updates, business contact management',
+  },
 }

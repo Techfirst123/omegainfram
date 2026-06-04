@@ -7,6 +7,7 @@ const ServicePage = React.lazy(() => import('./pages/ServicePages').then((module
 const AboutOmegaGroupPage = React.lazy(() => import('./pages/ServicePages').then((module) => ({ default: module.AboutOmegaGroupPage })))
 const ContactPage = React.lazy(() => import('./pages/ServicePages').then((module) => ({ default: module.ContactPage })))
 const CSRPage = React.lazy(() => import('./pages/CSRPage'))
+const WhatsAppAdminPage = React.lazy(() => import('./pages/WhatsAppAdminPage'))
 
 const companyNameMap: Record<string, string> = {
   'path-found-biogas-pvt-ltd': 'Path Found Biogas pvt ltd',
@@ -931,6 +932,7 @@ function App() {
         <Route path="/csr" element={<CSRPage />} />
 
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/admin/whatsapp" element={<WhatsAppAdminPage />} />
       </Routes>
       </Suspense>
 
