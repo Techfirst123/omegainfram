@@ -1,11 +1,47 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Routes, Route, useNavigate, useParams, Link } from 'react-router-dom'
 import './App.css'
+import { SeoManager } from './seo'
+
+const ServicePage = React.lazy(() => import('./pages/ServicePages').then((module) => ({ default: module.ServicePage })))
+const AboutOmegaGroupPage = React.lazy(() => import('./pages/ServicePages').then((module) => ({ default: module.AboutOmegaGroupPage })))
+const ContactPage = React.lazy(() => import('./pages/ServicePages').then((module) => ({ default: module.ContactPage })))
 
 const companyNameMap: Record<string, string> = {
   'path-found-biogas-pvt-ltd': 'Path Found Biogas pvt ltd',
   'helios-solar-tech-power-solution-pvt-ltd': 'Helios Solar Tech Power solution pvt ltd'
 };
+
+type NavChild = string | { label: string; href: string }
+
+type NavItem = {
+  label: string
+  href: string
+  description?: string
+  statValue?: string
+  statLabel?: string
+  children?: NavChild[]
+}
+
+type FeatureSlide = {
+  kicker: string
+  title?: string
+  description: string
+  statValue: string
+  statLabel: string
+}
+
+type ProjectStat = {
+  label: string
+  value: string
+}
+
+type Project = {
+  image: string
+  badge: string
+  title: string
+  stats: ProjectStat[]
+}
 
 function CompanyRouteWrapper() {
   const { slug } = useParams();
@@ -17,7 +53,7 @@ function CompanyRouteWrapper() {
   return <CompanyDetailView companyName={companyName} onBack={() => navigate('/')} />;
 }
 
-const navItems = [
+const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
   {
     label: 'About Us',
@@ -29,16 +65,16 @@ const navItems = [
   },
   {
     label: 'Our Businesses',
-    href: '#businesses',
+    href: '/businesses',
     description: 'Development and Turnkey solar EPC, C&I solutions, and hybrid energy architectures for a net-zero future.',
     statValue: '10+',
     statLabel: 'Capacity',
     children: [
-      'Utility Scale Solar',
-      'C&I Solar',
-      'Hybrid Energy',
-      'O&M Services',
-      'International Delivery',
+      { label: 'Solar EPC Services', href: '/solar-epc-services' },
+      { label: 'Biogas Plant Solutions', href: '/biogas-plant-solutions' },
+      { label: 'Green Energy Projects', href: '/green-energy-projects' },
+      { label: 'Infrastructure Services', href: '/infrastructure-services' },
+      { label: 'Business Streams', href: '/businesses' },
     ],
   },
   {
@@ -75,7 +111,7 @@ const navItems = [
   },
   {
     label: 'Contact Us',
-    href: '#contact',
+    href: '/contact',
     description: 'Connect with our corporate office or investor desk for business enquiries.',
     statValue: '24/7',
     statLabel: 'Support',
@@ -83,8 +119,52 @@ const navItems = [
   },
 ]
 
-function MegaMenuCard({ item, onSelectCompany }: { item: any; onSelectCompany?: (name: string, isCompany: boolean) => void }) {
+const servicePages = {
+  '/solar-epc-services': {
+    kicker: 'Solar EPC Services',
+    title: 'Solar EPC services and solar plant installation in India',
+    intro:
+      'Omega Infram supports solar developers, industries, and infrastructure clients with engineering, procurement, installation, commissioning, and solar project contractor services.',
+    image: '/utility-scale-solar.jpg',
+    imageAlt: 'Utility-scale solar plant installation by Omega Infram solar EPC team',
+    services: ['Site execution planning', 'Engineering and procurement support', 'Solar plant installation', 'Testing and commissioning'],
+    outcomes: ['Single-window coordination for solar EPC scopes.', 'Execution support for utility-scale and C&I solar assets.', 'Vendor and materials supply alignment for faster delivery.'],
+  },
+  '/biogas-plant-solutions': {
+    kicker: 'Biogas Plant Solutions',
+    title: 'Biogas plant solutions and waste-to-energy infrastructure',
+    intro:
+      'Omega Group supports biogas infrastructure and compressed biogas project delivery through practical planning, supply coordination, installation support, and renewable plant execution.',
+    image: '/project-sangli.png',
+    imageAlt: 'Biogas and renewable energy infrastructure project execution by Omega Group',
+    services: ['Biogas project planning', 'CBG infrastructure support', 'Vendor and material coordination', 'Plant execution assistance'],
+    outcomes: ['Waste-to-energy project support from planning to commissioning.', 'Biogas infrastructure built around dependable site execution.', 'Green energy project delivery aligned with client requirements.'],
+  },
+  '/green-energy-projects': {
+    kicker: 'Green Energy Projects',
+    title: 'Renewable energy projects for a low-carbon future',
+    intro:
+      'Omega Infram delivers green energy projects across solar, hybrid energy, battery storage, and biogas infrastructure with a focus on scalable execution in India.',
+    image: '/hybrid-energy.png',
+    imageAlt: 'Hybrid renewable energy projects including solar and storage infrastructure',
+    services: ['Solar and hybrid energy projects', 'Battery storage coordination', 'Renewable asset execution', 'Green infrastructure planning'],
+    outcomes: ['Project structures designed for renewable energy expansion.', 'Execution teams aligned to schedule, scope, and quality.', 'Practical support for industrial and utility-scale energy assets.'],
+  },
+  '/infrastructure-services': {
+    kicker: 'Infrastructure Services',
+    title: 'Green infrastructure services, materials supply, and vendor work',
+    intro:
+      'Omega Infram provides infrastructure services for renewable and civil projects, including materials supply, vendor execution, construction coordination, and site delivery.',
+    image: '/infra-construction.jpg',
+    imageAlt: 'Infrastructure services and construction coordination by Omega Infram',
+    services: ['Civil infrastructure execution', 'Materials supply', 'Vendor work coordination', 'Project controls and delivery support'],
+    outcomes: ['Infrastructure delivery connected to renewable project goals.', 'Clear coordination across suppliers, vendors, and site teams.', 'Execution support for public, industrial, and energy infrastructure.'],
+  },
+}
+
+function MegaMenuCard({ item, onSelectCompany }: { item: NavItem; onSelectCompany?: (name: string, isCompany: boolean) => void }) {
   const isCompanyCategory = item.label === 'Our Companies'
+  if (!item.children) return null
   return (
     <div className="mega-menu" role="menu" aria-label={`${item.label} mega menu`}>
       <div className="mega-menu-inner">
@@ -95,24 +175,28 @@ function MegaMenuCard({ item, onSelectCompany }: { item: any; onSelectCompany?: 
             <h3>{item.label}</h3>
             <p className="mega-menu-description">{item.description}</p>
             <div className="mega-menu-links">
-              {item.children.map((child: string) => (
+              {item.children.map((child: NavChild) => {
+                const childLabel = typeof child === 'string' ? child : child.label
+                const childHref = typeof child === 'string' ? '#' : child.href
+                return (
                 <a
-                  key={child}
-                  href={isCompanyCategory ? '#' : (item.href.startsWith('#') ? `/${item.href}` : item.href)}
+                  key={childLabel}
+                  href={isCompanyCategory ? '#' : childHref}
                   role="menuitem"
                   onClick={(e) => {
                     if (isCompanyCategory && onSelectCompany) {
                       e.preventDefault()
-                      onSelectCompany(child, true)
+                      onSelectCompany(childLabel, true)
                     } else if (onSelectCompany) {
+                      if (childHref.startsWith('/')) return
                       e.preventDefault()
-                      onSelectCompany(child, false)
+                      onSelectCompany(childLabel, false)
                     }
                   }}
                 >
-                  {child}
+                  {childLabel}
                 </a>
-              ))}
+              )})}
             </div>
           </div>
           <div className="mega-menu-stat">
@@ -231,7 +315,7 @@ const newsItems = [
 ]
 
 
-function FeatureCard({ slides, id }: { slides: any[]; id?: string }) {
+function FeatureCard({ slides, id }: { slides: FeatureSlide[]; id?: string }) {
   const [activeIdx, setActiveIdx] = React.useState(0)
 
   return (
@@ -247,7 +331,7 @@ function FeatureCard({ slides, id }: { slides: any[]; id?: string }) {
               {slides.map((slide, idx) => (
                 <div className="info-slide" key={idx}>
                   <p className="hero-kicker">{slide.kicker}</p>
-                  <h1>{slide.title}</h1>
+                  <h2>{slide.title || slide.kicker}</h2>
                   <p className="hero-text hero-text-dark">{slide.description}</p>
                 </div>
               ))}
@@ -298,7 +382,7 @@ function CompanyDetailView({ companyName, onBack }: { companyName: string, onBac
   const desc = descriptions[companyName] || defaultDesc;
   const logo = companyLogos[companyName];
 
-  const projects: Record<string, any[]> = {
+  const projects: Record<string, Project[]> = {
     'Path Found Biogas pvt ltd': [
       {
         image: '/project-sangli.png',
@@ -351,7 +435,7 @@ function CompanyDetailView({ companyName, onBack }: { companyName: string, onBac
         <div className="company-header-inner">
           {logo ? (
             <div className="company-logo-container">
-              <img src={logo} alt={companyName} className="company-specific-logo" />
+              <img src={logo} alt={`${companyName} renewable energy company logo`} className="company-specific-logo" loading="eager" decoding="async" />
             </div>
           ) : (
             <>
@@ -381,13 +465,13 @@ function CompanyDetailView({ companyName, onBack }: { companyName: string, onBac
             {companyProjects.map((project, index) => (
               <div key={index} className={`project-highlight-card ${index % 2 !== 0 ? 'project-reverse' : ''}`}>
                 <div className="project-image-side">
-                  <img src={project.image} alt={project.title} />
+                  <img src={project.image} alt={`${project.title} renewable energy project by Omega Group`} loading="lazy" decoding="async" />
                 </div>
                 <div className="project-info-side">
                   <div className="project-badge">{project.badge || 'Featured Project'}</div>
                   <h3>{project.title}</h3>
                   <div className="project-stats-grid">
-                    {project.stats.map((stat: any, idx: number) => (
+                    {project.stats.map((stat, idx) => (
                       <div key={idx} className="project-stat-box">
                         <span className="stat-label">{stat.label}</span>
                         <strong className="stat-value">{stat.value}</strong>
@@ -430,10 +514,11 @@ function App() {
   }
   return (
     <div className="page-shell">
+      <SeoManager />
       <header className="topbar">
         <Link className="brand-block" to="/" aria-label="Omega Infram home">
           <div className="brand-stack">
-            <img className="brand-logo" src="/logo.png" alt="Omega Infram logo" />
+            <img className="brand-logo" src="/logo.png" alt="Omega Infram green energy and infrastructure company logo" loading="eager" decoding="async" />
             <p className="brand-company-name">omega infram pvt ltd</p>
           </div>
         </Link>
@@ -448,11 +533,16 @@ function App() {
                   navigate(`/companies/${slug}`);
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
-                  navigate('/');
-                  setTimeout(() => {
-                    const el = document.getElementById(item.href.replace('#', ''));
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }, 100);
+                  if (item.href.startsWith('#')) {
+                    navigate('/');
+                    setTimeout(() => {
+                      const el = document.getElementById(item.href.replace('#', ''));
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                  } else {
+                    navigate(item.href);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }
                 }
               }} /> : null}
             </div>
@@ -461,6 +551,7 @@ function App() {
       </header>
 
       {/* JSX Variables for Reusable Sections */}
+      <Suspense fallback={<main className="route-loading">Loading Omega Infram page...</main>}>
       <Routes>
         <Route path="/companies/:slug" element={
           <main style={{ marginTop: '72px', minHeight: '80vh' }}>
@@ -471,7 +562,8 @@ function App() {
         <Route path="/" element={
           <main>
             <section className="hero-section" id="home">
-              <video className="hero-video" autoPlay muted loop playsInline aria-hidden="true">
+              <video className="hero-video" autoPlay muted loop playsInline preload="metadata" poster="/hero-world-map-poster.jpg" aria-hidden="true">
+                <source src="/hero-world-map.webm" type="video/webm" />
                 <source src="/hero-section-new.mp4" type="video/mp4" />
               </video>
               <div className="hero-overlay" />
@@ -482,12 +574,12 @@ function App() {
                   <p>Leading the global transition to sustainable infrastructure through innovation and engineering excellence.</p>
                   <div className="hero-cta">
                     <a href="/#contact" className="hero-primary-btn">
-                      Get Consultation
+                      Request Project Consultation
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M5 12h14M12 5l7 7-7 7" />
                       </svg>
                     </a>
-                    <a href="/#about" className="hero-secondary-btn">Our Approach</a>
+                    <Link to="/contact" className="hero-secondary-btn">Contact Omega Group</Link>
                   </div>
                 </div>
               </div>
@@ -560,8 +652,10 @@ function App() {
                       <div className="company-logo-wrapper">
                         <img
                           className="company-logo-image"
-                          src={`https://api.dicebear.com/7.x/shapes/svg?seed=${company.name}&backgroundColor=ffffff`}
-                          alt={company.name}
+                          src="/logo.png"
+                          alt={`${company.name} Omega Group renewable infrastructure division`}
+                          loading="lazy"
+                          decoding="async"
                         />
                       </div>
                       <h4>{company.name}</h4>
@@ -643,18 +737,36 @@ function App() {
 
         <Route path="/about" element={
           <main style={{ marginTop: '72px', minHeight: '80vh' }}>
+            <section className="section-shell route-intro">
+              <p className="section-kicker">About Omega Group</p>
+              <h1>About Omega Group and Omega Infram</h1>
+              <p className="section-intro">
+                Omega Group focuses on green energy, solar EPC, biogas infrastructure, renewable energy projects,
+                materials supply, vendor work, and reliable infrastructure execution.
+              </p>
+            </section>
             <div className="card-stack">
               <FeatureCard slides={featureCards} />
             </div>
           </main>
         } />
 
+        <Route path="/about-omega-group" element={<AboutOmegaGroupPage />} />
+
+        {Object.entries(servicePages).map(([path, page]) => (
+          <Route
+            key={path}
+            path={path}
+            element={<ServicePage {...page} />}
+          />
+        ))}
+
         <Route path="/businesses" element={
           <main style={{ marginTop: '72px', minHeight: '80vh' }}>
             <section className="business-section" id="businesses">
               <div className="section-head">
                 <p className="section-kicker">BUSINESS</p>
-                <h2>Our Business Streams</h2>
+                <h1>Our Business Streams</h1>
               </div>
 
               <div className="business-tabs" aria-label="Business categories">
@@ -708,7 +820,7 @@ function App() {
             <section className="companies-section section-shell" id="companies">
               <div className="section-head companies-head">
                 <p className="section-kicker">Omega Group</p>
-                <h2>Our Companies</h2>
+                <h1>Our Companies</h1>
                 <p className="section-intro">
                   The diverse subsidiaries and specialized entities driving our global operations and engineering excellence.
                 </p>
@@ -721,8 +833,10 @@ function App() {
                       <div className="company-logo-wrapper">
                         <img
                           className="company-logo-image"
-                          src={`https://api.dicebear.com/7.x/shapes/svg?seed=${company.name}&backgroundColor=ffffff`}
-                          alt={company.name}
+                          src="/logo.png"
+                          alt={`${company.name} Omega Group renewable infrastructure division`}
+                          loading="lazy"
+                          decoding="async"
                         />
                       </div>
                       <h4>{company.name}</h4>
@@ -740,7 +854,7 @@ function App() {
             <section className="sustainability-section section-shell" id="sustainability" style={{ marginTop: '24px' }}>
               <div className="section-head">
                 <p className="section-kicker">Sustainability</p>
-                <h2>Driving a Net-Zero Future</h2>
+                <h1>Driving a Net-Zero Future</h1>
                 <p className="section-intro">
                   We believe that true engineering excellence is measured by its impact on the planet. Omega Group integrates sustainable practices across all verticals to reduce carbon intensity and improve energy resilience globally.
                 </p>
@@ -780,7 +894,7 @@ function App() {
             <section className="news-section section-shell" id="news">
               <div className="section-head">
                 <p className="section-kicker">News &amp; Media</p>
-                <h2>Recent updates from Omega Infram</h2>
+                <h1>Recent updates from Omega Infram</h1>
               </div>
 
               <div className="news-grid">
@@ -796,26 +910,9 @@ function App() {
           </main>
         } />
 
-        <Route path="/contact" element={
-          <main style={{ marginTop: '72px', minHeight: '80vh' }}>
-            <section className="careers-section section-shell" id="careers">
-              <div className="careers-panel">
-                <div>
-                  <p className="section-kicker">Careers</p>
-                  <h2>Build a better future with us</h2>
-                  <p>
-                    Join teams shaping solar and renewable infrastructure programs across engineering, project controls,
-                    procurement, commissioning, and operations.
-                  </p>
-                </div>
-                <a className="primary-link" href="/#contact">
-                  Explore Careers
-                </a>
-              </div>
-            </section>
-          </main>
-        } />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
+      </Suspense>
 
       <footer className="site-footer" id="contact">
         <div className="footer-container">
