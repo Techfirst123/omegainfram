@@ -8,6 +8,8 @@ const AboutOmegaGroupPage = React.lazy(() => import('./pages/ServicePages').then
 const ContactPage = React.lazy(() => import('./pages/ServicePages').then((module) => ({ default: module.ContactPage })))
 const CSRPage = React.lazy(() => import('./pages/CSRPage'))
 const WhatsAppAdminPage = React.lazy(() => import('./pages/WhatsAppAdminPage'))
+const BusinessDetailPage = React.lazy(() => import('./pages/DetailPages').then((module) => ({ default: module.BusinessDetailPage })))
+const CSRUpdateDetailPage = React.lazy(() => import('./pages/DetailPages').then((module) => ({ default: module.CSRUpdateDetailPage })))
 
 const companyNameMap: Record<string, string> = {
   'path-found-biogas-pvt-ltd': 'Path Found Biogas pvt ltd',
@@ -251,6 +253,7 @@ interface BusinessStream {
   description: string;
   accent: string;
   images: string[];
+  slug: string;
 }
 
 const businessStreams: BusinessStream[] = [
@@ -259,36 +262,42 @@ const businessStreams: BusinessStream[] = [
     description: 'Development and Turnkey solar EPC, C&I solutions, and hybrid energy architectures for a net-zero future.',
     accent: 'sunrise',
     images: ['/utility-scale-solar.jpg', '/ci-solar.png', '/hybrid-energy.png', '/international-delivery.png'],
+    slug: 'solar-energy',
   },
   {
     title: 'Infrastructure',
     description: 'Designing and building the core assets that drive economic growth, from highways to smart city architectures with focus on efficiency and sustainability.',
     accent: 'sunrise',
     images: ['/infra-viaduct.jpg', '/infra-construction.jpg', '/infra-machinery.jpg', '/infra-highway.jpg'],
+    slug: 'infrastructure',
   },
   {
     title: 'Oil & Gas',
     description: 'Specialized engineering and project management for upstream and downstream operations in the energy sector.',
     accent: 'sky',
     images: ['/oilgas-rig.jpg', '/oilgas-pipeline.jpg', '/oilgas-refinery.jpg', '/oilgas-drilling.png'],
+    slug: 'oil-gas',
   },
   {
     title: 'Manufacturing Plants',
     description: 'Optimized industrial facility design and construction for high-performance manufacturing environments.',
     accent: 'leaf',
     images: ['/mfg-inspector.jpg', '/mfg-welding.png', '/mfg-factory.jpg'],
+    slug: 'manufacturing-plants',
   },
   {
     title: 'Biomass Plants',
     description: 'Renewable energy solutions through advanced biomass conversion technologies and sustainable plant engineering.',
     accent: 'slate',
     images: ['/hybrid-energy.png', '/utility-scale-solar.jpg'],
+    slug: 'biomass-plants',
   },
   {
     title: 'E-Commerce',
     description: 'Specialized logistics and technology infrastructure for rapid delivery and automated retail operations.',
     accent: 'sky',
     images: ['/international-delivery.png', '/ci-solar.png'],
+    slug: 'e-commerce',
   }
 ]
 
@@ -347,18 +356,22 @@ const newsItems = [
   {
     title: 'Path Found Biogas secures procurement update for 225 MW solar power in Maharashtra',
     meta: 'New Project Procurement',
+    slug: 'path-found-225mw-maharashtra',
   },
   {
     title: 'Omega expands multi-site industrial solar rollout across western India',
     meta: 'Project Update',
+    slug: 'western-india-industrial-solar-rollout',
   },
   {
     title: 'New hybrid execution framework launched for storage-linked renewable assets',
     meta: 'Corporate Announcement',
+    slug: 'hybrid-storage-renewable-framework',
   },
   {
     title: 'Omega strengthens global sourcing partnerships for module and BOS supply',
     meta: 'Media Release',
+    slug: 'global-sourcing-module-bos-partnerships',
   },
 ]
 
@@ -695,7 +708,7 @@ function App() {
                 <div className="business-feature-content">
                   <h3>{businessStreams[activeStreamIdx].title}</h3>
                   <p>{businessStreams[activeStreamIdx].description}</p>
-                  <Link to="/contact" className="know-more-outline">
+                  <Link to={`/businesses/${businessStreams[activeStreamIdx].slug}`} className="know-more-outline">
                     KNOW MORE
                   </Link>
                 </div>
@@ -788,7 +801,7 @@ function App() {
                   <article className="news-card" key={item.title}>
                     <span>{item.meta}</span>
                     <h3>{item.title}</h3>
-                    <Link to="/contact">Read More</Link>
+                    <Link to={`/csr/updates/${item.slug}`}>Read More</Link>
                   </article>
                 ))}
               </div>
@@ -865,7 +878,7 @@ function App() {
                 <div className="business-feature-content">
                   <h3>{businessStreams[activeStreamIdx].title}</h3>
                   <p>{businessStreams[activeStreamIdx].description}</p>
-                  <Link to="/contact" className="know-more-outline">
+                  <Link to={`/businesses/${businessStreams[activeStreamIdx].slug}`} className="know-more-outline">
                     KNOW MORE
                   </Link>
                 </div>
@@ -891,6 +904,8 @@ function App() {
             </section>
           </main>
         } />
+
+        <Route path="/businesses/:slug" element={<BusinessDetailPage />} />
 
         <Route path="/companies" element={
           <main style={{ marginTop: '72px', minHeight: '80vh' }}>
@@ -961,6 +976,7 @@ function App() {
         } />
 
         <Route path="/csr" element={<CSRPage />} />
+        <Route path="/csr/updates/:slug" element={<CSRUpdateDetailPage />} />
 
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/admin/whatsapp" element={<WhatsAppAdminPage />} />
@@ -990,7 +1006,7 @@ function App() {
           </div>
 
           <div className="footer-bottom">
-            <p>Copyright © 2026 Omega Infram Pvt Ltd. All rights reserved.</p>
+            <p>Copyright &copy; 2026 Omega Infram Pvt Ltd. All rights reserved.</p>
             <div className="footer-socials">
               <Link to="/">LinkedIn</Link>
               <Link to="/">Facebook</Link>
