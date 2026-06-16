@@ -1,5 +1,29 @@
 import React, { Suspense } from 'react'
-import { Routes, Route, useNavigate, useParams, Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { Routes, Route, useNavigate, useParams, Link, useLocation } from 'react-router-dom'
+import {
+  ArrowRight,
+  Award,
+  BadgeCheck,
+  Building2,
+  ChevronUp,
+  Factory,
+  Gauge,
+  Hammer,
+  Handshake,
+  Leaf,
+  Mail,
+  MapPin,
+  Menu,
+  Recycle,
+  ShieldCheck,
+  Sparkles,
+  SunMedium,
+  Users,
+  Wrench,
+  X,
+  Zap,
+} from 'lucide-react'
 import './App.css'
 import { SeoManager } from './seo'
 
@@ -428,7 +452,7 @@ function FeatureCard({ slides, id }: { slides: FeatureSlide[]; id?: string }) {
   )
 }
 
-function CompanyDetailView({ companyName, onBack }: { companyName: string, onBack: () => void }) {
+function LegacyCompanyDetailView({ companyName, onBack }: { companyName: string, onBack: () => void }) {
   const descriptions: Record<string, string> = {
     'Path Found Biogas pvt ltd': 'PathFound Biogas Pvt. Ltd. is a forward-thinking solar energy company operating under the umbrella of Omega Group, committed to delivering sustainable and innovative energy solutions & Compressed Biogas Energy. The company focuses on harnessing solar power to provide efficient, reliable, and eco-friendly energy systems for residential, commercial, and industrial applications.\n\nWith a strong emphasis on quality, technology, and long-term performance, PathFound Bigoass Pvt. Ltd. specializes in end-to-end solar solutions — from design and engineering to installation and maintenance. The company aims to contribute to a greener future by reducing carbon footprints and promoting clean energy adoption across India.',
     'Helios Solar Tech Power solution pvt ltd': 'Helios Solar Tech specializes in cutting-edge solar technologies and power solutions, driving the global transition to clean energy with innovative photovoltaic systems and smart grid integration.',
@@ -559,9 +583,356 @@ function CompanyDetailView({ companyName, onBack }: { companyName: string, onBac
   );
 }
 
+const companyHeroSlides = [
+  '/utility-scale-solar.jpg',
+  '/project-sangli.png',
+  '/infra-construction.jpg',
+  '/hybrid-energy.png',
+]
+
+const companyStats = [
+  { value: 23, suffix: '+', label: 'Years Experience' },
+  { value: 28, suffix: '+', label: 'Projects Completed' },
+  { value: 670, suffix: '+ MW', label: 'MW Developed' },
+  { value: 1.8, suffix: 'M tCO2e', label: 'CO2 Reduction' },
+]
+
+const services = [
+  { title: 'Compressed Biogas (CBG)', icon: Factory, text: 'Planning and execution support for CBG-ready renewable fuel facilities.' },
+  { title: 'Waste to Energy', icon: Recycle, text: 'Integrated infrastructure that converts organic waste streams into long-term energy value.' },
+  { title: 'Renewable Energy Consulting', icon: SunMedium, text: 'Feasibility, procurement, project planning, and stakeholder coordination.' },
+  { title: 'EPC Solutions', icon: Hammer, text: 'Engineering, procurement, installation, commissioning, and site delivery alignment.' },
+  { title: 'Operations & Maintenance', icon: Wrench, text: 'Performance-led maintenance systems for renewable and infrastructure assets.' },
+  { title: 'Green Infrastructure', icon: Building2, text: 'Civil, energy, storage, and utility support for sustainable growth corridors.' },
+]
+
+const featuredProjects = [
+  { image: '/utility-scale-solar.jpg', name: '225 MW Solar Power Program', capacity: '225 MW AC', location: 'Maharashtra', status: 'Current Project', desc: 'Procurement-linked solar power development aligned with utility-scale renewable energy expansion.' },
+  { image: '/project-sangli.png', name: 'Sangli SP Installation', capacity: '180 MW', location: 'Sangli, Maharashtra', status: 'Running', desc: 'Design, supply, installation, and commissioning support for a large regional solar system.' },
+  { image: '/solar-carports.jpg', name: 'KUSUM A & C Deployment', capacity: '200 MW', location: 'Rajasthan', status: 'Running', desc: 'Development and EPC coordination for decentralized clean-energy capacity under KUSUM-linked work.' },
+  { image: '/BESS Image.png', name: 'Sindhudurg Solar + BESS', capacity: '15 MW', location: 'Sindhudurg, Maharashtra', status: 'Execution', desc: 'Solar EPC program integrated with battery energy storage for improved energy reliability.' },
+  { image: '/hybrid-energy.png', name: 'Jodhpur BESS Program', capacity: '50 MW / 100 MWh', location: 'Jodhpur, Rajasthan', status: 'Upcoming', desc: 'Battery energy storage installation planned with solar infrastructure for peak support.' },
+  { image: '/infra-machinery.jpg', name: 'Green Infrastructure Works', capacity: 'Multi-site', location: 'Western India', status: 'Pipeline', desc: 'Civil and energy infrastructure support for renewable facilities and industrial clients.' },
+]
+
+const impactStats = [
+  { value: 940, suffix: '+ GWh', label: 'Renewable Energy Generated' },
+  { value: 1.8, suffix: 'M tCO2e', label: 'Carbon Emissions Reduced' },
+  { value: 120, suffix: '+', label: 'Communities Served' },
+  { value: 12, suffix: '+', label: 'Projects Under Execution' },
+]
+
+const reasons = [
+  { title: 'Industry Expertise', icon: Award },
+  { title: 'Government Project Experience', icon: ShieldCheck },
+  { title: 'Sustainable Solutions', icon: Leaf },
+  { title: 'End-to-End Execution', icon: Gauge },
+  { title: 'Quality Assurance', icon: BadgeCheck },
+  { title: 'Skilled Team', icon: Users },
+]
+
+const galleryImages = [
+  { src: '/utility-scale-solar.jpg', label: 'Utility-scale solar project' },
+  { src: '/project-sangli.png', label: 'Sangli renewable site' },
+  { src: '/infra-construction.jpg', label: 'Infrastructure execution' },
+  { src: '/hybrid-energy.png', label: 'Hybrid energy facility' },
+  { src: '/BESS Image.png', label: 'Battery energy storage' },
+  { src: '/infra-machinery.jpg', label: 'Project machinery' },
+]
+
+const timelineItems = [
+  { year: '2003', title: 'Group Foundation', text: 'Omega Group began building execution depth across infrastructure and industrial work.' },
+  { year: '2016', title: 'Renewable Expansion', text: 'Solar EPC, procurement, and green infrastructure capabilities became a strategic priority.' },
+  { year: '2021', title: 'Pathfound Scale-up', text: 'Pathfound Biogas strengthened its renewable energy and compressed biogas project focus.' },
+  { year: '2024', title: 'Major Project Pipeline', text: 'Large solar, BESS, and KUSUM-linked programs expanded across Maharashtra and Rajasthan.' },
+  { year: '2026', title: 'Growth Plan', text: 'Expansion into integrated waste-to-energy, CBG, and storage-led infrastructure programs.' },
+]
+
+function AnimatedCounter({ value, suffix = '' }: { value: number; suffix?: string }) {
+  const [current, setCurrent] = React.useState(0)
+  const ref = React.useRef<HTMLSpanElement | null>(null)
+
+  React.useEffect(() => {
+    const node = ref.current
+    if (!node) return
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return
+      const start = performance.now()
+      const duration = 1400
+      const tick = (time: number) => {
+        const progress = Math.min((time - start) / duration, 1)
+        setCurrent(value * (1 - Math.pow(1 - progress, 3)))
+        if (progress < 1) requestAnimationFrame(tick)
+      }
+      requestAnimationFrame(tick)
+      observer.disconnect()
+    }, { threshold: 0.4 })
+
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [value])
+
+  const formatted = Number.isInteger(value) ? Math.round(current).toLocaleString('en-IN') : current.toFixed(1)
+  return <span ref={ref}>{formatted}{suffix}</span>
+}
+
+function Reveal({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{ duration: 0.62, ease: 'easeOut' }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+function CompanyDetailView({ companyName, onBack, embedded = false }: { companyName: string, onBack?: () => void; embedded?: boolean }) {
+  const [lightbox, setLightbox] = React.useState<{ src: string; label: string } | null>(null)
+  const isPathfound = companyName === 'Path Found Biogas pvt ltd'
+
+  if (!isPathfound) {
+    return <LegacyCompanyDetailView companyName={companyName} onBack={onBack || (() => window.history.back())} />
+  }
+
+  return (
+    <article className="company-detail-page" id="companies">
+      <section className="company-hero" aria-label="Pathfound Biogas company introduction">
+        <div className="company-hero-slider" aria-hidden="true">
+          {companyHeroSlides.map((image, index) => (
+            <span key={image} style={{ backgroundImage: `url("${image}")`, animationDelay: `${index * 5}s` }} />
+          ))}
+        </div>
+        <div className="company-hero-overlay" />
+        <div className="company-hero-content">
+          {onBack ? <button onClick={onBack} className="company-back-btn">Back to Home</button> : null}
+          <motion.img src="/pathfound-logo.png" alt="Pathfound Biogas Pvt Ltd logo" className="company-hero-logo" loading="eager" decoding="async" initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7 }} />
+          <motion.p className="section-kicker" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>Omega Group Renewable Energy Company</motion.p>
+          <motion.h1 initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.18 }}>Pathfound Biogas Pvt Ltd</motion.h1>
+          <motion.p className="company-hero-tagline" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.28 }}>Building a Sustainable Energy Future</motion.p>
+          <motion.div className="company-hero-actions" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.38 }}>
+            <a href="#pathfound-projects" className="company-primary-btn">View Projects <ArrowRight size={18} /></a>
+            <Link to="/contact" className="company-secondary-btn">Contact Us <Mail size={18} /></Link>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="company-overview company-section">
+        <Reveal className="company-overview-media">
+          <img src="/project-sangli.png" alt="Pathfound Biogas renewable energy project site" loading="lazy" decoding="async" />
+          <div className="company-media-badge"><Sparkles size={18} /> Renewable infrastructure portfolio</div>
+        </Reveal>
+        <Reveal className="company-overview-copy">
+          <p className="section-kicker">Company Overview</p>
+          <h2>Clean energy infrastructure with boardroom discipline and field execution depth.</h2>
+          <p>
+            Pathfound Biogas Pvt Ltd works across compressed biogas, solar, waste-to-energy, EPC, and green infrastructure programs under Omega Group. The company combines practical site execution, procurement coordination, and sustainability-led planning for public, industrial, and investor-grade renewable assets.
+          </p>
+          <div className="company-stat-grid">
+            {companyStats.map((stat) => (
+              <div className="company-stat-card" key={stat.label}>
+                <strong><AnimatedCounter value={stat.value} suffix={stat.suffix} /></strong>
+                <span>{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </section>
+
+      <section className="company-section">
+        <Reveal className="company-section-head">
+          <p className="section-kicker">Key Services</p>
+          <h2>Integrated renewable energy and green infrastructure services</h2>
+        </Reveal>
+        <div className="service-card-grid">
+          {services.map((service) => {
+            const Icon = service.icon
+            return (
+              <Reveal className="service-card" key={service.title}>
+                <Icon size={28} />
+                <h3>{service.title}</h3>
+                <p>{service.text}</p>
+              </Reveal>
+            )
+          })}
+        </div>
+      </section>
+
+      <section className="company-section" id="pathfound-projects">
+        <Reveal className="company-section-head">
+          <p className="section-kicker">Featured Projects</p>
+          <h2>Project portfolio built for scale, reliability, and measurable impact</h2>
+        </Reveal>
+        <div className="project-card-grid">
+          {featuredProjects.map((project) => (
+            <Reveal className="modern-project-card" key={project.name}>
+              <img src={project.image} alt={`${project.name} renewable energy project`} loading="lazy" decoding="async" />
+              <div className="modern-project-body">
+                <span>{project.status}</span>
+                <h3>{project.name}</h3>
+                <div className="project-meta">
+                  <p><Zap size={16} /> {project.capacity}</p>
+                  <p><MapPin size={16} /> {project.location}</p>
+                </div>
+                <p>{project.desc}</p>
+                <Link to="/contact">Read More <ArrowRight size={16} /></Link>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="impact-section">
+        <div className="impact-overlay" />
+        <div className="impact-inner">
+          <Reveal className="company-section-head company-section-head-light">
+            <p className="section-kicker">Impact</p>
+            <h2>Renewable progress translated into measurable outcomes</h2>
+          </Reveal>
+          <div className="impact-grid">
+            {impactStats.map((stat) => (
+              <div className="impact-card" key={stat.label}>
+                <strong><AnimatedCounter value={stat.value} suffix={stat.suffix} /></strong>
+                <span>{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="company-section">
+        <Reveal className="company-section-head">
+          <p className="section-kicker">Why Choose Us</p>
+          <h2>Trusted execution for investors, government stakeholders, and enterprise clients</h2>
+        </Reveal>
+        <div className="choose-grid">
+          {reasons.map((reason) => {
+            const Icon = reason.icon
+            return (
+              <Reveal className="choose-card" key={reason.title}>
+                <Icon size={26} />
+                <h3>{reason.title}</h3>
+              </Reveal>
+            )
+          })}
+        </div>
+      </section>
+
+      <section className="company-section">
+        <Reveal className="company-section-head">
+          <p className="section-kicker">Gallery</p>
+          <h2>Project visuals from renewable and infrastructure workstreams</h2>
+        </Reveal>
+        <div className="gallery-masonry">
+          {galleryImages.map((image, index) => (
+            <button className="gallery-tile" key={image.src} onClick={() => setLightbox(image)} style={{ gridRowEnd: index % 3 === 1 ? 'span 2' : 'span 1' }}>
+              <img src={image.src} alt={image.label} loading="lazy" decoding="async" />
+              <span>{image.label}</span>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <section className="company-section">
+        <Reveal className="company-section-head">
+          <p className="section-kicker">Company Timeline</p>
+          <h2>Milestones shaping a larger sustainable energy platform</h2>
+        </Reveal>
+        <div className="timeline">
+          {timelineItems.map((item) => (
+            <Reveal className="timeline-item" key={item.year}>
+              <span>{item.year}</span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="company-cta">
+        <div>
+          <p className="section-kicker">Partner With Us</p>
+          <h2>Partner With Us For Sustainable Growth</h2>
+        </div>
+        <div className="company-cta-actions">
+          <Link to="/contact" className="company-primary-btn">Request Proposal <ArrowRight size={18} /></Link>
+          <Link to="/contact" className="company-secondary-btn company-secondary-dark">Contact Team <Handshake size={18} /></Link>
+        </div>
+      </section>
+
+      <section className="company-section company-ecosystem">
+        <Reveal className="company-section-head">
+          <p className="section-kicker">Omega Group Ecosystem</p>
+          <h2>Specialized companies supporting energy, infrastructure, and enterprise execution</h2>
+        </Reveal>
+        <div className="ecosystem-grid">
+          {companiesList.map((company) => (
+            <Link className="ecosystem-card" to={`/companies/${company.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} key={company.name}>
+              <CompanyLogo company={company} />
+              <div>
+                <h3>{company.name}</h3>
+                <p>{company.desc}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {!embedded ? <footer className="company-footer">
+        <div>
+          <img src="/pathfound-logo.png" alt="Pathfound Biogas Pvt Ltd logo" loading="lazy" decoding="async" />
+          <p>Pathfound Biogas Pvt Ltd develops sustainable energy infrastructure across biogas, solar, storage, EPC, and green infrastructure programs.</p>
+        </div>
+        <div>
+          <h3>Quick Links</h3>
+          <a href="#pathfound-projects">Projects</a>
+          <Link to="/businesses">Businesses</Link>
+          <Link to="/contact">Contact</Link>
+        </div>
+        <div>
+          <h3>Our Businesses</h3>
+          <span>Compressed Biogas</span>
+          <span>Waste to Energy</span>
+          <span>Green Infrastructure</span>
+        </div>
+        <div>
+          <h3>Contact Information</h3>
+          <span>New Delhi, India</span>
+          <span>info@omegainfram.com</span>
+          <span>+91-11-41630318</span>
+        </div>
+        <form className="newsletter-form">
+          <h3>Newsletter</h3>
+          <label>
+            <span>Email address</span>
+            <input type="email" placeholder="you@example.com" />
+          </label>
+          <button type="submit">Subscribe</button>
+        </form>
+      </footer> : null}
+
+      {lightbox ? (
+        <button className="gallery-lightbox" onClick={() => setLightbox(null)} aria-label="Close gallery image">
+          <X size={28} />
+          <img src={lightbox.src} alt={lightbox.label} />
+          <span>{lightbox.label}</span>
+        </button>
+      ) : null}
+    </article>
+  )
+}
+
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [showScroll, setShowScroll] = React.useState(false)
+  const [scrollProgress, setScrollProgress] = React.useState(0)
+  const [menuOpen, setMenuOpen] = React.useState(false)
   const [activeStreamIdx, setActiveStreamIdx] = React.useState(0)
   const [activeImageIdx, setActiveImageIdx] = React.useState(0)
 
@@ -575,8 +946,11 @@ function App() {
   React.useEffect(() => {
     const handleScroll = () => {
       setShowScroll(window.scrollY > 400)
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight
+      setScrollProgress(scrollable > 0 ? Math.min((window.scrollY / scrollable) * 100, 100) : 0)
     }
     window.addEventListener('scroll', handleScroll)
+    handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -586,6 +960,7 @@ function App() {
   return (
     <div className="page-shell">
       <SeoManager />
+      <div className="scroll-progress" style={{ transform: `scaleX(${scrollProgress / 100})` }} />
       <header className="topbar">
         <Link className="brand-block" to="/" aria-label="Omega Infram home">
           <div className="brand-stack">
@@ -594,11 +969,16 @@ function App() {
           </div>
         </Link>
 
-        <nav className="nav" aria-label="Primary">
+        <button className="menu-toggle" type="button" onClick={() => setMenuOpen((open) => !open)} aria-label="Toggle navigation" aria-expanded={menuOpen}>
+          {menuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+
+        <nav className={`nav ${menuOpen ? 'is-open' : ''}`} aria-label="Primary">
           {navItems.map((item) => (
             <div className="nav-item" key={item.label}>
-              <a href={item.href.startsWith('#') ? `/${item.href}` : item.href}>{item.label}</a>
+              <a href={item.href.startsWith('#') ? `/${item.href}` : item.href} onClick={() => setMenuOpen(false)}>{item.label}</a>
               {item.children ? <MegaMenuCard item={item} onSelectCompany={(name, isCompany) => {
+                setMenuOpen(false)
                 if (isCompany) {
                   const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
                   navigate(`/companies/${slug}`);
@@ -625,7 +1005,7 @@ function App() {
       <Suspense fallback={<main className="route-loading">Loading Omega Infram page...</main>}>
       <Routes>
         <Route path="/companies/:slug" element={
-          <main style={{ marginTop: '72px', minHeight: '80vh' }}>
+          <main style={{ minHeight: '80vh' }}>
             <CompanyRouteWrapper />
           </main>
         } />
@@ -733,28 +1113,7 @@ function App() {
               </div>
             </section>
 
-            <section className="companies-section section-shell" id="companies">
-              <div className="section-head companies-head">
-                <p className="section-kicker">Omega Group</p>
-                <h2>Our Companies</h2>
-                <p className="section-intro">
-                  The diverse subsidiaries and specialized entities driving our global operations and engineering excellence.
-                </p>
-              </div>
-              <div className="companies-scrolling-wrapper">
-                <div className="companies-marquee">
-                  {[...companiesList, ...companiesList].map((company, idx) => (
-                    <div className="company-logo-card" key={company.name + idx}>
-                      <div className="company-logo-wrapper">
-                        <CompanyLogo company={company} />
-                      </div>
-                      <h4>{company.name}</h4>
-                      <p className="company-desc">{company.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
+            <CompanyDetailView companyName="Path Found Biogas pvt ltd" embedded />
 
             <section className="sustainability-section section-shell" id="sustainability" style={{ marginTop: '24px' }}>
               <div className="section-head">
@@ -908,30 +1267,8 @@ function App() {
         <Route path="/businesses/:slug" element={<BusinessDetailPage />} />
 
         <Route path="/companies" element={
-          <main style={{ marginTop: '72px', minHeight: '80vh' }}>
-            <section className="companies-section section-shell" id="companies">
-              <div className="section-head companies-head">
-                <p className="section-kicker">Omega Group</p>
-                <h1>Our Companies</h1>
-                <p className="section-intro">
-                  The diverse subsidiaries and specialized entities driving our global operations and engineering excellence.
-                </p>
-              </div>
-
-              <div className="companies-scrolling-wrapper">
-                <div className="companies-marquee">
-                  {[...companiesList, ...companiesList].map((company, idx) => (
-                    <div className="company-logo-card" key={company.name + idx}>
-                      <div className="company-logo-wrapper">
-                        <CompanyLogo company={company} />
-                      </div>
-                      <h4>{company.name}</h4>
-                      <p className="company-desc">{company.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
+          <main style={{ minHeight: '80vh' }}>
+            <CompanyDetailView companyName="Path Found Biogas pvt ltd" />
           </main>
         } />
 
@@ -983,7 +1320,7 @@ function App() {
       </Routes>
       </Suspense>
 
-      <footer className="site-footer" id="contact">
+      {!location.pathname.startsWith('/companies') ? <footer className="site-footer" id="contact">
         <div className="footer-container">
           <div className="footer-columns">
             <div className="footer-contact-card">
@@ -1014,12 +1351,10 @@ function App() {
             </div>
           </div>
         </div>
-      </footer>
+      </footer> : null}
       {showScroll && (
         <button className="scroll-top-btn" onClick={scrollToTop} aria-label="Scroll to top">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="m5 12 7-7 7 7M12 19V5" />
-          </svg>
+          <ChevronUp size={24} />
         </button>
       )}
     </div>
