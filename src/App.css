@@ -418,6 +418,7 @@ main {
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 8px;
   background:
+    radial-gradient(circle at 42% 31%, rgba(134, 239, 172, 0.22), transparent 9%),
     radial-gradient(circle at 55% 54%, rgba(52, 168, 83, 0.2), transparent 11%),
     radial-gradient(circle at 52% 37%, rgba(10, 132, 255, 0.22), transparent 10%),
     radial-gradient(circle at 57% 67%, rgba(134, 239, 172, 0.2), transparent 9%),

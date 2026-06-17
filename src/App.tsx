@@ -326,6 +326,7 @@ const businessStreams: BusinessStream[] = [
 ]
 
 const runningProjectLocations = [
+  { state: 'Dubai, UAE', project: 'Pathfound head office', x: 42, y: 31 },
   { state: 'Maharashtra', project: '225 MW solar procurement', x: 61, y: 53 },
   { state: 'Rajasthan', project: 'KUSUM solar project', x: 52, y: 37 },
   { state: 'Goa', project: 'Renewable infrastructure support', x: 57, y: 67 },
@@ -1033,10 +1034,10 @@ function App() {
                     <Link to="/contact" className="hero-secondary-btn">Contact Omega Group</Link>
                   </div>
                 </div>
-                <div className="hero-project-map" aria-label="Running project locations in India">
+                <div className="hero-project-map" aria-label="Pathfound head office in Dubai and running project locations in India">
                   <div className="hero-project-map-header">
-                    <span>Running Projects</span>
-                    <strong>India</strong>
+                    <span>Global Footprint</span>
+                    <strong>Dubai + India</strong>
                   </div>
                   <div className="hero-project-map-panel">
                     {runningProjectLocations.map((location, index) => (
