@@ -377,6 +377,55 @@ function CompanyLogo({ company }: { company: { name: string; logo?: string } }) 
   )
 }
 
+function getCompanySlug(name: string) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+}
+
+function CompaniesOverview({ isPage = false }: { isPage?: boolean }) {
+  const HeadingTag = isPage ? 'h1' : 'h2'
+
+  return (
+    <section className="companies-section section-shell" id="companies">
+      <div className="section-head companies-head">
+        <p className="section-kicker">Omega Group</p>
+        <HeadingTag>Our Companies</HeadingTag>
+        <p className="section-intro">
+          Omega Group brings together specialized companies across renewable energy, infrastructure, procurement,
+          mining, healthcare, legal advisory, and civic development.
+        </p>
+      </div>
+
+      <div className="companies-overview-grid">
+        {companiesList.map((company) => {
+          const slug = getCompanySlug(company.name)
+          const cardContent = (
+            <>
+              <div className="company-logo-wrapper">
+                <CompanyLogo company={company} />
+              </div>
+              <div>
+                <h3>{company.name}</h3>
+                <p>{company.desc}</p>
+                {companyNameMap[slug] ? <span>View company profile</span> : null}
+              </div>
+            </>
+          )
+
+          return companyNameMap[slug] ? (
+            <Link className="companies-overview-card" to={`/companies/${slug}`} key={company.name}>
+              {cardContent}
+            </Link>
+          ) : (
+            <article className="companies-overview-card" key={company.name}>
+              {cardContent}
+            </article>
+          )
+        })}
+      </div>
+    </section>
+  )
+}
+
 const newsItems = [
   {
     title: 'Path Found Biogas secures procurement update for 225 MW solar power in Maharashtra',
@@ -1114,7 +1163,7 @@ function App() {
               </div>
             </section>
 
-            <CompanyDetailView companyName="Path Found Biogas pvt ltd" embedded />
+            <CompaniesOverview />
 
             <section className="sustainability-section section-shell" id="sustainability" style={{ marginTop: '24px' }}>
               <div className="section-head">
@@ -1269,7 +1318,7 @@ function App() {
 
         <Route path="/companies" element={
           <main style={{ minHeight: '80vh' }}>
-            <CompanyDetailView companyName="Path Found Biogas pvt ltd" />
+            <CompaniesOverview isPage />
           </main>
         } />
 
