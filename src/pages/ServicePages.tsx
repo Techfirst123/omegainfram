@@ -145,6 +145,13 @@ export function ContactPage() {
           <div className="contact-methods">
             <a href="tel:+911141630318">011-41630318</a>
             <a href="mailto:info@omegainfram.com">info@omegainfram.com</a>
+            <a
+              href="https://wa.me/918383941099?text=Hi%20Omega%20Group%2C%20I%27d%20like%20to%20know%20more%20about%20your%20solar%20and%20infrastructure%20projects."
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              WhatsApp: +91 83839 41099
+            </a>
             <span>348, DLF Prime Towers, Okhla Phase-1, New Delhi - 110020</span>
           </div>
         </div>

@@ -15,6 +15,7 @@ import {
   Mail,
   MapPin,
   Menu,
+  MessageCircle,
   Recycle,
   ShieldCheck,
   Sparkles,
@@ -34,6 +35,9 @@ const CSRPage = React.lazy(() => import('./pages/CSRPage'))
 const WhatsAppAdminPage = React.lazy(() => import('./pages/WhatsAppAdminPage'))
 const BusinessDetailPage = React.lazy(() => import('./pages/DetailPages').then((module) => ({ default: module.BusinessDetailPage })))
 const CSRUpdateDetailPage = React.lazy(() => import('./pages/DetailPages').then((module) => ({ default: module.CSRUpdateDetailPage })))
+
+const WHATSAPP_CONTACT_LINK =
+  'https://wa.me/918383941099?text=Hi%20Omega%20Group%2C%20I%27d%20like%20to%20know%20more%20about%20your%20solar%20and%20infrastructure%20projects.'
 
 const companyNameMap: Record<string, string> = {
   'path-found-biogas-pvt-ltd': 'Path Found Biogas pvt ltd',
@@ -1352,9 +1356,9 @@ function App() {
                     procurement, commissioning, and operations.
                   </p>
                 </div>
-                <Link className="primary-link" to="/contact">
+                <a className="primary-link" href="mailto:info@pathfoundbg.com?subject=Career%20Enquiry%20-%20Omega%20Group">
                   Explore Careers
-                </Link>
+                </a>
               </div>
             </section>
           </main>
@@ -1519,6 +1523,10 @@ function App() {
                   info@omegainfram.com
                 </li>
                 <li>
+                  <strong>WhatsApp</strong>
+                  <a href={WHATSAPP_CONTACT_LINK} target="_blank" rel="noopener noreferrer">+91 83839 41099</a>
+                </li>
+                <li>
                   <strong>Location</strong>
                   348, DLF Prime Towers, Okhla Phase-1, New Delhi -110020
                 </li>
@@ -1536,6 +1544,15 @@ function App() {
           </div>
         </div>
       </footer> : null}
+      <a
+        className="whatsapp-float-btn"
+        href={WHATSAPP_CONTACT_LINK}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat with Omega Group on WhatsApp"
+      >
+        <MessageCircle size={26} />
+      </a>
       {showScroll && (
         <button className="scroll-top-btn" onClick={scrollToTop} aria-label="Scroll to top">
           <ChevronUp size={24} />
