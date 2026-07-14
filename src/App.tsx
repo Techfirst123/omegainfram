@@ -260,6 +260,13 @@ const solarSolutionPages = {
   },
 }
 
+const solarSolutionsList = Object.entries(solarSolutionPages).map(([path, page]) => ({
+  title: page.kicker,
+  description: page.intro,
+  images: page.heroImages,
+  href: path,
+}))
+
 function MegaMenuCard({ item, onSelectCompany }: { item: NavItem; onSelectCompany?: (name: string, isCompany: boolean) => void }) {
   const isCompanyCategory = item.label === 'Our Companies'
   if (!item.children) return null
@@ -1054,6 +1061,8 @@ function App() {
   const [menuOpen, setMenuOpen] = React.useState(false)
   const [activeStreamIdx, setActiveStreamIdx] = React.useState(0)
   const [activeImageIdx, setActiveImageIdx] = React.useState(0)
+  const [activeSolarIdx, setActiveSolarIdx] = React.useState(0)
+  const [activeSolarImageIdx, setActiveSolarImageIdx] = React.useState(0)
 
   React.useEffect(() => {
     const timer = setInterval(() => {
@@ -1061,6 +1070,13 @@ function App() {
     }, 4000)
     return () => clearInterval(timer)
   }, [activeStreamIdx])
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveSolarImageIdx((prev) => (prev + 1) % solarSolutionsList[activeSolarIdx].images.length)
+    }, 4000)
+    return () => clearInterval(timer)
+  }, [activeSolarIdx])
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -1225,6 +1241,54 @@ function App() {
                         key={idx}
                         className={activeImageIdx === idx ? 'is-active' : ''}
                         onClick={() => setActiveImageIdx(idx)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section className="business-section" id="solar-solutions" style={{ marginTop: '24px' }}>
+              <div className="section-head">
+                <p className="section-kicker">SOLAR SOLUTIONS</p>
+                <h2>Our Solar Solutions</h2>
+              </div>
+              <div className="business-tabs" aria-label="Solar solution categories">
+                {solarSolutionsList.map((solution, idx) => (
+                  <span
+                    key={solution.title}
+                    className={activeSolarIdx === idx ? 'is-active' : ''}
+                    onClick={() => {
+                      setActiveSolarIdx(idx)
+                      setActiveSolarImageIdx(0)
+                    }}
+                  >
+                    {solution.title}
+                  </span>
+                ))}
+              </div>
+              <div className="business-feature">
+                <div className="business-feature-content">
+                  <h3>{solarSolutionsList[activeSolarIdx].title}</h3>
+                  <p>{solarSolutionsList[activeSolarIdx].description}</p>
+                  <Link to={solarSolutionsList[activeSolarIdx].href} className="know-more-outline">
+                    KNOW MORE
+                  </Link>
+                </div>
+                <div className="business-feature-media">
+                  {solarSolutionsList[activeSolarIdx].images.map((img, idx) => (
+                    <div
+                      key={img + idx}
+                      className={`business-feature-slide ${activeSolarImageIdx === idx ? 'is-active' : ''}`}
+                      style={{ backgroundImage: `url(${img})` }}
+                    />
+                  ))}
+                  <div className="business-feature-dots">
+                    {solarSolutionsList[activeSolarIdx].images.map((_, idx) => (
+                      <span
+                        key={idx}
+                        className={activeSolarImageIdx === idx ? 'is-active' : ''}
+                        onClick={() => setActiveSolarImageIdx(idx)}
                       />
                     ))}
                   </div>
