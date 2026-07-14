@@ -1,7 +1,6 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
-import { businessDetails, csrUpdateDetails } from './content/detailPages'
-import { SITE_NAME, SITE_URL, seoPages } from './seoData'
+import { SITE_NAME, SITE_URL, getSeoForPath, seoPages } from './seoData'
 
 function setMeta(selector: string, attr: 'content' | 'href', value: string, create: () => HTMLElement) {
   let element = document.head.querySelector(selector) as HTMLElement | null
@@ -52,30 +51,7 @@ export function SeoManager() {
   React.useEffect(() => {
     const normalizedPath = pathname.replace(/\/$/, '') || '/'
     const fallback = seoPages['/']
-    const businessMatch = normalizedPath.startsWith('/businesses/')
-      ? businessDetails.find((item) => normalizedPath === `/businesses/${item.slug}`)
-      : undefined
-    const csrMatch = normalizedPath.startsWith('/csr/updates/')
-      ? csrUpdateDetails.find((item) => normalizedPath === `/csr/updates/${item.slug}`)
-      : undefined
-    const page = businessMatch
-      ? {
-          title: `${businessMatch.title} | Omega Group Business Stream`,
-          description: businessMatch.summary,
-          keywords: `${businessMatch.title}, Omega Group green energy, Omega Infram, solar EPC company India, renewable energy projects India`,
-        }
-      : csrMatch
-        ? {
-            title: `${csrMatch.title} | Omega Group CSR Update`,
-            description: csrMatch.summary,
-            keywords: `${csrMatch.title}, Omega Group CSR, Omega Infram, renewable energy company, renewable energy projects India`,
-          }
-        : seoPages[normalizedPath] ?? {
-            title: `${SITE_NAME} | Renewable Energy & Infrastructure`,
-            description:
-              'Omega Infram delivers renewable energy, solar EPC, biogas, infrastructure, materials supply, and project execution services across India.',
-            keywords: fallback.keywords,
-          }
+    const page = getSeoForPath(normalizedPath)
     const canonical = `${SITE_URL}${normalizedPath === '/' ? '/' : normalizedPath}`
     const image = `${SITE_URL}/utility-scale-solar.jpg`
 

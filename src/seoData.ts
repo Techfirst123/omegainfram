@@ -1,3 +1,5 @@
+import { businessDetails, csrUpdateDetails } from './content/detailPages'
+
 export const SITE_URL = 'https://www.omegainfram.com'
 export const SITE_NAME = 'Omega Infram'
 
@@ -71,6 +73,20 @@ export const seoPages: Record<string, PageSeo> = {
     keywords:
       'Omega Group companies, Omega Infram, Path Found Biogas, Helios Solar Tech, green energy company',
   },
+  '/companies/path-found-biogas-pvt-ltd': {
+    title: 'Path Found Biogas Pvt Ltd | Omega Group Renewable Energy Company',
+    description:
+      'Path Found Biogas Pvt Ltd delivers compressed biogas, waste-to-energy, solar EPC, and green infrastructure programs under Omega Group.',
+    keywords:
+      'Path Found Biogas, Pathfound Biogas Pvt Ltd, compressed biogas, waste to energy, Omega Group green energy, solar EPC company India',
+  },
+  '/companies/helios-solar-tech-power-solution-pvt-ltd': {
+    title: 'Helios Solar Tech Power Solution Pvt Ltd | Omega Group',
+    description:
+      'Helios Solar Tech Power Solution Pvt Ltd specializes in high-efficiency solar technologies and smart grid integration under Omega Group.',
+    keywords:
+      'Helios Solar Tech, Omega Group companies, solar technology, smart grid, renewable energy company',
+  },
   '/sustainability': {
     title: 'Sustainability | Omega Group Green Energy & Net-Zero Projects',
     description:
@@ -92,4 +108,44 @@ export const seoPages: Record<string, PageSeo> = {
     keywords:
       'Omega Group WhatsApp admin, WhatsApp Business Cloud API, vendor messaging, investor updates, business contact management',
   },
+}
+
+const defaultSeo: PageSeo = {
+  title: `${SITE_NAME} | Renewable Energy & Infrastructure`,
+  description:
+    'Omega Infram delivers renewable energy, solar EPC, biogas, infrastructure, materials supply, and project execution services across India.',
+  keywords: seoPages['/'].keywords,
+}
+
+/**
+ * Single source of truth for resolving title/description/keywords for a
+ * pathname, shared by the client-side SeoManager and the build-time
+ * prerender script so both stay in sync.
+ */
+export function getSeoForPath(pathname: string): PageSeo {
+  const normalizedPath = pathname.replace(/\/$/, '') || '/'
+
+  if (normalizedPath.startsWith('/businesses/')) {
+    const match = businessDetails.find((item) => normalizedPath === `/businesses/${item.slug}`)
+    if (match) {
+      return {
+        title: `${match.title} | Omega Group Business Stream`,
+        description: match.summary,
+        keywords: `${match.title}, Omega Group green energy, Omega Infram, solar EPC company India, renewable energy projects India`,
+      }
+    }
+  }
+
+  if (normalizedPath.startsWith('/csr/updates/')) {
+    const match = csrUpdateDetails.find((item) => normalizedPath === `/csr/updates/${item.slug}`)
+    if (match) {
+      return {
+        title: `${match.title} | Omega Group CSR Update`,
+        description: match.summary,
+        keywords: `${match.title}, Omega Group CSR, Omega Infram, renewable energy company, renewable energy projects India`,
+      }
+    }
+  }
+
+  return seoPages[normalizedPath] ?? defaultSeo
 }
