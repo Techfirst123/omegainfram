@@ -106,6 +106,18 @@ const navItems: NavItem[] = [
     ],
   },
   {
+    label: 'Solar Solutions',
+    href: '/ground-mount-solar-epc',
+    description: 'Ground-mount solar EPC, rooftop solar, and IPP asset management delivered end-to-end across India.',
+    statValue: '3',
+    statLabel: 'Solar Offerings',
+    children: [
+      { label: 'Ground Mount Solar EPC', href: '/ground-mount-solar-epc' },
+      { label: 'Rooftop Solar', href: '/rooftop-solar' },
+      { label: 'Solar IPP & Asset Management', href: '/solar-ipp-asset-management' },
+    ],
+  },
+  {
     label: 'Our Companies',
     href: '/companies',
     description: 'Explore the specialized divisions and companies within the Omega Group.',
@@ -191,6 +203,60 @@ const servicePages = {
     imageAlt: 'Infrastructure services and construction coordination by Omega Infram',
     services: ['Civil infrastructure execution', 'Materials supply', 'Vendor work coordination', 'Project controls and delivery support'],
     outcomes: ['Infrastructure delivery connected to renewable project goals.', 'Clear coordination across suppliers, vendors, and site teams.', 'Execution support for public, industrial, and energy infrastructure.'],
+  },
+}
+
+const solarSolutionPages = {
+  '/ground-mount-solar-epc': {
+    kicker: 'Ground Mount Solar EPC',
+    title: 'Ground Mount Solar EPC Services for Utility-Scale Projects | Omega Infram',
+    intro:
+      'Omega Infram delivers ground-mount solar EPC for utility-scale and industrial-scale power plants, covering site engineering, structure design, module installation, and grid-tied commissioning across open-land sites in India.',
+    imageAlt: 'Ground mount solar EPC project by Omega Infram',
+    heroImages: [
+      '/utility-scale-solar.jpg',
+      '/kusum-project.jpg',
+      '/project-sangli.png',
+      '/international-delivery.png',
+      '/om-services.jpg',
+      '/solar-carports.jpg',
+    ],
+    services: ['Site survey and land engineering', 'Structure design for ground-mount arrays', 'Module and inverter installation', 'Grid synchronization and commissioning'],
+    outcomes: ['Utility-scale EPC delivery for MW-plus ground-mount plants.', 'Structural design suited to varied terrain and soil conditions.', 'Coordinated execution from land readiness to commissioning.'],
+  },
+  '/rooftop-solar': {
+    kicker: 'Rooftop Solar',
+    title: 'Rooftop Solar EPC for Commercial & Industrial Roofs | Omega Infram',
+    intro:
+      'Omega Infram installs rooftop solar systems for commercial, industrial, and institutional roofs, covering structural assessment, module mounting, net-metering coordination, and long-term performance monitoring.',
+    imageAlt: 'Rooftop solar installation by Omega Infram',
+    heroImages: [
+      '/ci-solar.png',
+      '/solar-carports.jpg',
+      '/hybrid-energy.png',
+      '/om-services.jpg',
+      '/utility-scale-solar.jpg',
+      '/project-sangli.png',
+    ],
+    services: ['Roof structural assessment', 'Custom mounting and racking design', 'Net-metering and utility liaison', 'Performance monitoring and O&M'],
+    outcomes: ['Rooftop solar systems built for commercial and industrial roof profiles.', 'Net-metering support for faster utility approvals.', 'Ongoing performance monitoring for consistent generation.'],
+  },
+  '/solar-ipp-asset-management': {
+    kicker: 'Solar IPP & Asset Management',
+    title: 'Solar IPP and Renewable Asset Management | Omega Infram',
+    intro:
+      'Omega Infram supports independent power producer (IPP) solar assets and renewable portfolio management, including performance monitoring, asset optimization, and long-term operations support for utility-scale power purchase agreements.',
+    imageAlt: 'Solar IPP and asset management by Omega Infram',
+    heroImages: [
+      '/hybrid-energy.png',
+      '/BESS Image.png',
+      '/project-sangli.png',
+      '/kusum-project.jpg',
+      '/international-delivery.png',
+      '/ci-solar.png',
+    ],
+    services: ['IPP project structuring support', 'Asset performance monitoring', 'O&M coordination for solar portfolios', 'PPA-linked reporting and compliance'],
+    outcomes: ['Long-term asset management for IPP-owned solar capacity.', 'Performance monitoring aligned with PPA obligations.', 'Coordinated O&M for dependable plant uptime.'],
   },
 }
 
@@ -1254,6 +1320,14 @@ function App() {
         <Route path="/about-omega-group" element={<AboutOmegaGroupPage />} />
 
         {Object.entries(servicePages).map(([path, page]) => (
+          <Route
+            key={path}
+            path={path}
+            element={<ServicePage {...page} />}
+          />
+        ))}
+
+        {Object.entries(solarSolutionPages).map(([path, page]) => (
           <Route
             key={path}
             path={path}

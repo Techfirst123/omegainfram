@@ -4,13 +4,14 @@ type ServicePageProps = {
   kicker: string
   title: string
   intro: string
-  image: string
+  image?: string
   imageAlt: string
+  heroImages?: string[]
   services: string[]
   outcomes: string[]
 }
 
-export function ServicePage({ kicker, title, intro, image, imageAlt, services, outcomes }: ServicePageProps) {
+export function ServicePage({ kicker, title, intro, image, imageAlt, heroImages, services, outcomes }: ServicePageProps) {
   return (
     <main className="seo-page">
       <section className="seo-hero section-shell">
@@ -23,7 +24,22 @@ export function ServicePage({ kicker, title, intro, image, imageAlt, services, o
             <Link to="/about-omega-group" className="hero-secondary-btn seo-secondary-dark">About Omega Group</Link>
           </div>
         </div>
-        <img className="seo-hero-image" src={image} alt={imageAlt} loading="eager" decoding="async" />
+        {heroImages && heroImages.length > 0 ? (
+          <div className="seo-hero-slider" role="img" aria-label={imageAlt}>
+            {heroImages.map((src, idx) => (
+              <span
+                key={src}
+                style={{
+                  backgroundImage: `url(${src})`,
+                  animationDelay: `${idx * 5}s`,
+                  animationDuration: `${heroImages.length * 5}s`,
+                }}
+              />
+            ))}
+          </div>
+        ) : (
+          <img className="seo-hero-image" src={image} alt={imageAlt} loading="eager" decoding="async" />
+        )}
       </section>
 
       <section className="seo-content-grid section-shell">

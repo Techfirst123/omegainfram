@@ -45,6 +45,27 @@ export const seoPages: Record<string, PageSeo> = {
     keywords:
       'green infrastructure company, infrastructure services India, materials supply, vendor work, renewable energy projects India',
   },
+  '/ground-mount-solar-epc': {
+    title: 'Ground Mount Solar EPC Services for Utility-Scale Projects | Omega Infram',
+    description:
+      'Ground-mount solar EPC for utility-scale and industrial power plants, covering site engineering, structure design, module installation, and grid-tied commissioning across India.',
+    keywords:
+      'ground mount solar EPC, utility-scale solar EPC, solar plant installation, solar project contractor, Omega Infram',
+  },
+  '/rooftop-solar': {
+    title: 'Rooftop Solar EPC for Commercial & Industrial Roofs | Omega Infram',
+    description:
+      'Rooftop solar installation for commercial, industrial, and institutional roofs, covering structural assessment, mounting design, net-metering, and performance monitoring.',
+    keywords:
+      'rooftop solar EPC, commercial rooftop solar, industrial rooftop solar, net metering solar, Omega Infram',
+  },
+  '/solar-ipp-asset-management': {
+    title: 'Solar IPP and Renewable Asset Management | Omega Infram',
+    description:
+      'Independent power producer (IPP) solar asset support and renewable portfolio management, including performance monitoring, asset optimization, and PPA-linked operations.',
+    keywords:
+      'solar IPP, renewable asset management, solar O&M, PPA solar assets, Omega Infram',
+  },
   '/about-omega-group': {
     title: 'About Omega Group | Renewable Energy & Infrastructure Company',
     description:
