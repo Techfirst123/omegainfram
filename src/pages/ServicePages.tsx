@@ -1,4 +1,6 @@
+import React from 'react'
 import { Link } from 'react-router-dom'
+import { submitEnquiry } from '../contactApi'
 
 type ServicePageProps = {
   kicker: string
@@ -132,6 +134,31 @@ export function AboutOmegaGroupPage() {
 }
 
 export function ContactPage() {
+  const [name, setName] = React.useState('')
+  const [email, setEmail] = React.useState('')
+  const [projectType, setProjectType] = React.useState('')
+  const [message, setMessage] = React.useState('')
+  const [honeypot, setHoneypot] = React.useState('')
+  const [status, setStatus] = React.useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+  const [error, setError] = React.useState('')
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
+    setStatus('sending')
+    setError('')
+    const result = await submitEnquiry({ formType: 'contact', name, email, message, projectType, company: honeypot })
+    if (result.ok) {
+      setStatus('success')
+      setName('')
+      setEmail('')
+      setProjectType('')
+      setMessage('')
+    } else {
+      setStatus('error')
+      setError(result.error || 'Something went wrong. Please try again.')
+    }
+  }
+
   return (
     <main className="seo-page">
       <section className="contact-page section-shell">
@@ -144,7 +171,7 @@ export function ContactPage() {
           </p>
           <div className="contact-methods">
             <a href="tel:+911141630318">011-41630318</a>
-            <a href="mailto:info@omegainfram.com">info@omegainfram.com</a>
+            <span>info@omegainfram.com</span>
             <a
               href="https://wa.me/918383941099?text=Hi%20Omega%20Group%2C%20I%27d%20like%20to%20know%20more%20about%20your%20solar%20and%20infrastructure%20projects."
               target="_blank"
@@ -155,34 +182,78 @@ export function ContactPage() {
             <span>348, DLF Prime Towers, Okhla Phase-1, New Delhi - 110020</span>
           </div>
         </div>
-        <form className="enquiry-form" aria-label="Omega Group project enquiry form">
-          <label>
-            Name
-            <input name="name" type="text" autoComplete="name" placeholder="Your name" />
-          </label>
-          <label>
-            Email
-            <input name="email" type="email" autoComplete="email" placeholder="you@example.com" />
-          </label>
-          <label>
-            Project Type
-            <select name="projectType" defaultValue="">
-              <option value="" disabled>Select a service</option>
-              <option>Solar EPC Services</option>
-              <option>Biogas Plant Solutions</option>
-              <option>Green Energy Projects</option>
-              <option>Infrastructure Services</option>
-              <option>Materials Supply / Vendor Work</option>
-            </select>
-          </label>
-          <label>
-            Message
-            <textarea name="message" rows={5} placeholder="Tell us about your project location, scope, and timeline" />
-          </label>
-          <a className="primary-link contact-submit" href="mailto:info@omegainfram.com?subject=Omega%20Group%20Project%20Consultation">
-            Contact Omega Group
-          </a>
-        </form>
+        {status === 'success' ? (
+          <div className="enquiry-form">
+            <p className="careers-form-success">Thanks! Your enquiry has been sent to our project consultation team.</p>
+          </div>
+        ) : (
+          <form className="enquiry-form" aria-label="Omega Group project enquiry form" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="company"
+              value={honeypot}
+              onChange={(event) => setHoneypot(event.target.value)}
+              autoComplete="off"
+              tabIndex={-1}
+              aria-hidden="true"
+              className="hp-field"
+            />
+            <label>
+              Name
+              <input
+                name="name"
+                type="text"
+                autoComplete="name"
+                placeholder="Your name"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                required
+              />
+            </label>
+            <label>
+              Email
+              <input
+                name="email"
+                type="email"
+                autoComplete="email"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                required
+              />
+            </label>
+            <label>
+              Project Type
+              <select
+                name="projectType"
+                value={projectType}
+                onChange={(event) => setProjectType(event.target.value)}
+              >
+                <option value="" disabled>Select a service</option>
+                <option>Solar EPC Services</option>
+                <option>Biogas Plant Solutions</option>
+                <option>Green Energy Projects</option>
+                <option>Infrastructure Services</option>
+                <option>Materials Supply / Vendor Work</option>
+              </select>
+            </label>
+            <label>
+              Message
+              <textarea
+                name="message"
+                rows={5}
+                placeholder="Tell us about your project location, scope, and timeline"
+                value={message}
+                onChange={(event) => setMessage(event.target.value)}
+                required
+              />
+            </label>
+            {error ? <p className="careers-form-error">{error}</p> : null}
+            <button type="submit" className="primary-link contact-submit" disabled={status === 'sending'}>
+              {status === 'sending' ? 'Sending...' : 'Contact Omega Group'}
+            </button>
+          </form>
+        )}
       </section>
     </main>
   )

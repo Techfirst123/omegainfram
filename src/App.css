@@ -768,6 +768,12 @@ main {
   box-shadow: 0 10px 24px rgba(10, 132, 255, 0.24);
 }
 
+button.primary-link {
+  border: none;
+  cursor: pointer;
+  font: inherit;
+}
+
 .secondary-link {
   color: #fff;
   background: rgba(255, 255, 255, 0.12);
@@ -1198,11 +1204,83 @@ main {
   padding: 32px;
   background: linear-gradient(135deg, #0f172a, #1e293b);
   color: #fff;
+  flex-wrap: wrap;
 }
 
 .careers-panel h2,
 .careers-panel p {
   color: inherit;
+}
+
+.careers-panel > div:first-child {
+  flex: 1 1 320px;
+}
+
+.careers-form {
+  flex: 0 0 auto;
+  width: min(420px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.careers-form input,
+.careers-form textarea {
+  padding: 12px 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 0.95rem;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.careers-form input::placeholder,
+.careers-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.careers-form input:focus,
+.careers-form textarea:focus {
+  outline: none;
+  border-color: #37a8e3;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.careers-form button[type='submit'] {
+  align-self: flex-start;
+  border: none;
+  cursor: pointer;
+}
+
+.careers-form button[type='submit']:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.careers-form-error {
+  color: #fca5a5;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.careers-form-success {
+  color: #fff;
+  font-size: 1.05rem;
+  max-width: 420px;
+}
+
+.hp-field {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .site-footer {

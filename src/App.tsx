@@ -27,6 +27,7 @@ import {
 } from 'lucide-react'
 import './App.css'
 import { SeoManager } from './seo'
+import { submitEnquiry } from './contactApi'
 
 const ServicePage = React.lazy(() => import('./pages/ServicePages').then((module) => ({ default: module.ServicePage })))
 const AboutOmegaGroupPage = React.lazy(() => import('./pages/ServicePages').then((module) => ({ default: module.AboutOmegaGroupPage })))
@@ -815,6 +816,75 @@ function Reveal({ children, className = '' }: { children: React.ReactNode; class
   )
 }
 
+function CareersEnquiryForm() {
+  const [name, setName] = React.useState('')
+  const [email, setEmail] = React.useState('')
+  const [message, setMessage] = React.useState('')
+  const [honeypot, setHoneypot] = React.useState('')
+  const [status, setStatus] = React.useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+  const [error, setError] = React.useState('')
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
+    setStatus('sending')
+    setError('')
+    const result = await submitEnquiry({ formType: 'careers', name, email, message, company: honeypot })
+    if (result.ok) {
+      setStatus('success')
+      setName('')
+      setEmail('')
+      setMessage('')
+    } else {
+      setStatus('error')
+      setError(result.error || 'Something went wrong. Please try again.')
+    }
+  }
+
+  if (status === 'success') {
+    return <p className="careers-form-success">Thanks! Your enquiry has been sent to our careers team.</p>
+  }
+
+  return (
+    <form className="careers-form" onSubmit={handleSubmit} aria-label="Careers enquiry form">
+      <input
+        type="text"
+        name="company"
+        value={honeypot}
+        onChange={(event) => setHoneypot(event.target.value)}
+        autoComplete="off"
+        tabIndex={-1}
+        aria-hidden="true"
+        className="hp-field"
+      />
+      <input
+        type="text"
+        placeholder="Your name"
+        value={name}
+        onChange={(event) => setName(event.target.value)}
+        required
+      />
+      <input
+        type="email"
+        placeholder="you@example.com"
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+        required
+      />
+      <textarea
+        placeholder="Tell us about the role you're interested in"
+        rows={3}
+        value={message}
+        onChange={(event) => setMessage(event.target.value)}
+        required
+      />
+      {error ? <p className="careers-form-error">{error}</p> : null}
+      <button type="submit" className="primary-link" disabled={status === 'sending'}>
+        {status === 'sending' ? 'Sending...' : 'Send Enquiry'}
+      </button>
+    </form>
+  )
+}
+
 function CompanyDetailView({ companyName, onBack, embedded = false }: { companyName: string, onBack?: () => void; embedded?: boolean }) {
   const [lightbox, setLightbox] = React.useState<{ src: string; label: string } | null>(null)
   const isPathfound = companyName === 'Path Found Biogas pvt ltd'
@@ -1356,9 +1426,7 @@ function App() {
                     procurement, commissioning, and operations.
                   </p>
                 </div>
-                <a className="primary-link" href="mailto:info@pathfoundbg.com?subject=Career%20Enquiry%20-%20Omega%20Group">
-                  Explore Careers
-                </a>
+                <CareersEnquiryForm />
               </div>
             </section>
           </main>
