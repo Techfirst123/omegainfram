@@ -1,4 +1,4 @@
-export type EnquiryFormType = 'careers' | 'contact'
+export type EnquiryFormType = 'careers' | 'contact' | 'csr'
 
 export type EnquiryPayload = {
   formType: EnquiryFormType

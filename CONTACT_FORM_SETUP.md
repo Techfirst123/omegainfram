@@ -1,8 +1,9 @@
-# Omega Group Contact & Careers Form Setup
+# Omega Group Contact, Careers & CSR Form Setup
 
-Both the homepage Careers enquiry form and the Contact page's project
-enquiry form submit silently through a backend endpoint — no `mailto:`
-links are shown to visitors.
+The homepage Careers enquiry form, the Contact page's project enquiry
+form, and the CSR page's partner/report-request form all submit
+silently through a backend endpoint — no `mailto:` links are shown to
+visitors anywhere on the site.
 
 ## Environment Variables
 
@@ -45,11 +46,12 @@ Request body:
 }
 ```
 
-- `formType` must be `"careers"` or `"contact"` — this determines the
-  recipient inbox server-side (the client cannot choose an arbitrary
-  destination):
+- `formType` must be `"careers"`, `"contact"`, or `"csr"` — this
+  determines the recipient inbox server-side (the client cannot choose
+  an arbitrary destination):
   - `careers` → `info@pathfoundbiogas.com`
   - `contact` → `info@omegainfram.com`
+  - `csr` → `csr@omegagroup.in`
 - `company` is a hidden honeypot field. Real visitors never fill it;
   if it's non-empty the request is silently accepted but no email is
   sent (basic bot filtering, no CAPTCHA required).

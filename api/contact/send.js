@@ -5,6 +5,7 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const RECIPIENTS = {
   careers: 'info@pathfoundbiogas.com',
   contact: 'info@omegainfram.com',
+  csr: 'csr@omegagroup.in',
 }
 
 function json(res, status, data) {
@@ -91,10 +92,12 @@ export default async function handler(req, res) {
   }
 
   const recipient = RECIPIENTS[formType]
-  const subject =
-    formType === 'careers'
-      ? `New Careers Enquiry from ${name} | Omega Group`
-      : `New Project Enquiry from ${name} | Omega Group`
+  const subjectByType = {
+    careers: `New Careers Enquiry from ${name} | Omega Group`,
+    csr: `New CSR Enquiry from ${name} | Omega Group`,
+    contact: `New Project Enquiry from ${name} | Omega Group`,
+  }
+  const subject = subjectByType[formType]
 
   const detailRows = [
     ['Name', name],

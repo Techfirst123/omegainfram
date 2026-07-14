@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion, useInView } from 'framer-motion'
+import { submitEnquiry } from '../contactApi'
 import {
   Activity,
   ArrowRight,
@@ -227,6 +228,33 @@ function IconCard({ title, text, icon: Icon }: { title: string; text: string; ic
 
 export default function CSRPage() {
   const [lightboxImage, setLightboxImage] = React.useState<(typeof galleryImages)[number] | null>(null)
+  const [csrName, setCsrName] = React.useState('')
+  const [csrEmail, setCsrEmail] = React.useState('')
+  const [csrMessage, setCsrMessage] = React.useState('')
+  const [csrHoneypot, setCsrHoneypot] = React.useState('')
+  const [csrStatus, setCsrStatus] = React.useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+  const [csrError, setCsrError] = React.useState('')
+
+  const requestReport = (reportTitle: string) => {
+    setCsrMessage(`I would like to request the "${reportTitle}" report.`)
+    document.getElementById('csr-contact-form')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }
+
+  const handleCsrSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
+    setCsrStatus('sending')
+    setCsrError('')
+    const result = await submitEnquiry({ formType: 'csr', name: csrName, email: csrEmail, message: csrMessage, company: csrHoneypot })
+    if (result.ok) {
+      setCsrStatus('success')
+      setCsrName('')
+      setCsrEmail('')
+      setCsrMessage('')
+    } else {
+      setCsrStatus('error')
+      setCsrError(result.error || 'Something went wrong. Please try again.')
+    }
+  }
 
   return (
     <main className="bg-white text-slate-700">
@@ -461,13 +489,14 @@ export default function CSRPage() {
               <Download className="text-[#34a853]" size={26} aria-hidden="true" />
               <h3 className="mt-5 text-lg font-bold tracking-normal text-slate-950">{report.title}</h3>
               <p className="mt-3 text-sm leading-7 text-slate-600">{report.text}</p>
-              <a
-                href="mailto:csr@omegagroup.in?subject=CSR%20Report%20Request"
+              <button
+                type="button"
+                onClick={() => requestReport(report.title)}
                 className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#0a84ff] hover:text-[#34a853]"
               >
                 Request Download
                 <ArrowRight size={16} aria-hidden="true" />
-              </a>
+              </button>
             </article>
           ))}
         </div>
@@ -485,14 +514,14 @@ export default function CSRPage() {
               education, healthcare, sustainability, and livelihood outcomes.
             </p>
           </div>
-          <div className="rounded-lg bg-white p-6 text-slate-800">
+          <div className="rounded-lg bg-white p-6 text-slate-800" id="csr-contact-form">
             <h3 className="text-xl font-bold tracking-normal text-slate-950">Contact CSR Team</h3>
             <div className="mt-5 grid gap-4 text-sm leading-7">
               <p><strong>Omega Group</strong></p>
-              <a className="inline-flex items-center gap-2 font-semibold text-[#0a84ff]" href="mailto:csr@omegagroup.in">
+              <span className="inline-flex items-center gap-2 font-semibold text-[#0a84ff]">
                 <Mail size={17} aria-hidden="true" />
                 csr@omegagroup.in
-              </a>
+              </span>
               <a className="font-semibold text-[#0a84ff]" href="https://www.omegainfram.com">www.omegainfram.com</a>
               <p>Phone: 011-41630318</p>
               <div className="flex flex-wrap gap-3 pt-2">
@@ -503,6 +532,56 @@ export default function CSRPage() {
                 ))}
               </div>
             </div>
+            {csrStatus === 'success' ? (
+              <p className="mt-6 text-sm font-semibold text-[#34a853]">
+                Thanks! Your enquiry has been sent to our CSR team.
+              </p>
+            ) : (
+              <form className="mt-6 grid gap-3" onSubmit={handleCsrSubmit} aria-label="CSR enquiry form">
+                <input
+                  type="text"
+                  name="company"
+                  value={csrHoneypot}
+                  onChange={(event) => setCsrHoneypot(event.target.value)}
+                  autoComplete="off"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                  className="absolute h-px w-px overflow-hidden whitespace-nowrap opacity-0"
+                />
+                <input
+                  type="text"
+                  placeholder="Your name"
+                  value={csrName}
+                  onChange={(event) => setCsrName(event.target.value)}
+                  required
+                  className="rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900"
+                />
+                <input
+                  type="email"
+                  placeholder="you@example.com"
+                  value={csrEmail}
+                  onChange={(event) => setCsrEmail(event.target.value)}
+                  required
+                  className="rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900"
+                />
+                <textarea
+                  placeholder="Tell us about the partnership, donation, or report you're interested in"
+                  rows={3}
+                  value={csrMessage}
+                  onChange={(event) => setCsrMessage(event.target.value)}
+                  required
+                  className="rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900"
+                />
+                {csrError ? <p className="text-sm font-semibold text-red-600">{csrError}</p> : null}
+                <button
+                  type="submit"
+                  disabled={csrStatus === 'sending'}
+                  className="mt-1 w-fit rounded-full bg-[#0a84ff] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#0a6fd6] disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {csrStatus === 'sending' ? 'Sending...' : 'Send to CSR Team'}
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </section>
