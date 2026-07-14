@@ -2232,15 +2232,49 @@ main {
     min-height: 320px;
   }
 
+  .info-section {
+    margin: 72px auto;
+  }
+
+  .info-card {
+    min-height: 0;
+  }
+
   .info-card-inner {
     grid-template-columns: 1fr;
     height: auto;
-    min-height: 540px;
-    padding: 56px 32px;
+    min-height: 0;
+    padding: 48px 32px;
+    gap: 28px;
   }
 
+  .info-copy-container,
   .info-stat-container {
-    min-height: 140px;
+    height: auto;
+    overflow: visible;
+  }
+
+  .info-copy-track,
+  .info-stat-track {
+    height: auto;
+    transform: none !important;
+    display: block;
+  }
+
+  .info-slide,
+  .info-stat-panel {
+    display: none;
+    height: auto;
+    padding: 0;
+  }
+
+  .info-slide.is-active,
+  .info-stat-panel.is-active {
+    display: flex;
+  }
+
+  .info-stat-panel {
+    text-align: center;
   }
 
   .hero-dot-rail {
@@ -2308,7 +2342,34 @@ main {
   }
 
   .info-card-inner {
-    padding: 38px 20px;
+    padding: 36px 22px;
+    gap: 22px;
+  }
+
+  .hero-kicker {
+    font-size: 0.9rem;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+  }
+
+  .info-copy h1,
+  .info-slide h2 {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+  }
+
+  .hero-text {
+    font-size: 0.96rem;
+    line-height: 1.65;
+  }
+
+  .info-stat-panel p {
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+  }
+
+  .info-stat-panel strong {
+    font-size: clamp(2.4rem, 12vw, 3.2rem);
   }
 
   .business-section {

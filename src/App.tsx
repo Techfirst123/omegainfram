@@ -107,7 +107,7 @@ const navItems: NavItem[] = [
   },
   {
     label: 'Our Companies',
-    href: '#companies',
+    href: '/companies',
     description: 'Explore the specialized divisions and companies within the Omega Group.',
     statValue: '10+',
     statLabel: 'Divisions',
@@ -464,7 +464,7 @@ function FeatureCard({ slides, id }: { slides: FeatureSlide[]; id?: string }) {
               style={{ transform: `translateY(-${activeIdx * 100}%)` }}
             >
               {slides.map((slide, idx) => (
-                <div className="info-slide" key={idx}>
+                <div className={`info-slide${idx === activeIdx ? ' is-active' : ''}`} key={idx}>
                   <p className="hero-kicker">{slide.kicker}</p>
                   <h2>{slide.title || slide.kicker}</h2>
                   <p className="hero-text hero-text-dark">{slide.description}</p>
@@ -479,7 +479,7 @@ function FeatureCard({ slides, id }: { slides: FeatureSlide[]; id?: string }) {
               style={{ transform: `translateY(-${activeIdx * 100}%)` }}
             >
               {slides.map((slide, idx) => (
-                <div className="info-stat-panel" key={idx}>
+                <div className={`info-stat-panel${idx === activeIdx ? ' is-active' : ''}`} key={idx}>
                   <p>{slide.statLabel}</p>
                   <strong>{slide.statValue}</strong>
                 </div>
@@ -493,6 +493,9 @@ function FeatureCard({ slides, id }: { slides: FeatureSlide[]; id?: string }) {
                 key={idx}
                 className={activeIdx === idx ? 'is-active' : ''}
                 onMouseEnter={() => setActiveIdx(idx)}
+                onClick={() => setActiveIdx(idx)}
+                role="button"
+                aria-label={`Show ${slides[idx].kicker}`}
               />
             ))}
           </div>
@@ -1162,8 +1165,6 @@ function App() {
                 </div>
               </div>
             </section>
-
-            <CompaniesOverview />
 
             <section className="sustainability-section section-shell" id="sustainability" style={{ marginTop: '24px' }}>
               <div className="section-head">
